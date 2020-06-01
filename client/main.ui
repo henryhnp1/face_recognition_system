@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1194</width>
+    <height>894</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>140</y>
+         <width>321</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>30</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>l</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>280</y>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Username</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>370</y>
+         <width>71</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Password</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="textEdit">
+       <property name="geometry">
+        <rect>
+         <x>470</x>
+         <y>300</y>
+         <width>271</width>
+         <height>31</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="textEdit_2">
+       <property name="geometry">
+        <rect>
+         <x>470</x>
+         <y>400</y>
+         <width>271</width>
+         <height>31</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1194</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAccess_Control">
+    <property name="title">
+     <string>Session</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionLogin"/>
+    <addaction name="actionLogout"/>
+   </widget>
+   <widget class="QMenu" name="menuOption">
+    <property name="title">
+     <string>Option</string>
+    </property>
+    <widget class="QMenu" name="menuBuilding_Manage">
+     <property name="title">
+      <string>Building Manage</string>
+     </property>
+     <addaction name="actionApartment_Manage_2"/>
+     <addaction name="actionOffice_Manage"/>
+     <addaction name="actionApartment_Manage_3"/>
+    </widget>
+    <addaction name="separator"/>
+    <addaction name="menuBuilding_Manage"/>
+    <addaction name="actionDoor_Manage"/>
+    <addaction name="actionPeople_Manage"/>
+    <addaction name="actionGuest_Manage"/>
+    <addaction name="actionImage_Manage"/>
+   </widget>
+   <addaction name="menuAccess_Control"/>
+   <addaction name="menuOption"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLogin">
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </action>
+  <action name="actionLogout">
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </action>
+  <action name="actionDoor_Manage">
+   <property name="text">
+    <string>Door Manage</string>
+   </property>
+  </action>
+  <action name="actionPeople_Manage">
+   <property name="text">
+    <string>Resident Manage</string>
+   </property>
+  </action>
+  <action name="actionGuest_Manage">
+   <property name="text">
+    <string>Guest Manage</string>
+   </property>
+  </action>
+  <action name="actionImage_Manage">
+   <property name="text">
+    <string>Image Manage</string>
+   </property>
+  </action>
+  <action name="actionApartment_Manage_2">
+   <property name="text">
+    <string>Block Manage</string>
+   </property>
+  </action>
+  <action name="actionOffice_Manage">
+   <property name="text">
+    <string>Office Manage</string>
+   </property>
+  </action>
+  <action name="actionApartment_Manage_3">
+   <property name="text">
+    <string>Apartment Manage</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
