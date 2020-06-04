@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frame_login">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
