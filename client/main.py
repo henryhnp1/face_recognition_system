@@ -3,10 +3,10 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import sys
 import MySQLdb as db
-from util import ui_loader
+from util import ui_loader, db_connector
 
 
-ui = ui_loader.load_ui('./resources/main.ui')
+ui = ui_loader.load_ui('../resources/main.ui')
 
 
 class MainApp(QMainWindow, ui):
@@ -19,8 +19,7 @@ class MainApp(QMainWindow, ui):
         
         self.pushButton_login.clicked.connect(self.login)
         self.lineEdit_password.returnPressed.connect(self.login)
-        self.lineEdit_username.returnPressed.connect(self.pushButton_login.clicked)
-
+        self.session = None
         self.handle_ui_login()
 
     def handle_ui(self):
@@ -39,7 +38,18 @@ class MainApp(QMainWindow, ui):
     def login(self):
         username = self.lineEdit_username.text()
         password = self.lineEdit_password.text()
-        print(password, username)
+        con = db_connector.connector('localhost', 'henrydb', 'root', 'face_recognition')
+        cursor = con.cursor()
+        cursor.execute("select * from user where username='{}' and password='{}'".format(username, password))
+        for i in range(cursor.rowcount):
+            result = cursor.fetchall()
+            if len(result) == 1:
+                self.session = username
+                break
+        if self.session:
+            self.handle_ui()
+        else:
+            self.label_error.setText('Wrong username or password')
         
 
 def main():
