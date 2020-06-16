@@ -195,7 +195,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>130</y>
+       <y>610</y>
        <width>151</width>
        <height>71</height>
       </rect>
@@ -208,7 +208,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>380</y>
+       <y>370</y>
        <width>151</width>
        <height>71</height>
       </rect>
@@ -221,7 +221,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>250</y>
+       <y>490</y>
        <width>151</width>
        <height>71</height>
       </rect>
@@ -234,7 +234,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>500</y>
+       <y>250</y>
        <width>151</width>
        <height>71</height>
       </rect>
@@ -247,7 +247,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>620</y>
+       <y>130</y>
        <width>151</width>
        <height>71</height>
       </rect>
@@ -279,7 +279,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -324,7 +324,7 @@
         <string>Door Manage</string>
        </property>
       </widget>
-      <widget class="QTabWidget" name="tabWidget_block_manage">
+      <widget class="QTabWidget" name="tabWidget_building_manage">
        <property name="geometry">
         <rect>
          <x>160</x>
@@ -1288,7 +1288,7 @@
         </widget>
        </widget>
       </widget>
-      <widget class="QPushButton" name="pushButton_door_manage_2">
+      <widget class="QPushButton" name="pushButton_setting_manage">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -1323,14 +1323,30 @@
       </attribute>
      </widget>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_time">
+    <widget class="QLabel" name="label_username_session">
      <property name="geometry">
       <rect>
-       <x>1310</x>
-       <y>10</y>
+       <x>90</x>
+       <y>20</y>
        <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_22">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>16</y>
+       <width>51</width>
        <height>41</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>User:</string>
      </property>
     </widget>
    </widget>
