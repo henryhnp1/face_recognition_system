@@ -334,7 +334,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
@@ -996,16 +996,6 @@
          <property name="title">
           <string>Permission</string>
          </property>
-         <widget class="QTableView" name="tableView_permission">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>90</y>
-            <width>501</width>
-            <height>251</height>
-           </rect>
-          </property>
-         </widget>
          <widget class="QComboBox" name="comboBox_permission_search">
           <property name="geometry">
            <rect>
@@ -1134,6 +1124,16 @@
            <string>Delete</string>
           </property>
          </widget>
+         <widget class="QTableWidget" name="tableWidget_permission">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>90</y>
+            <width>501</width>
+            <height>251</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
         <widget class="QGroupBox" name="groupBox_typeOfFloor_edit">
          <property name="geometry">
@@ -1147,16 +1147,6 @@
          <property name="title">
           <string>Type Of Floor</string>
          </property>
-         <widget class="QTableView" name="tableView_typeOFloor">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>90</y>
-            <width>501</width>
-            <height>191</height>
-           </rect>
-          </property>
-         </widget>
          <widget class="QComboBox" name="comboBox_typeOFloor_search">
           <property name="geometry">
            <rect>
@@ -1165,6 +1155,9 @@
             <width>151</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="duplicatesEnabled">
+           <bool>false</bool>
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_typeOFloor_search">
@@ -1178,6 +1171,9 @@
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_typeOFloor_id">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>820</x>
@@ -1284,6 +1280,35 @@
           <property name="text">
            <string>Delete</string>
           </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_type_of_floor">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>90</y>
+            <width>501</width>
+            <height>192</height>
+           </rect>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::SelectedClicked</set>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="rowCount">
+           <number>1</number>
+          </property>
+          <property name="columnCount">
+           <number>3</number>
+          </property>
+          <row/>
+          <column/>
+          <column/>
+          <column/>
          </widget>
         </widget>
        </widget>
