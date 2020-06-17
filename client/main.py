@@ -147,11 +147,12 @@ class MainApp(QMainWindow, ui):
         self.tabWidget_building_manage.setCurrentIndex(3)
         self.load_setting()
     
-    # tab setting function
+    # tab setting function: setting type_of_floor
     ## table widget setting
     def table_widget_setting(self):
         self.tableWidget_type_of_floor.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_type_of_floor.itemClicked.connect(self.type_of_floor_click)
+        self.tableWidget_permission.
 
     ## get data from row in table widget when click to form data in type of floor
     def type_of_floor_click(self):
@@ -260,6 +261,9 @@ class MainApp(QMainWindow, ui):
                 query = 'select * from type_of_floor'
             query = 'select * from type_of_floor where {} like {}'.format(field_search, "'%"+text_search+"%'")
         self.load_setting(query)
+
+    # tab setting function: setting permission
+    ##  
 
 def main():
     app = QApplication([])
