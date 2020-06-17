@@ -9,7 +9,7 @@ create table building(
 );
 create table type_of_floor(
 	id int primary key auto_increment,
-    name nvarchar(50) not null
+    name nvarchar(50) not null unique
 );
 create table floor(
 	id int primary key auto_increment,
