@@ -60,7 +60,7 @@ class MainApp(QMainWindow, ui):
     #load_data
     #Todo: load all data when main run
     def load_data(self):
-        self.load_setting()
+        self.load_building_manage()
 
     def button_setting_and_ui(self):
         # setting for import file in type of floor table
@@ -190,9 +190,16 @@ class MainApp(QMainWindow, ui):
 
     def open_tab_setting(self):
         self.tabWidget_building_manage.setCurrentIndex(3)
-        self.load_setting()
+        self.load_type_of_floor_setting()
     
     # tab setting function
+    def load_building_manage(self):
+        self.load_setting()
+        
+    ## load setting data
+    def load_setting(self):
+        self.load_permission_setting()
+        self.load_type_of_floor_setting()
     ## table widget setting
     def table_widget_setting(self):
         ### setting for table widget action type_of_floor
@@ -218,7 +225,7 @@ class MainApp(QMainWindow, ui):
         self.textEdit_typeOFloor_description.setText(test[2] if test[2] !='None' else "")
 
     ### Load data for setting tab
-    def load_setting(self, query=None):
+    def load_type_of_floor_setting(self, query=None):
         if query == None:
             query = "select * from type_of_floor"
         cursor = self.database.cursor()
@@ -247,7 +254,7 @@ class MainApp(QMainWindow, ui):
                 cursor.execute("insert into type_of_floor(name, description) values(%s, %s)", (name, description))
                 self.database.commit()
                 self.statusBar().showMessage("New Type Of Floor Added")
-                self.load_setting()
+                self.load_type_of_floor_setting()
                 cursor.close()
             except db.Error as e:
                 message_box.MyMessageBox(QMessageBox.Critical,"Error data", "name's type of floor exist. Please choose other").exec()
@@ -267,7 +274,7 @@ class MainApp(QMainWindow, ui):
                     cursor.execute("update type_of_floor set name=%s, description=%s where id=%s", (name, description, index))
                     self.database.commit()
                     self.statusBar().showMessage("New Type Of Floor Updated With ID={}".format(index))
-                    self.load_setting()
+                    self.load_type_of_floor_setting()
                     cursor.close()
                 except db.Error as e:
                     print(e)
@@ -283,7 +290,7 @@ class MainApp(QMainWindow, ui):
             try:
                 cursor.execute("delete from type_of_floor where id=%s", [(index)])
                 self.database.commit()
-                self.load_setting()
+                self.load_type_of_floor_setting()
                 self.statusBar().showMessage("A Type Of Floor Deleted With ID={}".format(index))
                 cursor.close()
                 self.lineEdit_typeOFloor_id.setText(None)
@@ -311,7 +318,7 @@ class MainApp(QMainWindow, ui):
             if text_search == None or text_search == '':
                 query = 'select * from type_of_floor'
             query = 'select * from type_of_floor where {} like {}'.format(field_search, "'%"+text_search+"%'")
-        self.load_setting(query)
+        self.load_type_of_floor_setting(query)
     
     ### select file to import type of floor
     def select_file_type_of_floor(self):
@@ -341,7 +348,7 @@ class MainApp(QMainWindow, ui):
                 cursor.close()
             except:
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "Incorrect format file!")
-        self.load_setting()
+        self.load_type_of_floor_setting()
 
 
     ### function for permission table
@@ -358,6 +365,29 @@ class MainApp(QMainWindow, ui):
         self.lineEdit_permission_name.setText(test[1])
         self.textEdit_permission_description.setText(test[2] if test[2] !='None' else "")
 
+    def add_permission(self):
+        pass
+
+    def edit_permission(self):
+        pass
+
+    def delete_permission(self):
+        pass
+    
+    def set_line_search_permission(self):
+        pass
+
+    def select_file_permission(self):
+        pass
+
+    def import_permission(self):
+        pass
+
+    def seach_permission(self):
+        pass
+    
+    def load_permission_setting(self):
+        pass
 
 
 def main():
