@@ -1136,9 +1136,13 @@
             <height>251</height>
            </rect>
           </property>
+          <property name="rowCount">
+           <number>1</number>
+          </property>
           <property name="columnCount">
            <number>3</number>
           </property>
+          <row/>
           <column/>
           <column/>
           <column/>
