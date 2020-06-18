@@ -334,7 +334,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
@@ -821,7 +821,7 @@
            </rect>
           </property>
           <property name="placeholderText">
-           <string>Enter the value of floor to seach</string>
+           <string>Enter the value of door to seach</string>
           </property>
          </widget>
          <widget class="QTableView" name="tableView_door">
