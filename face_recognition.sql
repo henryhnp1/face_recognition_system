@@ -1,4 +1,4 @@
-create database face_recognition;
+create database face_recognition default character set utf8 default collate utf8_unicode_520_ci;
 use face_recognition;
 create table building(
 	id int primary key auto_increment,
@@ -9,7 +9,8 @@ create table building(
 );
 create table type_of_floor(
 	id int primary key auto_increment,
-    name nvarchar(50) not null unique
+    name nvarchar(50) not null unique,
+    description nvarchar(2000)
 );
 create table floor(
 	id int primary key auto_increment,
@@ -22,7 +23,8 @@ create table floor(
 );
 create table type_of_person(
 	id int primary key auto_increment,
-    name nvarchar(50)
+    name nvarchar(50) not null unique,
+    description nvarchar(2000)
 );
 create table person(
 	id int primary key auto_increment,
@@ -54,7 +56,8 @@ create table apartment_resident(
 );
 create table permission(
 	id int primary key auto_increment,
-    name nvarchar(50) not null
+    name nvarchar(50) not null unique,
+    description nvarchar(2000)
 );
 create table door(
 	id int primary key auto_increment,

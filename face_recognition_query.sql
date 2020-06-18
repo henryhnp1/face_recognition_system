@@ -1,0 +1,1 @@
+insert into permission(name, description) values('hihô', 'hôm nay trời đẹp quứa'); 
