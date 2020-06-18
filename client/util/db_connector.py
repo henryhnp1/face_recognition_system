@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QMessageBox
 def connector(host, username, password, db_name):
     db = None
     try:
-        db = mdb.connect(host, username, password, db_name)
+        db = mdb.connect(host, username, password, db_name, charset='utf8', use_unicode=True)
     except mdb.Error:
         pass
     return db
