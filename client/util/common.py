@@ -32,16 +32,28 @@ def import_file_building_setting(button_select_file, database_connection, table,
             reader = pd.read_excel(f)
         header = reader.columns
         cursor = database_connection.cursor()
-        for index, row in reader.iterrows():
-            name = str_standard(str(row['name']))
-            description = str_standard(str(row['description']))
-            try:
-                query = "insert into {}(name, description) ".format(table)
-                cursor.execute(query+  "value(%s, %s)", (name, description))
-                database_connection.commit()
-            except db.Error as e:
-                print(e)
-        cursor.close()
-        # except:
-        #     MyMessageBox(QMessageBox.Critical, "Error", "Incorrect format file!").exec()
+        try:
+            for index, row in reader.iterrows():
+                name = str_standard(str(row['name']))
+                description = str_standard(str(row['description']))
+                try:
+                    query = "insert into {}(name, description) ".format(table)
+                    cursor.execute(query+  "value(%s, %s)", (name, description))
+                    database_connection.commit()
+                except db.Error as e:
+                    print(e)
+            cursor.close()
+        except:
+            MyMessageBox(QMessageBox.Critical, "Error", "Incorrect format file!").exec()
     loader()
+
+def set_push_button_when_other_clicked(*args):
+    for arg in args:
+        arg.setStyleSheet("QPushButton{}")
+
+def set_current_tab_active(tab):
+    tab.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; background-color: green; color: white}")
+
+def set_tab_when_clicked(tab, *args):
+    set_push_button_when_other_clicked(*args)
+    set_current_tab_active(tab)
