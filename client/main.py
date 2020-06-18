@@ -3,7 +3,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import sys
 import MySQLdb as db
-from util import ui_loader, db_connector, message_box, standardized
+from util import ui_loader, db_connector, message_box, standardized, common
 from hashlib import md5
 import pandas as pd
 import csv
@@ -21,23 +21,32 @@ class MainApp(QMainWindow, ui):
         self.frame_main.setHidden(True)
         self.frame_login.setHidden(False)
         self.setWindowTitle("Face Access Control")
-        self.handle_ui_login()
         self.handle_buttons()
         self.handle_ui()
         self.handle_combobox()
         self.combobox_setting()
         self.handle_search_line_edit()
-        self.session = None
+        self.session = 'NoOne'
         self.table_widget_setting()
         self.database = db_connector.connector('localhost', 'henrydb', 'root', 'face_recognition')
         if self.database == None:
             msg = message_box.MyMessageBox(QMessageBox.Critical,"Wrong db or authentication", "You must change setting in .config file")
             sys.exit(msg.exec())
 
+        self.handle_ui_login()
         self.button_setting_and_ui()
+        self.load_data()
+        self.open_window()
+        
         #for test ting
         self.handle_frame_ui()
-        self.load_data()
+
+    def check_login(self):
+        print(self.session)
+        if self.session == None:
+            sys.exit()
+        if self.session == 'NoOne':
+            self.handle_frame_ui()
 
     def handle_ui(self):
         self.label_username_session.setStyleSheet("QLabel{font-family: ubuntu 30; color: blue; font-weight: bold}")
@@ -56,7 +65,7 @@ class MainApp(QMainWindow, ui):
         self.lineEdit_password.setStyleSheet("QLineEdit{border: 1px solid gray; border-radius:10px;}")
         self.pushButton_login.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px;"
                                             " background-color: green; color:white}")
-    
+
     #load_data
     #Todo: load all data when main run
     def load_data(self):
@@ -131,10 +140,10 @@ class MainApp(QMainWindow, ui):
         # handle search line edit for building manage tab
         ## handle search line edit for setting tab
         ### handle seach line edit for type of floor
-        self.lineEdit_typeOFloor_search.returnPressed.connect(self.seach_type_of_floor)
+        self.lineEdit_typeOFloor_search.returnPressed.connect(self.search_type_of_floor)
 
         ### handle search line edit for permission
-        self.lineEdit_search_permission.returnPressed.connect(self.seach_permission)
+        self.lineEdit_search_permission.returnPressed.connect(self.search_permission)
 
     def login(self):
         username = self.lineEdit_username.text()
@@ -163,34 +172,86 @@ class MainApp(QMainWindow, ui):
         # To do: set all line, textedit to ''
 
     # open tab main
+
+    # default init window
+    def open_window(self):
+        #for testing
+        #self.check_login()
+        self.open_tab_building()
+
     def open_tab_building(self):
+        #for testing
+        #self.check_login()
+
         self.tabWidget_main.setCurrentIndex(0)
+
+        common.set_tab_when_clicked(self.pushButton_buiding_manager,
+         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
+         self.pushButton_resident_manager, self.pushButton_gest_manager,
+         self.pushButton_video_access_control)
+        
+        self.tabWidget_building_manage.setCurrentIndex(0)
+        common.set_tab_when_clicked(self.pushButton_block_manage)
 
     def open_tab_apartment(self):
         self.tabWidget_main.setCurrentIndex(1)
 
+        common.set_tab_when_clicked(self.pushButton_apartment_manager,
+         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
+         self.pushButton_resident_manager, self.pushButton_gest_manager,
+         self.pushButton_video_access_control)
+
     def open_tab_resident(self):
         self.tabWidget_main.setCurrentIndex(2)
+
+        common.set_tab_when_clicked(self.pushButton_resident_manager,
+         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
+         self.pushButton_resident_manager, self.pushButton_gest_manager,
+         self.pushButton_video_access_control)
 
     def open_tab_guest(self):
         self.tabWidget_main.setCurrentIndex(3)
 
+        common.set_tab_when_clicked(self.pushButton_gest_manager,
+         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
+         self.pushButton_resident_manager, self.pushButton_gest_manager,
+         self.pushButton_video_access_control)
+
     def open_tab_access_control(self):
         self.tabWidget_main.setCurrentIndex(4)
+
+        common.set_tab_when_clicked(self.pushButton_video_access_control,
+         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
+         self.pushButton_resident_manager, self.pushButton_gest_manager,
+         self.pushButton_video_access_control)
 
     # open tab for building manager
     def open_tab_block(self):
         self.tabWidget_building_manage.setCurrentIndex(0)
+
+        common.set_tab_when_clicked(self.pushButton_block_manage,
+         self.pushButton_setting_manage, self.pushButton_door_manage,
+         self.pushButton_floor_manage, self.pushButton_block_manage)
     
     def open_tab_floor(self):
         self.tabWidget_building_manage.setCurrentIndex(1)
 
+        common.set_tab_when_clicked(self.pushButton_floor_manage,
+         self.pushButton_setting_manage, self.pushButton_door_manage,
+         self.pushButton_floor_manage, self.pushButton_block_manage)
+
     def open_tab_door(self):
         self.tabWidget_building_manage.setCurrentIndex(2)
+        common.set_tab_when_clicked(self.pushButton_door_manage,
+         self.pushButton_setting_manage, self.pushButton_door_manage,
+         self.pushButton_floor_manage, self.pushButton_block_manage)
 
     def open_tab_setting(self):
         self.tabWidget_building_manage.setCurrentIndex(3)
-        self.load_type_of_floor_setting()
+        common.set_tab_when_clicked(self.pushButton_setting_manage,
+         self.pushButton_setting_manage, self.pushButton_door_manage,
+         self.pushButton_floor_manage, self.pushButton_block_manage)
+        self.load_setting()
     
     # tab setting function
     def load_building_manage(self):
@@ -309,7 +370,7 @@ class MainApp(QMainWindow, ui):
             self.lineEdit_typeOFloor_search.setValidator(None)
 
     ### search function of type of 
-    def seach_type_of_floor(self):
+    def search_type_of_floor(self):
         field_search = self.comboBox_typeOFloor_search.currentText()
         text_search = self.lineEdit_typeOFloor_search.text()
         if field_search == 'id':
@@ -322,7 +383,7 @@ class MainApp(QMainWindow, ui):
     
     ### select file to import type of floor
     def select_file_type_of_floor(self):
-        file_path = QFileDialog.getOpenFileName(self, 'Select File', '/home',"Excel(*.csv)")
+        file_path = QFileDialog.getOpenFileName(self, 'Select File', '/home',"Excel(*.csv *.xlsx)")
         self.pushButton_select_file_type_floor.setText(file_path[0])
         if self.pushButton_select_file_type_floor.text():
             self.pushButton_import_file_type_floor.setEnabled(True)
@@ -331,15 +392,17 @@ class MainApp(QMainWindow, ui):
     def import_type_of_floor(self):
         file_path = self.pushButton_select_file_type_floor.text()
         filename, file_extension = os.path.splitext(file_path)
-        with open(file_path, encoding="utf-8") as f:
-            reader = pd.read_csv(f, encoding='utf-8')
+        with open(file_path, mode='rb') as f:
+            if file_extension == '.csv':
+                reader = pd.read_csv(f)
+            else:
+                reader = pd.read_excel(f)
             header = reader.columns
             try:
                 cursor = self.database.cursor()
                 for index, row in reader.iterrows():
-                    name = row['name']
-                    description = row['description']
-                    
+                    name = standardized.str_standard(str(row['name']))
+                    description = standardized.str_standard(str(row['description']))
                     try:
                         cursor.execute("insert into type_of_floor(name, description) value(%s, %s)", (name, description))
                         self.database.commit()
@@ -365,29 +428,100 @@ class MainApp(QMainWindow, ui):
         self.lineEdit_permission_name.setText(test[1])
         self.textEdit_permission_description.setText(test[2] if test[2] !='None' else "")
 
+    ### add permission to db
     def add_permission(self):
-        pass
+        if self.lineEdit_permission_name.text().strip():
+            name = standardized.str_standard(self.lineEdit_permission_name.text()).upper()
+            description_0 = standardized.str_standard(self.textEdit_permission_description.toPlainText())
+            description = description_0 if description_0 else None
+            cursor = self.database.cursor()
+            try:
+                cursor.execute("insert into permission(name, description) values(%s, %s)", (name, description))
+                self.database.commit()
+                self.statusBar().showMessage("New Permission Added")
+                self.load_permission_setting()
+                cursor.close()
+            except db.Error as e:
+                message_box.MyMessageBox(QMessageBox.Critical,"Error data", "name's permssion exist. Please choose other").exec()
+        else:
+            message_box.MyMessageBox(QMessageBox.Critical,"Missing data", "Your Name Input Must Be Not Null").exec()
 
+    ### edit a permission
     def edit_permission(self):
-        pass
+        if self.lineEdit_permission_id.text():
+            if self.lineEdit_permission_name.text().strip():
+                index = int(self.lineEdit_permission_id.text())
+                name = standardized.str_standard(self.lineEdit_permission_name.text()).upper()
+                description_0 = standardized.str_standard(self.textEdit_permission_description.toPlainText())
+                description = description_0 if description_0 else None
+                cursor = self.database.cursor()
+                try:
+                    cursor.execute("update permission set name=%s, description=%s where id=%s", (name, description, index))
+                    self.database.commit()
+                    self.statusBar().showMessage("Permission Updated With ID={}".format(index))
+                    self.load_permission_setting()
+                    cursor.close()
+                except db.Error as e:
+                    print(e)
+                    message_box.MyMessageBox(QMessageBox.Critical,"Error data", "name's permission exist. Please choose other").exec()
+            else:
+                message_box.MyMessageBox(QMessageBox.Critical,"Missing data", "Your Name Input Must Be Not Null").exec()
 
+    ### delete a permission
     def delete_permission(self):
-        pass
+        if self.lineEdit_permission_id.text():
+            index = int(self.lineEdit_permission_id.text())
+            cursor = self.database.cursor()
+            try:
+                cursor.execute("delete from permission where id=%s", [(index)])
+                self.database.commit()
+                self.load_permission_setting()
+                self.statusBar().showMessage("A Permission Deleted With ID={}".format(index))
+                cursor.close()
+                self.lineEdit_permission_id.setText(None)
+                self.lineEdit_permission_name.setText(None)
+                self.textEdit_permission_description.setPlainText(None)
+            except db.Error as e:
+                pass
     
+    ### set line search permission when it's combobox change
     def set_line_search_permission(self):
-        pass
+        field_search = self.comboBox_permission_search.currentText()
+        if field_search == 'id':
+            self.lineEdit_search_permission.setText('')
+            self.lineEdit_search_permission.setValidator(QIntValidator(0, 100000, self))  # 100000 need change in config file 
+        else:
+            self.lineEdit_search_permission.setValidator(None)
 
     def select_file_permission(self):
-        pass
+        common.select_file_building_setting(self, self.pushButton_select_file_permission, 
+            self.pushButton_import_file_permission)
 
     def import_permission(self):
-        pass
+        common.import_file_building_setting(self.pushButton_select_file_permission,
+         self.database, 'permission', self.load_permission_setting)
 
-    def seach_permission(self):
-        pass
+    def search_permission(self):
+        common.search_common_building_setting(self.comboBox_permission_search,
+         self.lineEdit_search_permission, 'permission', self.load_permission_setting)
     
-    def load_permission_setting(self):
-        pass
+    def load_permission_setting(self, query=None):
+        if query == None:
+            query = "select * from permission;"
+        cursor = self.database.cursor()
+        try:
+            cursor.execute(query)
+            data = cursor.fetchall()
+            field_names = [x[0] for x in cursor.description]  #get headname
+            self.tableWidget_permission.setRowCount(0)
+            self.tableWidget_permission.setHorizontalHeaderLabels(field_names)  #set headname
+            for row_index, row_data in enumerate(data):
+                self.tableWidget_permission.insertRow(row_index)
+                for column, item in enumerate(row_data):
+                    self.tableWidget_permission.setItem(row_index, column, QTableWidgetItem(str(item)))
+            cursor.close()
+        except:
+            pass
 
 
 def main():
