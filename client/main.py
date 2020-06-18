@@ -5,6 +5,9 @@ import sys
 import MySQLdb as db
 from util import ui_loader, db_connector, message_box, standardized
 from hashlib import md5
+import pandas as pd
+import csv
+import os
 
 
 ui = ui_loader.load_ui('../resources/main.ui')
@@ -31,6 +34,7 @@ class MainApp(QMainWindow, ui):
             msg = message_box.MyMessageBox(QMessageBox.Critical,"Wrong db or authentication", "You must change setting in .config file")
             sys.exit(msg.exec())
 
+        self.button_setting_and_ui()
         #for test ting
         self.handle_frame_ui()
         self.load_data()
@@ -58,6 +62,10 @@ class MainApp(QMainWindow, ui):
     def load_data(self):
         self.load_setting()
 
+    def button_setting_and_ui(self):
+        self.pushButton_select_file_type_floor.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; text-align:left}")
+        self.pushButton_import_file_type_floor.setEnabled(False)
+        
     def handle_buttons(self):
         self.pushButton_login.clicked.connect(self.login)
         self.pushButton_logout.clicked.connect(self.logout)
@@ -80,6 +88,8 @@ class MainApp(QMainWindow, ui):
         self.pushButton_typeOFloor_add.clicked.connect(self.add_type_of_floor)
         self.pushButton_typeOFloor_edit.clicked.connect(self.edit_type_of_floor)
         self.pushButton_typeOFloor_delete.clicked.connect(self.delete_type_of_floor)
+        self.pushButton_select_file_type_floor.clicked.connect(self.select_file_type_of_floor)
+        self.pushButton_import_file_type_floor.clicked.connect(self.import_type_of_floor)
     
     def handle_combobox(self):
         self.comboBox_typeOFloor_search.currentTextChanged.connect(self.set_line_search_type_of_building)
@@ -89,7 +99,7 @@ class MainApp(QMainWindow, ui):
         self.comboBox_typeOFloor_search.addItems(type_of_floor_search_fields)
 
     def handle_search_line_edit(self):
-        self.lineEdit_typeOFloor_search.returnPressed.connect(self.seach_type_of_floor)    
+        self.lineEdit_typeOFloor_search.returnPressed.connect(self.seach_type_of_floor)
 
     def login(self):
         username = self.lineEdit_username.text()
@@ -152,7 +162,8 @@ class MainApp(QMainWindow, ui):
     def table_widget_setting(self):
         self.tableWidget_type_of_floor.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_type_of_floor.itemClicked.connect(self.type_of_floor_click)
-        self.tableWidget_permission.
+        self.tableWidget_permission.setSelectionBehavior(QTableView.SelectRows)
+        # self.tableWidget_permission.itemClicked.connect(self.type_of_floor_click)
 
     ## get data from row in table widget when click to form data in type of floor
     def type_of_floor_click(self):
@@ -261,6 +272,37 @@ class MainApp(QMainWindow, ui):
                 query = 'select * from type_of_floor'
             query = 'select * from type_of_floor where {} like {}'.format(field_search, "'%"+text_search+"%'")
         self.load_setting(query)
+    
+    # select file to import type of floor
+    def select_file_type_of_floor(self):
+        file_path = QFileDialog.getOpenFileName(self, 'Select File', '/home',"Excel(*.csv)")
+        self.pushButton_select_file_type_floor.setText(file_path[0])
+        if self.pushButton_select_file_type_floor.text():
+            self.pushButton_import_file_type_floor.setEnabled(True)
+
+    def import_type_of_floor(self):
+        file_path = self.pushButton_select_file_type_floor.text()
+        filename, file_extension = os.path.splitext(file_path)
+        with open(file_path, encoding="utf-8") as f:
+            reader = pd.read_csv(f, encoding='utf-8')
+            header = reader.columns
+            try:
+                cursor = self.database.cursor()
+                for index, row in reader.iterrows():
+                    name = row['name']
+                    description = row['description']
+                    
+                    try:
+                        cursor.execute("insert into type_of_floor(name, description) value(%s, %s)", (name, description))
+                        self.database.commit()
+                    except db.Error as e:
+                        pass
+                cursor.close()
+            except:
+                message_box.MyMessageBox(QMessageBox.Critical, "Error", "Incorrect format file!")
+        self.load_setting()
+
+
 
     # tab setting function: setting permission
     ##  
