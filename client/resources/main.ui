@@ -1017,6 +1017,9 @@
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_permission_id">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>820</x>

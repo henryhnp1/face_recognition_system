@@ -192,15 +192,20 @@ class MainApp(QMainWindow, ui):
         self.tabWidget_building_manage.setCurrentIndex(3)
         self.load_setting()
     
-    # tab setting function: setting type_of_floor
+    # tab setting function
     ## table widget setting
     def table_widget_setting(self):
+        ### setting for table widget action type_of_floor
         self.tableWidget_type_of_floor.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_type_of_floor.itemClicked.connect(self.type_of_floor_click)
-        self.tableWidget_permission.setSelectionBehavior(QTableView.SelectRows)
-        self.tableWidget_permission.itemClicked.connect(self.type_of_floor_click)
 
-    ## get data from row in table widget when click to form data in type of floor
+        ### setting for table widget action permission
+        self.tableWidget_permission.setSelectionBehavior(QTableView.SelectRows)
+        self.tableWidget_permission.itemClicked.connect(self.permission_click)
+
+    ### function for table type of floor
+
+    ### get data from row in table widget when click to form data in type of floor
     def type_of_floor_click(self):
         current_row = self.tableWidget_type_of_floor.currentRow()
         columns_num = self.tableWidget_type_of_floor.columnCount()
@@ -212,7 +217,7 @@ class MainApp(QMainWindow, ui):
         self.lineEdit_typeOFloor_name.setText(test[1])
         self.textEdit_typeOFloor_description.setText(test[2] if test[2] !='None' else "")
 
-    ## Load data for setting tab
+    ### Load data for setting tab
     def load_setting(self, query=None):
         if query == None:
             query = "select * from type_of_floor"
@@ -231,7 +236,7 @@ class MainApp(QMainWindow, ui):
         except:
             pass
 
-    ## add type of floor
+    ### add type of floor
     def add_type_of_floor(self):
         if self.lineEdit_typeOFloor_name.text().strip():
             name = standardized.str_standard(self.lineEdit_typeOFloor_name.text()).lower()
@@ -249,7 +254,7 @@ class MainApp(QMainWindow, ui):
         else:
             message_box.MyMessageBox(QMessageBox.Critical,"Missing data", "Your Name Input Must Be Not Null").exec()
 
-    ## edit type of floor
+    ### edit type of floor
     def edit_type_of_floor(self):
         if self.lineEdit_typeOFloor_id.text():
             if self.lineEdit_typeOFloor_name.text().strip():
@@ -270,7 +275,7 @@ class MainApp(QMainWindow, ui):
             else:
                 message_box.MyMessageBox(QMessageBox.Critical,"Missing data", "Your Name Input Must Be Not Null").exec()
     
-    ## delete type of floor
+    ### delete type of floor
     def delete_type_of_floor(self):
         if self.lineEdit_typeOFloor_id.text():
             index = int(self.lineEdit_typeOFloor_id.text())
@@ -287,7 +292,7 @@ class MainApp(QMainWindow, ui):
             except db.Error as e:
                 pass
     
-    ## setting line search validator when combobox search changed
+    ### setting line search validator when combobox search changed
     def set_line_search_type_of_building(self):
         field_search = self.comboBox_typeOFloor_search.currentText()
         if field_search == 'id':
@@ -296,7 +301,7 @@ class MainApp(QMainWindow, ui):
         else:
             self.lineEdit_typeOFloor_search.setValidator(None)
 
-    ## search function of type of 
+    ### search function of type of 
     def seach_type_of_floor(self):
         field_search = self.comboBox_typeOFloor_search.currentText()
         text_search = self.lineEdit_typeOFloor_search.text()
@@ -308,13 +313,14 @@ class MainApp(QMainWindow, ui):
             query = 'select * from type_of_floor where {} like {}'.format(field_search, "'%"+text_search+"%'")
         self.load_setting(query)
     
-    # select file to import type of floor
+    ### select file to import type of floor
     def select_file_type_of_floor(self):
         file_path = QFileDialog.getOpenFileName(self, 'Select File', '/home',"Excel(*.csv)")
         self.pushButton_select_file_type_floor.setText(file_path[0])
         if self.pushButton_select_file_type_floor.text():
             self.pushButton_import_file_type_floor.setEnabled(True)
 
+    ### import type of floor from file
     def import_type_of_floor(self):
         file_path = self.pushButton_select_file_type_floor.text()
         filename, file_extension = os.path.splitext(file_path)
@@ -338,9 +344,21 @@ class MainApp(QMainWindow, ui):
         self.load_setting()
 
 
+    ### function for permission table
 
-    # tab setting function: setting permission
-    ##  
+    ### get data from row in table widget when click to form data in permission
+    def permission_click(self):
+        current_row = self.tableWidget_permission.currentRow()
+        columns_num = self.tableWidget_permission.columnCount()
+        test = []
+        for cell in range(0, columns_num):
+            item = self.tableWidget_permission.item(current_row, cell).text()
+            test.append(item)
+        self.lineEdit_permission_id.setText(test[0])
+        self.lineEdit_permission_name.setText(test[1])
+        self.textEdit_permission_description.setText(test[2] if test[2] !='None' else "")
+
+
 
 def main():
     app = QApplication([])
