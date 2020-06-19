@@ -1,6 +1,7 @@
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtSql import *
 import sys
 import MySQLdb as db
 from util import ui_loader, db_connector, message_box, standardized, common
@@ -21,18 +22,18 @@ class MainApp(QMainWindow, ui):
         self.frame_main.setHidden(True)
         self.frame_login.setHidden(False)
         self.setWindowTitle("Face Access Control")
-        self.handle_buttons()
-        self.handle_ui()
-        self.handle_combobox()
-        self.combobox_setting()
-        self.handle_search_line_edit()
-        self.session = 'NoOne'
-        self.table_widget_setting()
         self.database = db_connector.connector('localhost', 'henrydb', 'root', 'face_recognition')
         if self.database == None:
             msg = message_box.MyMessageBox(QMessageBox.Critical,"Wrong db or authentication", "You must change setting in .config file")
             sys.exit(msg.exec())
-
+        self.handle_buttons()
+        self.handle_ui()
+        self.handle_combobox()
+        self.combobox_setting()
+        self.combobox_setting_data_change()
+        self.handle_search_line_edit()
+        self.session = 'NoOne'
+        self.table_widget_setting()
         self.handle_ui_login()
         self.button_setting_and_ui()
         self.load_data()
@@ -67,14 +68,13 @@ class MainApp(QMainWindow, ui):
                                             " background-color: green; color:white}")
 
     #load_data
-    #Todo: load all data when main run
     def load_data(self):
         self.load_building_manage()
         self.load_apartment_manage()
         self.load_resident_manage()
         self.load_guest_manage()
         self.load_access_control()
-
+        
     def button_setting_and_ui(self):
         self.building_manage_button_setting_and_ui()
         self.apartment_manage_button_setting_and_ui()
@@ -120,6 +120,13 @@ class MainApp(QMainWindow, ui):
         self.resident_manage_combobox_setting()
         self.guest_manage_combobox_setting()
         self.access_control_combobox_setting()
+
+    def combobox_setting_data_change(self):
+        self.building_manage_combobox_setting_data_change()
+        self.apartment_manage_combobox_setting_data_change()
+        self.resident_manage_combobox_setting_data_change()
+        self.guest_manage_combobox_setting_data_change()
+        self.access_control_combobox_setting_data_change()
 
     # table widget setting
     def table_widget_setting(self):
@@ -285,6 +292,12 @@ class MainApp(QMainWindow, ui):
         self.building_manage_combobox_setting_setting_tab()
         self.building_manage_combobox_setting_floor_manage_tab()
         self.building_manage_combobox_setting_door_manage_tab()
+    
+    def building_manage_combobox_setting_data_change(self):
+        self.building_manage_combobox_setting_data_change_block_manage_tab()
+        self.building_manage_combobox_setting_data_change_setting_tab()
+        self.building_manage_combobox_setting_data_change_floor_manage_tab()
+        self.building_manage_combobox_setting_data_change_door_manage_tab()
 
 
     def building_manage_handle_search_line_edit(self):
@@ -320,6 +333,9 @@ class MainApp(QMainWindow, ui):
 
         ### handle combobox for permission
         self.comboBox_permission_search.currentTextChanged.connect(self.set_line_search_permission)
+    
+    def building_manage_combobox_setting_data_change_setting_tab(self):
+        pass
 
     def building_manage_button_setting_and_ui_setting_tab(self):
         # setting for import file in type of floor table
@@ -358,10 +374,12 @@ class MainApp(QMainWindow, ui):
     def building_manage_combobox_setting_setting_tab(self):
         ## setting for setting tab
         ### setting for type of floor table
+        self.comboBox_typeOFloor_search.clear()
         type_of_floor_search_fields = ['id', 'name', 'description']
         self.comboBox_typeOFloor_search.addItems(type_of_floor_search_fields)
         
         ### setting for permission table
+        self.comboBox_permission_search.clear()
         permission_search_fields = ['id', 'name', 'description']
         self.comboBox_permission_search.addItems(permission_search_fields)
 
@@ -627,8 +645,12 @@ class MainApp(QMainWindow, ui):
     
     def building_manage_combobox_setting_block_manage_tab(self):
         ## setting for block manage tab
+        self.comboBox_search_block.clear()
         block_search_fields = ['id', 'name', 'location']
         self.comboBox_search_block.addItems(block_search_fields)
+
+    def building_manage_combobox_setting_data_change_block_manage_tab(self):
+        pass
 
     def building_manage_handle_combobox_block_manage_tab(self):
         ## handle action for combobox in block manage tab
@@ -739,19 +761,59 @@ class MainApp(QMainWindow, ui):
     
 #------------------------------------------------------------------------------
     def building_manage_floor_manage_load(self, query=None):
+        query = "select f.id, f.name, b.name as 'building', t.name as 'type of floor', f.number_of_apartment as 'number apartments' from floor as f, building as b, type_of_floor as t where f.building = b.id and f.type_of_floor = t.id order by b.name, f.id, t.name"
         common.data_loader(self, self.database, 'floor', self.tableWidget_floor, query)
 
     def building_manage_handle_button_floor_manage_tab(self):
-        pass
+        self.building_manage_floor_manage_add_floor()
+        self.building_manage_floor_manage_edit_floor()
+        self.building_manage_floor_manage_delete_floor()
+        self.building_manage_floor_manage_select_file_import_floor()
+        self.building_manage_floor_manage_import_file_floor()
 
     def building_manage_handle_combobox_floor_manage_tab(self):
-        pass
+        self.comboBox_search_floor.currentTextChanged.connect(self.building_manage_floor_manage_setting_line_search)
 
     def building_manage_handle_search_line_edit_floor_tab(self):
         self.lineEdit_search_floor.returnPressed.connect(self.building_manage_floor_manage_search_floor)
     
     def building_manage_combobox_setting_floor_manage_tab(self):
-        pass
+        fields_search = ['id', 'name', 'block', 'type_of_floor']
+        self.comboBox_search_floor.addItems(fields_search)
+
+        # todo after add any thing load all data
+    
+    def building_manage_combobox_setting_data_change_floor_manage_tab(self):
+        self.comboBox_floor_building.clear()
+        self.comboBox_floor_building.setEditable(True)
+        self.comboBox_floor_building.completer().setCompletionMode(QCompleter.PopupCompletion)
+
+        self.comboBox_typeOfFloor.clear()
+        self.comboBox_typeOfFloor.setEditable(True)
+        self.comboBox_typeOfFloor.completer().setCompletionMode(QCompleter.PopupCompletion)
+
+        cursor = self.database.cursor()
+        query_select_building = "select * from building"
+        query_select_type_of_floor = "select * from type_of_floor"
+
+        cursor.execute(query_select_building)
+        data_building = cursor.fetchall()
+        field_building = []
+        field_type_of_floor = []
+
+        for building in data_building:
+            field_building.append(building[1])
+        
+        cursor.execute(query_select_type_of_floor)
+        data_type_of_floor = cursor.fetchall()
+        for type_of_floor in data_type_of_floor:
+            field_type_of_floor.append(type_of_floor[1])
+
+        self.comboBox_floor_building.addItems(field_building)
+        self.comboBox_typeOfFloor.addItems(field_type_of_floor)
+        
+
+
     
     def building_manage_floor_manage_tab_table_widget_setting(self):
         self.tableWidget_floor.setSelectionBehavior(QTableView.SelectRows)
@@ -761,8 +823,29 @@ class MainApp(QMainWindow, ui):
     def building_manage_button_setting_and_ui_floor_tab(self):
         pass
     
+    def building_manage_floor_manage_setting_line_search(self):
+        field_search = self.comboBox_search_floor.currentText()
+        if field_search == 'id' or field_search == 'name':
+            self.lineEdit_search_floor.setText('')
+            self.lineEdit_search_floor.setValidator(QIntValidator(0, 100000, self))
+        else:
+            self.lineEdit_search_floor.setValidator(None)
+
+
+
     def building_manage_floor_manage_search_floor(self):
-        pass
+        field_search = self.comboBox_search_floor.currentText()
+        text_search = self.lineEdit_search_floor.text()
+        query = "select f.id, f.name, b.name, t.name, f.number_of_apartment from floor as f inner join building as b on f.building = b.id inner join type_of_floor as t on f.type_of_floor = t.id {} order by b.name, f.id, t.name;"
+        if field_search == 'id':
+            query = query.format("where f.id = {}".format(int(text_search)))
+        elif field_search == 'name':
+            query = query.format("where f.name = {}".format(int(text_search)))
+        elif field_search == 'block':
+            query = query.format("where b.name like '%{}%'".format(text_search))
+        else:
+            query = query.format("where t.name like '%{}%'".format(text_search))
+        common.data_loader(self, self.database, 'None', self.tableWidget_floor, query)
 
     def building_manage_floor_manage_add_floor(self):
         pass
@@ -779,12 +862,22 @@ class MainApp(QMainWindow, ui):
     def building_manage_floor_manage_import_file_floor(self):
         pass
 
-    def building_manage_floor_manage_search_floor(self):
-        pass
-
     def building_manage_floor_manage_floor_item_click(self):
-        pass
+        current_row = self.tableWidget_floor.currentRow()
+        columns_num = self.tableWidget_floor.columnCount()
+        data = []
+        for cell in range(0, columns_num):
+            item = self.tableWidget_floor.item(current_row, cell).text()
+            data.append(item)
 
+        self.lineEdit_id_floor.setText(data[0])
+        self.spinBox_name_floor.setValue(int(data[1]))
+        # self.comboBox_floor_building.setValue(int(test[3]))
+        # self.comboBox_typeOfFloor.setText(test[2] if test[2] !='None' else "")
+        self.spinBox_numOfApartment.setValue(int(data[4]))
+
+    def building_manage_floor_manage_clear_form(self):
+        pass
 #------------------------------------------------------------------------------
     def building_manage_door_manage_load(self, query=None):
         common.data_loader(self, self.database, 'door', self.tableWidget_door, query)
@@ -801,6 +894,9 @@ class MainApp(QMainWindow, ui):
     def building_manage_combobox_setting_door_manage_tab(self):
         pass
     
+    def building_manage_combobox_setting_data_change_door_manage_tab(self):
+        pass
+
     def building_manage_door_manage_search_door(self):
         pass
     
@@ -823,6 +919,10 @@ class MainApp(QMainWindow, ui):
     
     def apartment_manage_combobox_setting(self):
         pass
+    
+    #todo: load combobox have foreign key when it edit
+    def apartment_manage_combobox_setting_data_change(self):
+        pass
 
     def apartment_manage_handle_search_line_edit(self):
         pass
@@ -844,6 +944,9 @@ class MainApp(QMainWindow, ui):
         pass
 
     def resident_manage_combobox_setting(self):
+        pass
+    
+    def resident_manage_combobox_setting_data_change(self):
         pass
 
     def resident_manage_handle_search_line_edit(self):
@@ -868,6 +971,9 @@ class MainApp(QMainWindow, ui):
     def guest_manage_combobox_setting(self):
         pass
     
+    def guest_manage_combobox_setting_data_change(self):
+        pass
+
     def guest_manage_handle_search_line_edit(self):
         pass
 
@@ -888,6 +994,9 @@ class MainApp(QMainWindow, ui):
         pass
 
     def access_control_combobox_setting(self):
+        pass
+
+    def access_control_combobox_setting_data_change(self):
         pass
 
     def access_control_handle_search_line_edit(self):

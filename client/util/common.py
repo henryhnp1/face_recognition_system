@@ -73,6 +73,7 @@ def data_loader(parent, database, table, table_data, query=None):
             for column, item in enumerate(row_data):
                 table_data.setItem(row_index, column, QTableWidgetItem(str(item)))
         cursor.close()
+        parent.combobox_setting_data_change()
     except:
         pass
 
