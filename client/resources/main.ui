@@ -836,15 +836,23 @@
            <string>Enter the value of floor to seach</string>
           </property>
          </widget>
-         <widget class="QTableView" name="tableView_floor">
+         <widget class="QTableWidget" name="tableWidget">
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>80</y>
+            <y>70</y>
             <width>581</width>
-            <height>401</height>
+            <height>411</height>
            </rect>
           </property>
+          <property name="columnCount">
+           <number>5</number>
+          </property>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
          </widget>
         </widget>
        </widget>
