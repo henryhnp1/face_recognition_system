@@ -334,7 +334,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
@@ -366,6 +366,9 @@
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_id_block">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>170</x>
@@ -555,7 +558,7 @@
            <string>Enter the value of block to seach</string>
           </property>
          </widget>
-         <widget class="QTableView" name="tableView_block">
+         <widget class="QTableWidget" name="tableWidget_block">
           <property name="geometry">
            <rect>
             <x>20</x>
@@ -564,6 +567,18 @@
             <height>401</height>
            </rect>
           </property>
+          <property name="rowCount">
+           <number>1</number>
+          </property>
+          <property name="columnCount">
+           <number>5</number>
+          </property>
+          <row/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
          </widget>
         </widget>
        </widget>
@@ -824,7 +839,7 @@
            <string>Enter the value of door to seach</string>
           </property>
          </widget>
-         <widget class="QTableView" name="tableView_door">
+         <widget class="QTableWidget" name="tableWidget_door">
           <property name="geometry">
            <rect>
             <x>20</x>
