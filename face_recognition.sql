@@ -2,8 +2,8 @@ create database face_recognition default character set utf8 default collate utf8
 use face_recognition;
 create table building(
 	id int primary key auto_increment,
-    name nvarchar(50) not null,
-    location nvarchar(255),
+    name nvarchar(50) not null unique,
+    location nvarchar(1000),
     number_of_floor int,
     acreage float
 );
@@ -12,6 +12,13 @@ create table type_of_floor(
     name nvarchar(50) not null unique,
     description nvarchar(2000)
 );
+
+create table permission(
+	id int primary key auto_increment,
+    name nvarchar(50) not null unique,
+    description nvarchar(2000)
+);
+
 create table floor(
 	id int primary key auto_increment,
     name int not null,
@@ -19,8 +26,10 @@ create table floor(
     type_of_floor int,
     number_of_apartment int,
     foreign key (building) references building(id) on delete cascade,
-    foreign key (type_of_floor) references type_of_floor(id) on delete cascade
+    foreign key (type_of_floor) references type_of_floor(id) on delete cascade,
+    unique(name, building)
 );
+/*-------------------------------------------------------------------------------*/
 create table type_of_person(
 	id int primary key auto_increment,
     name nvarchar(50) not null unique,
@@ -53,11 +62,6 @@ create table apartment_resident(
     apartment int,
     foreign key(resident) references person(id) on delete cascade,
     foreign key (apartment) references apartment(id) on delete cascade
-);
-create table permission(
-	id int primary key auto_increment,
-    name nvarchar(50) not null unique,
-    description nvarchar(2000)
 );
 create table door(
 	id int primary key auto_increment,
