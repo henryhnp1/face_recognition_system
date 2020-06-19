@@ -191,7 +191,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="pushButton_buiding_manager">
+    <widget class="QPushButton" name="pushButton_buiding_manage">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -201,10 +201,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Buiding Manager</string>
+      <string>Buiding Manage</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_resident_manager">
+    <widget class="QPushButton" name="pushButton_resident_manage">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -214,10 +214,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Resident manager</string>
+      <string>Resident manage</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_apartment_manager">
+    <widget class="QPushButton" name="pushButton_apartment_manage">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -227,10 +227,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Apartment Manager</string>
+      <string>Apartment Manage</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_gest_manager">
+    <widget class="QPushButton" name="pushButton_gest_manage">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -240,7 +240,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Guest Manager</string>
+      <string>Guest Manage</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_video_access_control">
