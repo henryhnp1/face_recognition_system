@@ -191,7 +191,8 @@ class MainApp(QMainWindow, ui):
          self.pushButton_video_access_control)
         
         self.tabWidget_building_manage.setCurrentIndex(0)
-        common.set_tab_when_clicked(self.pushButton_block_manage)
+        common.set_tab_when_clicked(self.pushButton_block_manage, self.pushButton_floor_manage,
+         self.pushButton_door_manage, self.pushButton_setting_manage)
 
     def open_tab_apartment(self):
         self.tabWidget_main.setCurrentIndex(1)
