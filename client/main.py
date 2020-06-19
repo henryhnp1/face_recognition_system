@@ -70,80 +70,73 @@ class MainApp(QMainWindow, ui):
     #Todo: load all data when main run
     def load_data(self):
         self.load_building_manage()
+        self.load_apartment_manage()
+        self.load_resident_manage()
+        self.load_guest_manage()
+        self.load_access_control()
 
     def button_setting_and_ui(self):
-        # setting for import file in type of floor table
-        self.pushButton_select_file_type_floor.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; text-align:left}")
-        self.pushButton_import_file_type_floor.setEnabled(False)
+        self.building_manage_button_setting_and_ui()
+        self.apartment_manage_button_setting_and_ui()
+        self.resident_manage_button_setting_and_ui()
+        self.guest_manage_button_setting_and_ui()
+        self.access_control_button_setting_and_ui()
 
-        # setting for import file in permission table
-        self.pushButton_select_file_permission.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; text-align:left}")
-        self.pushButton_import_file_permission.setEnabled(False)
         
     def handle_buttons(self):
+        self.handle_buttons_login_tab()
+        self.handle_buttons_main_tab()
+        #handle button for bulding manage
+        self.building_manage_handle_button()
+        self.apartment_manage_handle_button()
+        self.resident_manage_handle_button()
+        self.guest_manage_handle_button()
+
+    def handle_buttons_main_tab(self):
+        self.pushButton_buiding_manage.clicked.connect(self.open_tab_building)
+        self.pushButton_apartment_manage.clicked.connect(self.open_tab_apartment)
+        self.pushButton_resident_manage.clicked.connect(self.open_tab_resident)
+        self.pushButton_gest_manage.clicked.connect(self.open_tab_guest)
+        self.pushButton_video_access_control.clicked.connect(self.open_tab_access_control)
+
+    def handle_buttons_login_tab(self):
         self.pushButton_login.clicked.connect(self.login)
         self.pushButton_logout.clicked.connect(self.logout)
         self.lineEdit_password.returnPressed.connect(self.login)
 
-        # handle button for main manager
-        self.pushButton_buiding_manager.clicked.connect(self.open_tab_building)
-        self.pushButton_apartment_manager.clicked.connect(self.open_tab_apartment)
-        self.pushButton_resident_manager.clicked.connect(self.open_tab_resident)
-        self.pushButton_gest_manager.clicked.connect(self.open_tab_guest)
-        self.pushButton_video_access_control.clicked.connect(self.open_tab_access_control)
-
-        #handle button for bulding manager
-        self.pushButton_block_manage.clicked.connect(self.open_tab_block)
-        self.pushButton_floor_manage.clicked.connect(self.open_tab_floor)
-        self.pushButton_door_manage.clicked.connect(self.open_tab_door)
-        self.pushButton_setting_manage.clicked.connect(self.open_tab_setting)
-
-        ## handle button in setting tab
-
-        ### handle button in type of floor table
-        self.pushButton_typeOFloor_add.clicked.connect(self.add_type_of_floor)
-        self.pushButton_typeOFloor_edit.clicked.connect(self.edit_type_of_floor)
-        self.pushButton_typeOFloor_delete.clicked.connect(self.delete_type_of_floor)
-        self.pushButton_select_file_type_floor.clicked.connect(self.select_file_type_of_floor)
-        self.pushButton_import_file_type_floor.clicked.connect(self.import_type_of_floor)
-
-        ### handle button in permisson table
-        self.pushButton_permission_add.clicked.connect(self.add_permission)
-        self.pushButton_permission_edit.clicked.connect(self.edit_permission)
-        self.pushButton_permission_delete.clicked.connect(self.delete_permission)
-        self.pushButton_select_file_permission.clicked.connect(self.select_file_permission)
-        self.pushButton_import_file_permission.clicked.connect(self.import_permission)
-    
     def handle_combobox(self):
         # handle action for combobox in buiding manage tab
-        ## handle action for combobox in setting tab
-        ### handle combobox for type of floor
-        self.comboBox_typeOFloor_search.currentTextChanged.connect(self.set_line_search_type_of_building)
-
-        ### handle combobox for permission
-        self.comboBox_permission_search.currentTextChanged.connect(self.set_line_search_permission)
+        self.building_manage_handle_combobox()
+        self.apartment_manage_handle_combobox()
+        self.resident_manage_handle_combobox()
+        self.guest_manage_handle_combobox()
+        self.access_control_handle_combobox()
 
     def combobox_setting(self):
         # setting combobox data for satatic combobox
         # setting for building manage tab
-        ## setting for setting tab
-        ### setting for type of floor table
-        type_of_floor_search_fields = ['id', 'name', 'description']
-        self.comboBox_typeOFloor_search.addItems(type_of_floor_search_fields)
-        
-        ### setting for permission table
-        permission_search_fields = ['id', 'name', 'description']
-        self.comboBox_permission_search.addItems(permission_search_fields)
+        self.building_manage_combobox_setting()
+        self.apartment_manage_combobox_setting()
+        self.resident_manage_combobox_setting()
+        self.guest_manage_combobox_setting()
+        self.access_control_combobox_setting()
+
+    # table widget setting
+    def table_widget_setting(self):
+        self.building_manage_table_widget_setting()
+        self.apartment_manage_table_widget_setting()
+        self.resident_manage_table_widget_setting()
+        self.guest_manage_table_widget_setting()
+        self.access_control_table_widget_setting()
 
     def handle_search_line_edit(self):
         # handle line edit using for search
         # handle search line edit for building manage tab
-        ## handle search line edit for setting tab
-        ### handle seach line edit for type of floor
-        self.lineEdit_typeOFloor_search.returnPressed.connect(self.search_type_of_floor)
-
-        ### handle search line edit for permission
-        self.lineEdit_search_permission.returnPressed.connect(self.search_permission)
+        self.building_manage_handle_search_line_edit()
+        self.apartment_manage_handle_search_line_edit()
+        self.resident_manage_handle_search_line_edit()
+        self.guest_manage_handle_search_line_edit()
+        self.access_control_handle_search_line_edit()
 
     def login(self):
         username = self.lineEdit_username.text()
@@ -185,11 +178,12 @@ class MainApp(QMainWindow, ui):
 
         self.tabWidget_main.setCurrentIndex(0)
 
-        common.set_tab_when_clicked(self.pushButton_buiding_manager,
-         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
-         self.pushButton_resident_manager, self.pushButton_gest_manager,
+        common.set_tab_when_clicked(self.pushButton_buiding_manage,
+         self.pushButton_buiding_manage, self.pushButton_apartment_manage,
+         self.pushButton_resident_manage, self.pushButton_gest_manage,
          self.pushButton_video_access_control)
         
+        # setting current tab when the window first load
         self.tabWidget_building_manage.setCurrentIndex(0)
         common.set_tab_when_clicked(self.pushButton_block_manage, self.pushButton_floor_manage,
          self.pushButton_door_manage, self.pushButton_setting_manage)
@@ -197,36 +191,40 @@ class MainApp(QMainWindow, ui):
     def open_tab_apartment(self):
         self.tabWidget_main.setCurrentIndex(1)
 
-        common.set_tab_when_clicked(self.pushButton_apartment_manager,
-         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
-         self.pushButton_resident_manager, self.pushButton_gest_manager,
+        common.set_tab_when_clicked(self.pushButton_apartment_manage,
+         self.pushButton_buiding_manage, self.pushButton_apartment_manage,
+         self.pushButton_resident_manage, self.pushButton_gest_manage,
          self.pushButton_video_access_control)
 
     def open_tab_resident(self):
         self.tabWidget_main.setCurrentIndex(2)
 
-        common.set_tab_when_clicked(self.pushButton_resident_manager,
-         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
-         self.pushButton_resident_manager, self.pushButton_gest_manager,
+        common.set_tab_when_clicked(self.pushButton_resident_manage,
+         self.pushButton_buiding_manage, self.pushButton_apartment_manage,
+         self.pushButton_resident_manage, self.pushButton_gest_manage,
          self.pushButton_video_access_control)
 
     def open_tab_guest(self):
         self.tabWidget_main.setCurrentIndex(3)
 
-        common.set_tab_when_clicked(self.pushButton_gest_manager,
-         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
-         self.pushButton_resident_manager, self.pushButton_gest_manager,
+        common.set_tab_when_clicked(self.pushButton_gest_manage,
+         self.pushButton_buiding_manage, self.pushButton_apartment_manage,
+         self.pushButton_resident_manage, self.pushButton_gest_manage,
          self.pushButton_video_access_control)
 
     def open_tab_access_control(self):
         self.tabWidget_main.setCurrentIndex(4)
 
         common.set_tab_when_clicked(self.pushButton_video_access_control,
-         self.pushButton_buiding_manager, self.pushButton_apartment_manager,
-         self.pushButton_resident_manager, self.pushButton_gest_manager,
+         self.pushButton_buiding_manage, self.pushButton_apartment_manage,
+         self.pushButton_resident_manage, self.pushButton_gest_manage,
          self.pushButton_video_access_control)
 
-    # open tab for building manager
+    # tab building manage function
+    def load_building_manage(self):
+        self.load_setting()
+
+    # open tab for building manage
     def open_tab_block(self):
         self.tabWidget_building_manage.setCurrentIndex(0)
 
@@ -253,28 +251,107 @@ class MainApp(QMainWindow, ui):
          self.pushButton_setting_manage, self.pushButton_door_manage,
          self.pushButton_floor_manage, self.pushButton_block_manage)
         self.load_setting()
+
+    def building_manage_button_setting_and_ui(self):
+        self.building_manage_button_setting_and_ui_setting_tab()
+
+    def building_manage_handle_combobox(self):
+        self.building_manage_handle_combobox_setting_tab()
+        self.building_manage_handle_combobox_block_manage_tab()
+    
+    def building_manage_table_widget_setting(self):
+        self.building_manage_setting_tab_table_widget_setting()
+        self.building_manage_block_manage_tab_table_widget_setting()
+
+
+    def building_manage_handle_combobox_block_manage_tab(self):
+        ## handle action for combobox in block manage tab
+        self.comboBox_search_block.currentTextChanged.connect(self.block_manage_setting_line_search)
+
+    def building_manage_combobox_setting(self):
+        self.building_manage_combobox_setting_block_manage_tab()
+        self.building_manage_combobox_setting_setting_tab()
+
+
+
+    def building_manage_handle_search_line_edit(self):
+        # handle seach line edit for type of floor
+        self.lineEdit_typeOFloor_search.returnPressed.connect(self.search_type_of_floor)
+
+        # handle search line edit for permission
+        self.lineEdit_search_permission.returnPressed.connect(self.search_permission)
+
+        # handle search line edit for block manage tab
+        self.lineEdit_search_block.returnPressed.connect(self.block_manage_search_block)
+
+    def building_manage_handle_button(self):
+        #handle button for bulding manage
+        self.pushButton_block_manage.clicked.connect(self.open_tab_block)
+        self.pushButton_floor_manage.clicked.connect(self.open_tab_floor)
+        self.pushButton_door_manage.clicked.connect(self.open_tab_door)
+        self.pushButton_setting_manage.clicked.connect(self.open_tab_setting)
+
+        self.building_manage_handle_button_setting_tab()
     
     # tab setting function
-    def load_building_manage(self):
-        self.load_setting()
-        
-    ## load setting data
-    def load_setting(self):
-        self.load_permission_setting()
-        self.load_type_of_floor_setting()
-    ## table widget setting
-    def table_widget_setting(self):
-        ### setting for table widget action type_of_floor
+    def building_manage_handle_button_setting_tab(self):
+        self.building_manage_handle_button_setting_tab_type_of_floor_table()
+        self.building_manage_handle_button_setting_tab_permission_table()
+
+    def building_manage_handle_combobox_setting_tab(self):
+        ### handle combobox for type of floor
+        self.comboBox_typeOFloor_search.currentTextChanged.connect(self.set_line_search_type_of_building)
+
+        ### handle combobox for permission
+        self.comboBox_permission_search.currentTextChanged.connect(self.set_line_search_permission)
+
+    def building_manage_button_setting_and_ui_setting_tab(self):
+        # setting for import file in type of floor table
+        self.pushButton_select_file_type_floor.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; text-align:left}")
+        self.pushButton_import_file_type_floor.setEnabled(False)
+
+        # setting for import file in permission table
+        self.pushButton_select_file_permission.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; text-align:left}")
+        self.pushButton_import_file_permission.setEnabled(False)
+
+    ### function for table type of floor
+    def building_manage_setting_tab_table_widget_setting(self):
         self.tableWidget_type_of_floor.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_type_of_floor.itemClicked.connect(self.type_of_floor_click)
 
-        ### setting for table widget action permission
         self.tableWidget_permission.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_permission.itemClicked.connect(self.permission_click)
 
-    ### function for table type of floor
+    def building_manage_handle_button_setting_tab_permission_table(self):
+        self.pushButton_permission_add.clicked.connect(self.add_permission)
+        self.pushButton_permission_edit.clicked.connect(self.edit_permission)
+        self.pushButton_permission_delete.clicked.connect(self.delete_permission)
+        self.pushButton_select_file_permission.clicked.connect(self.select_file_permission)
+        self.pushButton_import_file_permission.clicked.connect(self.import_permission)
+    
+    def building_manage_handle_button_setting_tab_type_of_floor_table(self):
+        self.pushButton_typeOFloor_add.clicked.connect(self.add_type_of_floor)
+        self.pushButton_typeOFloor_edit.clicked.connect(self.edit_type_of_floor)
+        self.pushButton_typeOFloor_delete.clicked.connect(self.delete_type_of_floor)
+        self.pushButton_select_file_type_floor.clicked.connect(self.select_file_type_of_floor)
+        self.pushButton_import_file_type_floor.clicked.connect(self.import_type_of_floor)
 
-    ### get data from row in table widget when click to form data in type of floor
+    
+    def building_manage_combobox_setting_setting_tab(self):
+        ## setting for setting tab
+        ### setting for type of floor table
+        type_of_floor_search_fields = ['id', 'name', 'description']
+        self.comboBox_typeOFloor_search.addItems(type_of_floor_search_fields)
+        
+        ### setting for permission table
+        permission_search_fields = ['id', 'name', 'description']
+        self.comboBox_permission_search.addItems(permission_search_fields)
+
+    # load setting data
+    def load_setting(self):
+        self.load_permission_setting()
+        self.load_type_of_floor_setting()
+
     def type_of_floor_click(self):
         current_row = self.tableWidget_type_of_floor.currentRow()
         columns_num = self.tableWidget_type_of_floor.columnCount()
@@ -524,7 +601,131 @@ class MainApp(QMainWindow, ui):
         except:
             pass
 
+    # tab block manage function
+    def building_manage_block_manage_tab_table_widget_setting(self):
+        self.tableWidget_block.setSelectionBehavior(QTableView.SelectRows)
+        self.tableWidget_block.itemClicked.connect(self.block_manage_block_item_click)
+    
+    def building_manage_combobox_setting_block_manage_tab(self):
+        ## setting for block manage tab
+        block_search_fields = ['id', 'name', 'location']
+        self.comboBox_search_block.addItems(block_search_fields)
 
+    def building_manage_handle_button_block_manage_tab(self):
+        pass
+
+
+    def load_building_manage_block():
+        pass
+
+    def block_manage_add_block(self):
+        pass
+
+    def block_manage_edit_block(self):
+        pass
+
+    def block_manage_delete_block(self):
+        pass
+
+    def block_manage_search_block(self):
+        pass
+
+    def block_manage_setting_line_search(self):
+        pass
+
+    def block_manage_block_item_click(self):
+        pass
+
+#==============================================================================
+    # apartment manage tab funtion
+    def load_apartment_manage(self):
+        pass
+
+    def apartment_manage_handle_button(self):
+        pass
+    
+    def apartment_manage_handle_combobox(self):
+        pass
+    
+    def apartment_manage_combobox_setting(self):
+        pass
+
+    def apartment_manage_handle_search_line_edit(self):
+        pass
+    
+    def apartment_manage_table_widget_setting(self):
+        pass
+    
+    def apartment_manage_button_setting_and_ui(self):
+        pass
+#==============================================================================
+    # resident manage tab function
+    def load_resident_manage(self):
+        pass
+
+    def resident_manage_handle_button(self):
+        pass
+
+    def resident_manage_handle_combobox(self):
+        pass
+
+    def resident_manage_combobox_setting(self):
+        pass
+
+    def resident_manage_handle_search_line_edit(self):
+        pass
+
+    def resident_manage_table_widget_setting(self):
+        pass
+
+    def resident_manage_button_setting_and_ui(self):
+        pass
+#=============================================================================
+    # guest manage tab function
+    def load_guest_manage(self):
+        pass
+
+    def guest_manage_handle_button(self):
+        pass
+
+    def guest_manage_handle_combobox(self):
+        pass
+
+    def guest_manage_combobox_setting(self):
+        pass
+    
+    def guest_manage_handle_search_line_edit(self):
+        pass
+
+    def guest_manage_table_widget_setting(self):
+        pass
+
+    def guest_manage_button_setting_and_ui(self):
+        pass
+#===============================================================================
+    # access control tab function
+    def load_access_control(self):
+        pass
+
+    def access_control_handle_button(self):
+        pass
+
+    def access_control_handle_combobox(self):
+        pass
+
+    def access_control_combobox_setting(self):
+        pass
+
+    def access_control_handle_search_line_edit(self):
+        pass
+
+    def access_control_table_widget_setting(self):
+        pass
+
+    def access_control_button_setting_and_ui(self):
+        pass
+
+#================================================================================
 def main():
     app = QApplication([])
     window = MainApp()
