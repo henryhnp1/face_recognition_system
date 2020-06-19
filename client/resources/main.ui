@@ -334,7 +334,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
@@ -836,7 +836,7 @@
            <string>Enter the value of floor to seach</string>
           </property>
          </widget>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QTableWidget" name="tableWidget_floor">
           <property name="geometry">
            <rect>
             <x>20</x>
@@ -885,9 +885,9 @@
          <widget class="QLineEdit" name="lineEdit_search_door">
           <property name="geometry">
            <rect>
-            <x>320</x>
+            <x>250</x>
             <y>30</y>
-            <width>281</width>
+            <width>351</width>
             <height>31</height>
            </rect>
           </property>
