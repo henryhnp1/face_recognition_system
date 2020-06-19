@@ -221,9 +221,12 @@ class MainApp(QMainWindow, ui):
          self.pushButton_video_access_control)
 
     # tab building manage function
+#======================================================================================================
     def load_building_manage(self):
-        self.load_setting()
+        self.building_manage_setting_load()
         self.building_manage_block_manage_load()
+        self.building_manage_floor_manage_load()
+        self.building_manage_door_manage_load()
 
     # open tab for building manage
     def open_tab_block(self):
@@ -242,45 +245,53 @@ class MainApp(QMainWindow, ui):
          self.pushButton_setting_manage, self.pushButton_door_manage,
          self.pushButton_floor_manage, self.pushButton_block_manage)
 
+        self.building_manage_floor_manage_load()
+
     def open_tab_door(self):
         self.tabWidget_building_manage.setCurrentIndex(2)
         common.set_tab_when_clicked(self.pushButton_door_manage,
          self.pushButton_setting_manage, self.pushButton_door_manage,
          self.pushButton_floor_manage, self.pushButton_block_manage)
+        
+        self.building_manage_door_manage_load()
 
     def open_tab_setting(self):
         self.tabWidget_building_manage.setCurrentIndex(3)
         common.set_tab_when_clicked(self.pushButton_setting_manage,
          self.pushButton_setting_manage, self.pushButton_door_manage,
          self.pushButton_floor_manage, self.pushButton_block_manage)
-        self.load_setting()
+        self.building_manage_setting_load()
 
     def building_manage_button_setting_and_ui(self):
         self.building_manage_button_setting_and_ui_setting_tab()
+        self.building_manage_button_setting_and_ui_block_tab()
+        self.building_manage_button_setting_and_ui_floor_tab()
+        self.building_manage_button_setting_and_ui_door_tab()
 
     def building_manage_handle_combobox(self):
         self.building_manage_handle_combobox_setting_tab()
         self.building_manage_handle_combobox_block_manage_tab()
+        self.building_manage_handle_combobox_floor_manage_tab()
+        self.building_manage_handle_combobox_door_manage_tab()
     
     def building_manage_table_widget_setting(self):
         self.building_manage_setting_tab_table_widget_setting()
         self.building_manage_block_manage_tab_table_widget_setting()
+        self.building_manage_floor_manage_tab_table_widget_setting()
+        self.building_manage_door_manage_tab_table_widget_setting()
 
     def building_manage_combobox_setting(self):
         self.building_manage_combobox_setting_block_manage_tab()
         self.building_manage_combobox_setting_setting_tab()
-
+        self.building_manage_combobox_setting_floor_manage_tab()
+        self.building_manage_combobox_setting_door_manage_tab()
 
 
     def building_manage_handle_search_line_edit(self):
-        # handle seach line edit for type of floor
-        self.lineEdit_typeOFloor_search.returnPressed.connect(self.search_type_of_floor)
-
-        # handle search line edit for permission
-        self.lineEdit_search_permission.returnPressed.connect(self.search_permission)
-
-        # handle search line edit for block manage tab
-        self.lineEdit_search_block.returnPressed.connect(self.building_manage_block_manage_search_block)
+        self.building_manage_handle_search_line_edit_block_tab()
+        self.building_manage_handle_search_line_edit_floor_tab()
+        self.building_manage_handle_search_line_edit_door_tab()
+        self.building_manage_handle_search_line_edit_setting_tab()
 
     def building_manage_handle_button(self):
         #handle button for bulding manage
@@ -291,7 +302,13 @@ class MainApp(QMainWindow, ui):
 
         self.building_manage_handle_button_setting_tab()
         self.building_manage_handle_button_block_manage_tab()
-    
+        self.building_manage_handle_button_floor_manage_tab()
+        self.building_manage_handle_button_door_manage_tab()
+#------------------------------------------------------------------------------------------------------------------------------------    
+    def building_manage_handle_search_line_edit_setting_tab(self):
+        self.lineEdit_typeOFloor_search.returnPressed.connect(self.search_type_of_floor)
+        self.lineEdit_search_permission.returnPressed.connect(self.search_permission)
+
     # tab setting function
     def building_manage_handle_button_setting_tab(self):
         self.building_manage_handle_button_setting_tab_type_of_floor_table()
@@ -317,9 +334,11 @@ class MainApp(QMainWindow, ui):
     def building_manage_setting_tab_table_widget_setting(self):
         self.tableWidget_type_of_floor.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_type_of_floor.itemClicked.connect(self.type_of_floor_click)
+        self.tableWidget_type_of_floor.setSortingEnabled(True)
 
         self.tableWidget_permission.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_permission.itemClicked.connect(self.permission_click)
+        self.tableWidget_permission.setSortingEnabled(True)
 
     def building_manage_handle_button_setting_tab_permission_table(self):
         self.pushButton_permission_add.clicked.connect(self.add_permission)
@@ -347,7 +366,7 @@ class MainApp(QMainWindow, ui):
         self.comboBox_permission_search.addItems(permission_search_fields)
 
     # load setting data
-    def load_setting(self):
+    def building_manage_setting_load(self):
         self.load_permission_setting()
         self.load_type_of_floor_setting()
 
@@ -492,7 +511,7 @@ class MainApp(QMainWindow, ui):
 
 
     ### function for permission table
-
+#---------------------------------------------------------------------------------------------------------
     ### get data from row in table widget when click to form data in permission
     def permission_click(self):
         current_row = self.tableWidget_permission.currentRow()
@@ -599,11 +618,12 @@ class MainApp(QMainWindow, ui):
             cursor.close()
         except:
             pass
-
+#---------------------------------------------------------------------------------------------------------------------
     # tab block manage function
     def building_manage_block_manage_tab_table_widget_setting(self):
         self.tableWidget_block.setSelectionBehavior(QTableView.SelectRows)
         self.tableWidget_block.itemClicked.connect(self.building_manage_block_manage_block_item_click)
+        self.tableWidget_block.setSortingEnabled(True)
     
     def building_manage_combobox_setting_block_manage_tab(self):
         ## setting for block manage tab
@@ -618,6 +638,12 @@ class MainApp(QMainWindow, ui):
         self.pushButton_add_block.clicked.connect(self.building_manage_block_manage_add_block)
         self.pushButton_edit_block.clicked.connect(self.building_manage_block_manage_edit_block)
         self.pushButton_delete_block.clicked.connect(self.building_manage_block_manage_delete_block)
+
+    def building_manage_button_setting_and_ui_block_tab(self):
+        pass
+
+    def building_manage_handle_search_line_edit_block_tab(self):
+        self.lineEdit_search_block.returnPressed.connect(self.building_manage_block_manage_search_block)
 
     def building_manage_block_manage_load(self, query=None):
         common.data_loader(self, self.database, "building", self.tableWidget_block, query)
@@ -710,6 +736,79 @@ class MainApp(QMainWindow, ui):
         self.spinBox_numOfFloor_block.setValue(0)
         self.lineEdit_location_block.setText(None)
         self.doubleSpinBox_acreage_block.setValue(0)
+    
+#------------------------------------------------------------------------------
+    def building_manage_floor_manage_load(self, query=None):
+        common.data_loader(self, self.database, 'floor', self.tableWidget_floor, query)
+
+    def building_manage_handle_button_floor_manage_tab(self):
+        pass
+
+    def building_manage_handle_combobox_floor_manage_tab(self):
+        pass
+
+    def building_manage_handle_search_line_edit_floor_tab(self):
+        self.lineEdit_search_floor.returnPressed.connect(self.building_manage_floor_manage_search_floor)
+    
+    def building_manage_combobox_setting_floor_manage_tab(self):
+        pass
+    
+    def building_manage_floor_manage_tab_table_widget_setting(self):
+        self.tableWidget_floor.setSelectionBehavior(QTableView.SelectRows)
+        self.tableWidget_floor.itemClicked.connect(self.building_manage_floor_manage_floor_item_click)
+        self.tableWidget_floor.setSortingEnabled(True)
+    
+    def building_manage_button_setting_and_ui_floor_tab(self):
+        pass
+    
+    def building_manage_floor_manage_search_floor(self):
+        pass
+
+    def building_manage_floor_manage_add_floor(self):
+        pass
+
+    def building_manage_floor_manage_edit_floor(self):
+        pass
+
+    def building_manage_floor_manage_delete_floor(self):
+        pass
+
+    def building_manage_floor_manage_select_file_import_floor(self):
+        pass
+
+    def building_manage_floor_manage_import_file_floor(self):
+        pass
+
+    def building_manage_floor_manage_search_floor(self):
+        pass
+
+    def building_manage_floor_manage_floor_item_click(self):
+        pass
+
+#------------------------------------------------------------------------------
+    def building_manage_door_manage_load(self, query=None):
+        common.data_loader(self, self.database, 'door', self.tableWidget_door, query)
+
+    def building_manage_handle_button_door_manage_tab(self):
+        pass
+    
+    def building_manage_handle_combobox_door_manage_tab(self):
+        pass
+
+    def building_manage_handle_search_line_edit_door_tab(self):
+        self.lineEdit_search_door.returnPressed.connect(self.building_manage_door_manage_search_door)
+
+    def building_manage_combobox_setting_door_manage_tab(self):
+        pass
+    
+    def building_manage_door_manage_search_door(self):
+        pass
+    
+    def building_manage_door_manage_tab_table_widget_setting(self):
+        pass
+
+    def building_manage_button_setting_and_ui_door_tab(self):
+        pass
 
 #==============================================================================
     # apartment manage tab funtion
