@@ -57,3 +57,34 @@ def set_current_tab_active(tab):
 def set_tab_when_clicked(tab, *args):
     set_push_button_when_other_clicked(*args)
     set_current_tab_active(tab)
+
+def data_loader(parent, database, table, table_data, query=None):
+    if query == None:
+        query = "select * from {}".format(table)
+    cursor = database.cursor()
+    try:
+        cursor.execute(query)
+        data = cursor.fetchall()
+        field_names = [x[0] for x in cursor.description]  #get headname
+        table_data.setRowCount(0)
+        table_data.setHorizontalHeaderLabels(field_names)  #set headname
+        for row_index, row_data in enumerate(data):
+            table_data.insertRow(row_index)
+            for column, item in enumerate(row_data):
+                table_data.setItem(row_index, column, QTableWidgetItem(str(item)))
+        cursor.close()
+    except:
+        pass
+
+def delete_item(parent, table, database, index, loader, setting_form):
+    cursor = database.cursor()
+    try:
+        query = "delete from {} ".format(table)
+        cursor.execute(query + "where id=%s", [(index)])
+        database.commit()
+        loader()
+        parent.statusBar().showMessage("A {} Deleted With ID={}".format(table, index))
+        setting_form()
+        cursor.close()
+    except db.Error as e:
+        pass
