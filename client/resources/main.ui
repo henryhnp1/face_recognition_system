@@ -761,7 +761,7 @@
            <string>Import File</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_import_file_floor">
+         <widget class="QPushButton" name="pushButton_choose_import_file_floor">
           <property name="geometry">
            <rect>
             <x>160</x>
@@ -774,7 +774,7 @@
            <string>Choose File</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="pushButton_import_floor_file">
           <property name="enabled">
            <bool>false</bool>
           </property>

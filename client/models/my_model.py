@@ -1,12 +1,11 @@
 class Building(object):
     def __init__(self, pk, name, location, number_of_floor, acreage):
-        super(Building,self).__init__()
+        # super(Building,self).__init__()
         self.pk = pk
         self.name = name
         self.location = location
         self.number_of_floor = number_of_floor
         self.acreage = acreage
-
 
 class TypeOfFloor(object):
     def __init__(self, pk, name, description):

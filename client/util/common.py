@@ -89,3 +89,16 @@ def delete_item(parent, table, database, index, loader, setting_form):
         cursor.close()
     except db.Error as e:
         pass
+
+def get_list_model(database, model, query):
+    list_model = []
+    try:
+        cursor = database.cursor()
+        cursor.execute(query)
+        data = cursor.fetchall()
+        for item in data:
+            # temp_model = model(*item)
+            list_model.append(item)
+    except db.Error as e:
+        print(e)
+    return list_model
