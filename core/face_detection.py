@@ -1,15 +1,15 @@
-import numpy as np
 import cv2
-from imutils.video import VideoStream
+import numpy as np
 import imutils
-import time
+from imutils.video import VideoStream
+import math
 
-path_model = '../data/model'
-net = cv2.dnn.readNetFromCaffe(path_model + '/deploy.prototxt',
-    path_model + '/res10_300x300_ssd_iter_140000.caffemodel')
-
-def get_face_from_image(image_path, confidence_param=0.5):
-    image = cv2.imread(image_path)  # to do: image link
+def get_single_bbox_from_image(image_path, prototxt, detect_model, confidence_param=0.5, frame=None):
+    net = cv2.dnn.readNetFromCaffe(prototxt, detect_model)
+    if frame is not None:
+        image = frame
+    else:
+        image = cv2.imread(image_path)  # to do: image link
     h, w = image.shape[:2]
     blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0,
         (300, 300), (104.0, 177.0, 123.0))
@@ -20,11 +20,15 @@ def get_face_from_image(image_path, confidence_param=0.5):
         if confidence > confidence_param:
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             startX, startY, endX, endY = box.astype('int')
-            cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
-    return box, image
+            if startX > w: startX = 0
+            if startY > h: startY = 0
+            if endX > w: endX = w
+            if endY > h: endY = h
+            box = (math.floor(startX), math.floor(startY), round(endX), round(endY))
+    return box
 
-def get_face_from_video(confidence_param=0.5):
-    video_stream = VideoStream(src=0).start()
+def get_face_from_video(image_folder, confidence_param=0.5, src_cam=0):
+    video_stream = VideoStream(src=src_cam).start()
     time.sleep(2.0)
     count = 0
     while True:
@@ -52,7 +56,3 @@ def get_face_from_video(confidence_param=0.5):
             cv2.imwrite('../data/image/test/test'+ str(count)+'.jpg', frame)
     cv2.destroyAllWindows()
     video_stream.stop()
-
-get_face_from_video()
-
-        
