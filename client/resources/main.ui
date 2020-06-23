@@ -1731,9 +1731,9 @@
       <widget class="QTabWidget" name="tabWidget_apartment">
        <property name="geometry">
         <rect>
-         <x>180</x>
+         <x>160</x>
          <y>10</y>
-         <width>1131</width>
+         <width>1151</width>
          <height>711</height>
         </rect>
        </property>
@@ -2436,7 +2436,7 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>240</y>
+         <y>60</y>
          <width>111</width>
          <height>51</height>
         </rect>
@@ -2449,7 +2449,7 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>390</y>
+         <y>150</y>
          <width>111</width>
          <height>51</height>
         </rect>
@@ -2466,9 +2466,9 @@
       <widget class="QTabWidget" name="tabWidget">
        <property name="geometry">
         <rect>
-         <x>180</x>
+         <x>160</x>
          <y>10</y>
-         <width>1141</width>
+         <width>1161</width>
          <height>711</height>
         </rect>
        </property>
@@ -3169,10 +3169,10 @@
       <widget class="QPushButton" name="pushButton_company_staff">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>230</y>
-         <width>131</width>
-         <height>61</height>
+         <x>40</x>
+         <y>60</y>
+         <width>111</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="text">
@@ -3182,9 +3182,9 @@
       <widget class="QPushButton" name="pushButton_resident">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>350</y>
-         <width>131</width>
+         <x>40</x>
+         <y>150</y>
+         <width>111</width>
          <height>51</height>
         </rect>
        </property>
