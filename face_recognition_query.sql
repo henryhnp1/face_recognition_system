@@ -2,9 +2,12 @@ use face_recognition;
 insert into permission(name, description)
 values
 ('ACCEPT', 'Cho phép qua cửa'),
-('BAN', 'Cấm qua cửa'),
-('PUBLIC', 'Cho phép tất cả mọi người qua cửa'),
-('RESTRICT', 'Chỉ cho phép các cá nhân nhất định qua cửa');
+('BAN', 'Cấm qua cửa');
+
+insert into role_door(name, description)
+values
+('PUBLIC', 'Cho phép mọi người qua cửa'),
+('RESTRICT', 'Chỉ những người có quyền mời được qua cửa');
 
 insert into building(name, location, number_of_floor, acreage)
 values
@@ -28,3 +31,13 @@ insert into floor(name, building, type_of_floor, number_of_apartment) values
 (3, 2, 1, 20),
 (4, 2, 1, 20),
 (5, 2, 2, 40);
+
+-- insert into door(name, floor, role) values
+-- (1, 11, 1),
+-- (2, 11, 4),
+-- (3, 11, 2);
+
+
+/*select query*/
+select * from floor;
+select * from permission;

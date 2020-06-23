@@ -7,13 +7,8 @@ create table building(
     number_of_floor int,
     acreage float
 );
-create table type_of_floor(
-	id int primary key auto_increment,
-    name nvarchar(50) not null unique,
-    description nvarchar(2000)
-);
 
-create table permission(
+create table type_of_floor(
 	id int primary key auto_increment,
     name nvarchar(50) not null unique,
     description nvarchar(2000)
@@ -29,12 +24,29 @@ create table floor(
     foreign key (type_of_floor) references type_of_floor(id) on delete cascade,
     unique(name, building)
 );
-/*-------------------------------------------------------------------------------*/
-create table type_of_person(
+
+create table role_door(
 	id int primary key auto_increment,
     name nvarchar(50) not null unique,
     description nvarchar(2000)
 );
+
+create table door(
+	id int primary key auto_increment,
+    name int,
+    floor int,
+    role int,
+    foreign key (floor) references floor(id) on delete cascade,
+    foreign key (role) references role_door(id) on delete cascade,
+    unique(name, floor)
+);
+
+create table permission(
+	id int primary key auto_increment,
+    name nvarchar(50) not null unique,
+    description nvarchar(2000)
+);
+/*-------------------------------------------------------------------------------*/
 create table person(
 	id int primary key auto_increment,
     name nvarchar(255) not null,
@@ -44,17 +56,13 @@ create table person(
     email nvarchar(255) unique,
     village nvarchar(255),
     current_accommodation text,
-    type_of_person int,
-    is_delete int,
-    foreign key (type_of_person) references type_of_person(id) on delete cascade
+    is_delete int
 );
 create table apartment(
 	id int primary key auto_increment,
     name nvarchar(50) not null,
     floor int,
-    owner int,
-    foreign key (floor) references floor(id) on delete cascade,
-    foreign key (owner) references person(id) on delete cascade
+    foreign key (floor) references floor(id) on delete cascade
 );
 create table apartment_resident(
 	id int primary key auto_increment,
@@ -63,12 +71,8 @@ create table apartment_resident(
     foreign key(resident) references person(id) on delete cascade,
     foreign key (apartment) references apartment(id) on delete cascade
 );
-create table door(
-	id int primary key auto_increment,
-    name nvarchar(50),
-    floor int,
-    foreign key (floor) references floor(id) on delete cascade
-);
+
+/*
 create table door_permission(
 	id int primary key auto_increment,
     door int,
@@ -76,6 +80,7 @@ create table door_permission(
     foreign key (door) references door(id) on delete cascade,
     foreign key (permission) references permission(id) on delete cascade
 );
+*/
 create table image(
 	id int primary key auto_increment,
     url text not null,
@@ -140,6 +145,15 @@ create table user_role_sys(
 create table company(
 	id int primary key auto_increment,
     name nvarchar(255),
+    phone varchar(10),
     apartment int,
     foreign key (apartment) references apartment(id)
+);
+
+create table company_staff(
+	id int primary key auto_increment,
+    company int,
+    staff int,
+    foreign key (company) references company(id),
+    foreign key (staff) references person(id)
 );
