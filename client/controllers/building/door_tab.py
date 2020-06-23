@@ -6,8 +6,15 @@ import os
 from util import common, standardized, message_box
 from models import my_model
 
-def building_manage_door_manage_load(self, query=None):
+def building_manage_door_manage_load(self):
+    self.building_manage_door_manage_door_table_load()
+    self.building_manage_door_manage_role_door_table_load()
+    
+def building_manage_door_manage_door_table_load(self, query=None):
     common.data_loader(self, self.database, 'door', self.tableWidget_door, query)
+
+def building_manage_door_manage_role_door_table_load(self, query=None):
+    common.data_loader(self, self.table, 'role_door', self.tableWidget_role_door, query)
 
 def building_manage_handle_button_door_manage_tab(self):
     pass
