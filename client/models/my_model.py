@@ -14,7 +14,6 @@ class TypeOfFloor(object):
         self.name = name
         self.description = description
 
-
 class Permission(object):
     def __init__(self, pk, name, description):
         super(Permission, self).__init__()
@@ -30,3 +29,10 @@ class Floor(object):
         self.building = building
         self.type_of_floor = type_of_floor
         self.number_of_aparment = number_of_aparment
+
+class Door(object):
+    def __init__(self, pk, name, floor, permission):
+        self.pk = pk
+        self.name = name
+        self.floor = floor
+        self.permission = permission
