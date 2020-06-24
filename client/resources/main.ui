@@ -3212,9 +3212,9 @@
        <widget class="QComboBox" name="comboBox_fields_search_guest">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>150</x>
           <y>30</y>
-          <width>201</width>
+          <width>331</width>
           <height>31</height>
          </rect>
         </property>
@@ -3222,7 +3222,7 @@
        <widget class="QLineEdit" name="lineEdit_search_guest">
         <property name="geometry">
          <rect>
-          <x>370</x>
+          <x>810</x>
           <y>30</y>
           <width>391</width>
           <height>31</height>
@@ -3234,498 +3234,10 @@
          <rect>
           <x>20</x>
           <y>70</y>
-          <width>781</width>
+          <width>1261</width>
           <height>631</height>
          </rect>
         </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_resident_id_2">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>30</y>
-          <width>91</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_68">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>30</y>
-          <width>67</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Id</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_69">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>70</y>
-          <width>67</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Name</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_guest_name">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>70</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QDateEdit" name="dateEdit_guest_birthday">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>110</y>
-          <width>111</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_70">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>110</y>
-          <width>67</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Birthday</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_guest_gender">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>150</y>
-          <width>101</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_71">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>150</y>
-          <width>67</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Gender</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_guest_id_number">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>190</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_72">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>190</y>
-          <width>91</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>ID Number</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_73">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>270</y>
-          <width>91</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Village</string>
-        </property>
-       </widget>
-       <widget class="QTextEdit" name="textEdit_guest_resident_village">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>270</y>
-          <width>211</width>
-          <height>51</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QTextEdit" name="textEdit_guest_current_accomodation">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>330</y>
-          <width>211</width>
-          <height>51</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_74">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>330</y>
-          <width>121</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Current Accommodation</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_guest_add">
-        <property name="geometry">
-         <rect>
-          <x>840</x>
-          <y>660</y>
-          <width>89</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Add</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_guest_edit">
-        <property name="geometry">
-         <rect>
-          <x>1000</x>
-          <y>660</y>
-          <width>89</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Edit</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_guest_delete">
-        <property name="geometry">
-         <rect>
-          <x>1160</x>
-          <y>660</y>
-          <width>89</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Delete</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_76">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>230</y>
-          <width>91</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Phone</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_guest_phone">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>230</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_guest_target_visit">
-        <property name="geometry">
-         <rect>
-          <x>1040</x>
-          <y>400</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_75">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>400</y>
-          <width>91</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Visit To</string>
-        </property>
-       </widget>
-       <widget class="QTabWidget" name="tabWidget_guest_target_visit">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>440</y>
-          <width>421</width>
-          <height>211</height>
-         </rect>
-        </property>
-        <property name="currentIndex">
-         <number>1</number>
-        </property>
-        <widget class="QWidget" name="tab_14">
-         <attribute name="title">
-          <string>Tab 1</string>
-         </attribute>
-         <widget class="QLabel" name="label_78">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>120</y>
-            <width>81</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Time To</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_67">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>30</y>
-            <width>67</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Company</string>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_guest_visit_company">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>20</y>
-            <width>171</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_77">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>70</y>
-            <width>81</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Time From</string>
-          </property>
-         </widget>
-         <widget class="QDateTimeEdit" name="dateTimeEdit_guest_visit_company_to_time">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>120</y>
-            <width>194</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QDateTimeEdit" name="dateTimeEdit_guest_visit_company_from_time">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>70</y>
-            <width>194</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="tab_15">
-         <attribute name="title">
-          <string>Tab 2</string>
-         </attribute>
-         <widget class="QLabel" name="label_81">
-          <property name="geometry">
-           <rect>
-            <x>230</x>
-            <y>140</y>
-            <width>31</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string> To</string>
-          </property>
-         </widget>
-         <widget class="QDateTimeEdit" name="dateTimeEdit_guest_visit_resident_to_time">
-          <property name="geometry">
-           <rect>
-            <x>270</x>
-            <y>140</y>
-            <width>141</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_82">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>110</y>
-            <width>111</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Resident</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_79">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>70</y>
-            <width>111</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Room Number</string>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_guest_visit_resident">
-          <property name="geometry">
-           <rect>
-            <x>240</x>
-            <y>100</y>
-            <width>171</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_80">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>140</y>
-            <width>81</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>From</string>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_guest_visit_appartment">
-          <property name="geometry">
-           <rect>
-            <x>240</x>
-            <y>60</y>
-            <width>171</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QDateTimeEdit" name="dateTimeEdit_guest_visit_resident_from_time">
-          <property name="geometry">
-           <rect>
-            <x>70</x>
-            <y>140</y>
-            <width>151</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_guest_target_visit_resident_block">
-          <property name="geometry">
-           <rect>
-            <x>80</x>
-            <y>10</y>
-            <width>111</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_99">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>10</y>
-            <width>51</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Block</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_100">
-          <property name="geometry">
-           <rect>
-            <x>240</x>
-            <y>10</y>
-            <width>51</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Floor</string>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_guest_target_visit_resident_floor">
-          <property name="geometry">
-           <rect>
-            <x>300</x>
-            <y>10</y>
-            <width>111</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
        </widget>
       </widget>
      </widget>
@@ -3759,7 +3271,7 @@
         <string>Person Image</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButton_access_track">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -3773,6 +3285,9 @@
        </property>
       </widget>
       <widget class="QTabWidget" name="tabWidget_access_control">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>160</x>
@@ -4045,11 +3560,159 @@
         <attribute name="title">
          <string>Tab 2</string>
         </attribute>
+        <widget class="QGroupBox" name="groupBox_person_image">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>1141</width>
+           <height>661</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>GroupBox</string>
+         </property>
+         <widget class="QComboBox" name="comboBox_fields_search_person_image">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>30</y>
+            <width>181</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_type_search_person_email">
+          <property name="geometry">
+           <rect>
+            <x>600</x>
+            <y>30</y>
+            <width>441</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_person_image_info">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>70</y>
+            <width>1071</width>
+            <height>201</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_access_track_person_image">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>280</y>
+            <width>1071</width>
+            <height>371</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>Image</string>
+          </property>
+         </widget>
+        </widget>
        </widget>
        <widget class="QWidget" name="tab_18">
         <attribute name="title">
          <string>Page</string>
         </attribute>
+        <widget class="QTabWidget" name="tabWidget_access_track">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>10</y>
+           <width>1011</width>
+           <height>661</height>
+          </rect>
+         </property>
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="tab_21">
+          <attribute name="title">
+           <string>Tab 1</string>
+          </attribute>
+          <widget class="QLineEdit" name="lineEdit_search_access_track">
+           <property name="geometry">
+            <rect>
+             <x>540</x>
+             <y>10</y>
+             <width>401</width>
+             <height>31</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QTableWidget" name="tableWidget_access_track">
+           <property name="geometry">
+            <rect>
+             <x>12</x>
+             <y>50</y>
+             <width>991</width>
+             <height>571</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QComboBox" name="comboBox_fields_search_access_track">
+           <property name="geometry">
+            <rect>
+             <x>80</x>
+             <y>10</y>
+             <width>231</width>
+             <height>31</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="tab_22">
+          <attribute name="title">
+           <string>Tab 2</string>
+          </attribute>
+          <widget class="QGroupBox" name="groupBox_cam_number">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>491</width>
+             <height>311</height>
+            </rect>
+           </property>
+           <property name="title">
+            <string>Door number</string>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+        <widget class="QPushButton" name="pushButton_access_track_accident">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>130</y>
+           <width>89</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Video Track</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_access_track_all_track">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>60</y>
+           <width>89</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>All Track</string>
+         </property>
+        </widget>
        </widget>
       </widget>
      </widget>
