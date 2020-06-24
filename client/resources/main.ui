@@ -279,7 +279,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -2463,7 +2463,7 @@
       <attribute name="title">
        <string>Page</string>
       </attribute>
-      <widget class="QTabWidget" name="tabWidget">
+      <widget class="QTabWidget" name="tabWidget_resident_manage">
        <property name="geometry">
         <rect>
          <x>160</x>
@@ -3733,6 +3733,325 @@
       <attribute name="title">
        <string>Page</string>
       </attribute>
+      <widget class="QPushButton" name="pushButton_grant_role">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>60</y>
+         <width>111</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Grant Role</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_person_image">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>150</y>
+         <width>111</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Person Image</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>240</y>
+         <width>111</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Access Track</string>
+       </property>
+      </widget>
+      <widget class="QTabWidget" name="tabWidget_access_control">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>9</y>
+         <width>1161</width>
+         <height>711</height>
+        </rect>
+       </property>
+       <property name="currentIndex">
+        <number>2</number>
+       </property>
+       <widget class="QWidget" name="tab_16">
+        <attribute name="title">
+         <string>Tab 1</string>
+        </attribute>
+        <widget class="QGroupBox" name="groupBox_role_grant">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>10</y>
+           <width>1131</width>
+           <height>661</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>GroupBox</string>
+         </property>
+         <widget class="QComboBox" name="comboBox_fields_search_grant_role">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>30</y>
+            <width>211</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_line_search_grant_role">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>30</y>
+            <width>371</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_grant_role">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>70</y>
+            <width>731</width>
+            <height>581</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_83">
+          <property name="geometry">
+           <rect>
+            <x>790</x>
+            <y>70</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_id_grant_role">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>70</y>
+            <width>113</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_84">
+          <property name="geometry">
+           <rect>
+            <x>790</x>
+            <y>170</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Info</string>
+          </property>
+         </widget>
+         <widget class="QTextEdit" name="textEdit">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>170</y>
+            <width>211</width>
+            <height>101</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_85">
+          <property name="geometry">
+           <rect>
+            <x>790</x>
+            <y>120</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ID Num</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_id_grant_role_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>120</y>
+            <width>161</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_grant_role_block">
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>290</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_86">
+          <property name="geometry">
+           <rect>
+            <x>790</x>
+            <y>290</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Block</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_grant_role_floor">
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>340</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_87">
+          <property name="geometry">
+           <rect>
+            <x>790</x>
+            <y>340</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Floor</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_grant_role_door">
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>390</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_88">
+          <property name="geometry">
+           <rect>
+            <x>790</x>
+            <y>390</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Door</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_89">
+          <property name="geometry">
+           <rect>
+            <x>790</x>
+            <y>440</y>
+            <width>81</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Permission</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_grant_role_door_2">
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>440</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_grant_role_add">
+          <property name="geometry">
+           <rect>
+            <x>780</x>
+            <y>510</y>
+            <width>101</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Add</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_grant_role_edit">
+          <property name="geometry">
+           <rect>
+            <x>900</x>
+            <y>510</y>
+            <width>101</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Edit</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_grant_role_add_2">
+          <property name="geometry">
+           <rect>
+            <x>1020</x>
+            <y>510</y>
+            <width>101</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Delete</string>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_17">
+        <attribute name="title">
+         <string>Tab 2</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="tab_18">
+        <attribute name="title">
+         <string>Page</string>
+        </attribute>
+       </widget>
+      </widget>
      </widget>
     </widget>
     <widget class="QLabel" name="label_username_session">
