@@ -17,8 +17,10 @@ from keras.models import load_model
 from random import choice
 import argparse
 import sys
+import pickle
+import os
 
-from face_data_loader import load_faces, load_dataset, get_embedding
+from face_data_loader import load_faces, load_dataset, get_embedding, embedding_face_data
 from face_extraction import extract_face, get_extract_face_array_from_image
 from face_detection import get_single_bbox_from_image
 
@@ -29,7 +31,7 @@ def parse_arguments(argv):
     parser.add_argument('--mode', type=str, choices=['CAP', 'TRAIN', 'CLASSIFY'])
     parser.add_argument('--data_dir', type=str)  # folder of all image
     parser.add_argument('--model', type=str)  # facenet pretrained model
-    parser.add_argument('--data', type=str)  # folder of faces data
+    # parser.add_argument('--data', type=str)  # folder of faces data
     parser.add_argument('--embedding', type=str)
     parser.add_argument('--detect_model', type=str)
     parser.add_argument('--prototxt')
@@ -38,6 +40,7 @@ def parse_arguments(argv):
     parser.add_argument('--stf', type=str)  # save to folder
     parser.add_argument('--ws', type=int, default=1080)  # width screen
     parser.add_argument('--cur_im', type=int, default=0)
+    parser.add_argument('--trained_predict_model', type=str, required=True)
     
     return parser.parse_args(argv)
 
@@ -60,29 +63,71 @@ def get_image_from_video(args):
     video_stream.stop()
 
 def run_load_data(args):
+    # faces, labels = load_dataset(args.data_dir, args.prototxt, args.detect_model)
+    # X_train, X_test, y_train, y_test= train_test_split(faces, labels, test_size=0.2, stratify=labels)
+    # savez_compressed(args.data, X_train, y_train, X_test, y_test)
     faces, labels = load_dataset(args.data_dir, args.prototxt, args.detect_model)
-    X_train, X_test, y_train, y_test= train_test_split(faces, labels, test_size=0.2, stratify=labels)
-    savez_compressed(args.data, X_train, y_train, X_test, y_test)
+
 
 def run_embedding(args):
-    data = np.load(args.data)
-    trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
-    print('Loaded: ', trainX.shape, trainy.shape, testX.shape, testy.shape)
-    model = load_model(args.model)
-    print('Loaded Model')
-    newTrainX = []
-    for face_pixels in trainX:
-        embedding = get_embedding(model, face_pixels)
-        newTrainX.append(embedding)
-    newTrainX = np.asarray(newTrainX)
-    print(newTrainX.shape)
-    newTestX = list()
-    for face_pixels in testX:
-        embedding = get_embedding(model, face_pixels)
-        newTestX.append(embedding)
-    newTestX = np.asarray(newTestX)
-    print(newTestX.shape)
-    savez_compressed(args.embedding, newTrainX, trainy, newTestX, testy)
+    # data = np.load(args.data, allow_pickle=True)
+    # trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
+    # print('Loaded: ', trainX.shape, trainy.shape, testX.shape, testy.shape)
+    # model = load_model(args.model)
+    # print('Loaded Model')
+    # newTrainX = []
+    # for i, face_pixels in enumerate(trainX):
+    #     if face_pixels is not None:
+    #         embedding = get_embedding(model, face_pixels)
+    #         newTrainX.append(embedding)
+    #     else:
+    #         np.delete(trainy, i)
+    # newTrainX = np.asarray(newTrainX)
+    # print(newTrainX.shape)
+    # newTestX = list()
+    # for i, face_pixels in enumerate(testX):
+    #     if face_pixels is not None:
+    #         embedding = get_embedding(model, face_pixels)
+    #         newTestX.append(embedding)
+    #     else:
+    #         np.delete(testy, i)
+    # newTestX = np.asarray(newTestX)
+    # print(newTestX.shape)
+    # savez_compressed(args.embedding, newTrainX, trainy, newTestX, testy)
+    run_embedding_face_data(args)
+    run_get_all_embedding(args)
+
+def run_embedding_face_data(args):
+    print("=====================run embedding===================")
+    model_embedding = load_model(args.model)
+    for subdir in listdir(args.data_dir):
+        path_folder = args.data_dir + subdir + '/'
+        print(path_folder)
+        face_data_compress = path_folder + subdir +'_faces_data.npz'
+        face_embedding_compress = path_folder + subdir +'_faces_embedded.npz'
+        print(face_data_compress)
+        if os.path.exists(face_data_compress):
+            if os.path.exists(face_embedding_compress):
+                return
+            else:
+                embedding_face_data(face_data_compress, face_embedding_compress, args.model)
+
+def run_get_all_embedding(args):
+    faces_embedded, labels = [], []
+    for subdir in listdir(args.data_dir):
+        path_folder = args.data_dir + subdir + '/'
+        if not isdir(path_folder):
+            next
+        if os.path.exists(path_folder + subdir + '_faces_embedded.npz'):
+            embedded_compresed = path_folder + subdir + '_faces_embedded.npz'
+            data_loaded = np.load(embedded_compresed, allow_pickle=True)
+            embedded, labeled = data_loaded['arr_0'], data_loaded['arr_1']
+            print(labeled)
+            faces_embedded.extend(embedded)
+            labels.extend(labeled)
+    X_train, X_test, y_train, y_test= train_test_split(faces_embedded, labels, test_size=0.2, stratify=labels)
+    savez_compressed(args.embedding, X_train, y_train, X_test, y_test)
+
         
 def train_model(args):
     run_load_data(args)
@@ -101,7 +146,8 @@ def train_model(args):
 
     model = SVC(kernel='linear', probability=True)
     model.fit(trainX, trainy)
-
+    print(trainy)
+    pickle.dump(model, open(args.trained_predict_model, 'wb'))
     yhat_train = model.predict(trainX)
     yhat_test = model.predict(testX)
 
@@ -117,14 +163,15 @@ def run_classify(args):
     model = load_model(args.model)
     face_embedded_data = np.load(args.embedding)
     trainX, trainy = face_embedded_data['arr_0'], face_embedded_data['arr_1']
+    # model_predict_trained = pickle.load(open(args.trained_predict_model, 'rb'))
     in_encoder = Normalizer(norm='l2')
     trainX = in_encoder.transform(trainX)
 
     out_encoder = LabelEncoder()
     out_encoder.fit(trainy)
 
-    model_predict = SVC(kernel='linear', probability=True)
-    model_predict.fit(trainX, trainy)
+    model_predict_trained = SVC(kernel='linear', probability=True)
+    model_predict_trained.fit(trainX, trainy)
 
     while True:
         frame = video_stream.read()
@@ -153,15 +200,16 @@ def run_classify(args):
             embedding = get_embedding(model, face_array)
 
             samples = np.expand_dims(embedding, axis=0)
-            y_hatclass = model_predict.predict(samples)
+            y_hatclass = model_predict_trained.predict(samples)
 
-            y_hatprob = model_predict.predict_proba(samples)
+            y_hatprob = model_predict_trained.predict_proba(samples)
             class_index = y_hatclass[0]
+            print("Y_hatclass:", y_hatclass)
             index = y_hatprob.argmax()
             predic = y_hatprob[0, index] * 100
             text_print = None
             fonscale = 0.7
-            if predic >= 80:
+            if predic >= 70:
                 text_print = '%s  %.3f' % (class_index, predic)
             else:
                 text_print = 'U N K N O W'
@@ -199,16 +247,16 @@ def run(args):
     elif args.mode == 'TRAIN':
         train_model(args)
         '''
-            python core/face_recognition.py --mode TRAIN --data_dir core/data/dataset/raw/ 
-            --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_001.npz 
-            --data core/data/dataset/dataset_face_001.npz  --prototxt core/data/model/deploy.prototxt 
-            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel 
+            python core/face_recognition.py --mode TRAIN --data_dir core/data/dataset/raw/ \
+            --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_001.npz \
+            --data core/data/dataset/dataset_face_001.npz  --prototxt core/data/model/deploy.prototxt \
+            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel
         '''
     else:
         run_classify(args)
         '''
-            python core/face_recognition.py --mode CLASSIFY --prototxt core/data/model/deploy.prototxt 
-            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel --confidence 0.8 
+            python core/face_recognition.py --mode CLASSIFY --prototxt core/data/model/deploy.prototxt \
+            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel --confidence 0.8 \
             --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_001.npz 
         '''
 

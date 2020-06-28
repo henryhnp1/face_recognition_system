@@ -4,6 +4,9 @@ from face_detection import get_single_bbox_from_image
 import cv2
 
 def extract_face(filename, prototxt, detect_model ,confidence=0.5, required_size=(160, 160)):
+    box = get_single_bbox_from_image(filename, prototxt, detect_model)
+    if box is None:
+        return None
     startX, startY, endX, endY = get_single_bbox_from_image(filename, prototxt, detect_model)
     image = Image.open(filename)
     image = image.convert('RGB')

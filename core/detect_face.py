@@ -16,6 +16,7 @@ from sklearn.preprocessing import Normalizer
 from sklearn.svm import SVC
 from keras.models import load_model
 from random import choice
+import joblib
 
 
 prototxt = 'core/data/model/deploy.prototxt'
@@ -23,6 +24,8 @@ detect_model = 'core/data/model/res10_300x300_ssd_iter_140000.caffemodel'
 data_dir = 'core/data/dataset/raw/'
 data = 'core/data/dataset/dataset_face_001.npz'
 embedded = 'core/data/dataset/face_embedding_001.npz'
+model = 'core/data/model/facenet_keras.h5'
+model_save = 'core/data/model/final_model.sav'
 
 def get_single_bbox_from_image(image_path, prototxt, detect_model, confidence_param=0.5):
     net = cv2.dnn.readNetFromCaffe(prototxt, detect_model)
@@ -93,29 +96,35 @@ def get_embedding(model, face_pixels):
     return yhat[0]
     
 def run_get_embedding():
-    data = np.load('../data/dataset/face_001.npz')
-    trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
+    data_load = np.load(data, allow_pickle=True)
+    trainX, trainy, testX, testy = data_load['arr_0'], data_load['arr_1'], data_load['arr_2'], data_load['arr_3']
     print('Loaded: ', trainX.shape, trainy.shape, testX.shape, testy.shape)
-    model = load_model('../data/model/facenet_keras.h5')
+    model_load = load_model(model)
     print('Loaded Model')
     newTrainX = []
-    for face_pixels in trainX:
-        embedding = get_embedding(model, face_pixels)
-        newTrainX.append(embedding)
+    for i, face_pixels in enumerate(trainX):
+        if face_pixels is not None:
+            embedding = get_embedding(model_load, face_pixels)
+            newTrainX.append(embedding)
+        else:
+            np.delete(trainy, i)
     newTrainX = np.asarray(newTrainX)
     print(newTrainX.shape)
     newTestX = list()
-    for face_pixels in testX:
-        embedding = get_embedding(model, face_pixels)
-        newTestX.append(embedding)
+    for i, face_pixels in enumerate(testX):
+        if face_pixels is not None:
+            embedding = get_embedding(model_load, face_pixels)
+            newTestX.append(embedding)
+        else:
+            np.delete(testy, i)
     newTestX = np.asarray(newTestX)
     print(newTestX.shape)
-    savez_compressed('../data/dataset/face_001_embeddings.npz', newTrainX, trainy, newTestX, testy)
+    savez_compressed(embedded, newTrainX, trainy, newTestX, testy)
 
 
 def train_model():
     run_get_embedding()
-    data = np.load('../data/dataset/face_001_embeddings.npz')
+    data = np.load(embedded)
     trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
     print('Dataset: train=%d, test=%d' % (trainX.shape[0], testX.shape[0]))
     in_encoder = Normalizer(norm='l2')
@@ -130,6 +139,7 @@ def train_model():
     model = SVC(kernel='linear', probability=True)
     model.fit(trainX, trainy)
 
+    joblib.dump(model, model_save)
     yhat_train = model.predict(trainX)
     yhat_test = model.predict(testX)
 
@@ -206,6 +216,6 @@ def test():
 
 #test()
 #run_load_data()
-#train_model()
-test_train()
-    
+train_model()
+#test_train()
+# run_get_embedding()
