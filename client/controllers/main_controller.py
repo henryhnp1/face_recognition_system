@@ -94,7 +94,7 @@ class MainApp(QMainWindow, ui):
         self.open_window()
         
         #for test ting
-        self.handle_frame_ui()
+        #self.handle_frame_ui()
 
     def check_login(self):
         print(self.session)
