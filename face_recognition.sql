@@ -47,13 +47,17 @@ create table permission(
     description nvarchar(2000)
 );
 /*-------------------------------------------------------------------------------*/
+create table guest(
+	id int primary key auto_increment,
+    person int,
+    foreign key (person) references person(id)
+);
 create table person(
 	id int primary key auto_increment,
     name nvarchar(255) not null,
     birthday date,
     id_card varchar(12) not null,
     gender int,
-    email nvarchar(255) unique,
     village nvarchar(255),
     current_accommodation text,
     is_delete int
@@ -64,7 +68,7 @@ create table apartment(
     floor int,
     foreign key (floor) references floor(id) on delete cascade
 );
-create table apartment_resident(
+create table resident_apartment(
 	id int primary key auto_increment,
     resident int,
     apartment int,
@@ -100,12 +104,12 @@ create table person_door_permission(
 create table out_in_of_guest(
 	id int primary key auto_increment,
     guest int,
-    resident int,
+    apartment int,
     time_in datetime,
     time_out datetime,
     reason text,
     foreign key (guest) references person(id) on delete cascade,
-    foreign key(resident) references person(id) on delete cascade
+    foreign key(apartment) references person(id) on delete cascade
 );
 create table history_out_int(
 	id int primary key auto_increment,
