@@ -285,7 +285,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_16">
         <attribute name="title">
@@ -548,95 +548,59 @@
         <attribute name="title">
          <string>Tab 2</string>
         </attribute>
-        <widget class="QGroupBox" name="groupBox_person_image">
+        <widget class="QGroupBox" name="groupBox_person_image_2">
          <property name="geometry">
           <rect>
-           <x>20</x>
+           <x>10</x>
            <y>10</y>
-           <width>1131</width>
+           <width>1141</width>
            <height>661</height>
           </rect>
          </property>
          <property name="title">
           <string>GroupBox</string>
          </property>
-         <widget class="QComboBox" name="comboBox_fields_search_person_image">
+         <widget class="QComboBox" name="comboBox_fields_search_person_image_2">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>100</x>
             <y>30</y>
             <width>181</width>
             <height>31</height>
            </rect>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_type_search_person_email">
+         <widget class="QLineEdit" name="lineEdit_type_search_person_email_2">
           <property name="geometry">
            <rect>
-            <x>240</x>
+            <x>600</x>
             <y>30</y>
             <width>441</width>
             <height>31</height>
            </rect>
           </property>
          </widget>
-         <widget class="QTableWidget" name="tableWidget_person_image_info">
+         <widget class="QTableWidget" name="tableWidget_person_image_info_2">
           <property name="geometry">
            <rect>
             <x>20</x>
             <y>70</y>
-            <width>661</width>
+            <width>1071</width>
             <height>201</height>
            </rect>
           </property>
          </widget>
-         <widget class="QTabWidget" name="tabWidget_person_image_manage">
+         <widget class="QGroupBox" name="groupBox_access_track_person_image">
           <property name="geometry">
            <rect>
             <x>20</x>
             <y>280</y>
-            <width>661</width>
+            <width>1071</width>
             <height>371</height>
            </rect>
           </property>
-          <property name="currentIndex">
-           <number>1</number>
-          </property>
-          <widget class="QWidget" name="tab_19">
-           <attribute name="title">
-            <string>Tab 1</string>
-           </attribute>
-          </widget>
-          <widget class="QWidget" name="tab_20">
-           <attribute name="title">
-            <string>Tab 2</string>
-           </attribute>
-          </widget>
-         </widget>
-         <widget class="QPushButton" name="pushButton_person_manage_add_photo">
-          <property name="geometry">
-           <rect>
-            <x>720</x>
-            <y>70</y>
-            <width>121</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Add New Photo</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_person_manage_manage_photo">
-          <property name="geometry">
-           <rect>
-            <x>870</x>
-            <y>70</y>
-            <width>121</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Manage Photos</string>
+          <property name="title">
+           <string>Image</string>
           </property>
          </widget>
         </widget>

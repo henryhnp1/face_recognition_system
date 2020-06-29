@@ -44,7 +44,6 @@ def load_dataset(directory, prototxt, detect_model):
 def embedding_face_data(face_data_compress, face_embedded_compress, model_embedding):
     data_loaded = np.load(face_data_compress, allow_pickle=True)
     faces_data, labels_data = data_loaded['arr_0'], data_loaded['arr_1']
-    print("Goto embedding face data from file")
     model = load_model(model_embedding)
     newFaces = []
     for i, face_pixels in enumerate(faces_data):
@@ -53,7 +52,6 @@ def embedding_face_data(face_data_compress, face_embedded_compress, model_embedd
             newFaces.append(embedding)
         else:
             labels_data = np.delete(labels_data, i)
-            print(labels_data)
     savez_compressed(face_embedded_compress, newFaces, labels_data)
     print("save " + face_embedded_compress)
 

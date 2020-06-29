@@ -41,6 +41,7 @@ def parse_arguments(argv):
     parser.add_argument('--ws', type=int, default=1080)  # width screen
     parser.add_argument('--cur_im', type=int, default=0)
     parser.add_argument('--trained_predict_model', type=str, required=True)
+
     
     return parser.parse_args(argv)
 
@@ -98,17 +99,15 @@ def run_embedding(args):
     run_get_all_embedding(args)
 
 def run_embedding_face_data(args):
-    print("=====================run embedding===================")
     model_embedding = load_model(args.model)
     for subdir in listdir(args.data_dir):
         path_folder = args.data_dir + subdir + '/'
-        print(path_folder)
         face_data_compress = path_folder + subdir +'_faces_data.npz'
         face_embedding_compress = path_folder + subdir +'_faces_embedded.npz'
-        print(face_data_compress)
+        print(face_data_compress, face_embedding_compress)
         if os.path.exists(face_data_compress):
             if os.path.exists(face_embedding_compress):
-                return
+                next
             else:
                 embedding_face_data(face_data_compress, face_embedding_compress, args.model)
 
@@ -122,7 +121,6 @@ def run_get_all_embedding(args):
             embedded_compresed = path_folder + subdir + '_faces_embedded.npz'
             data_loaded = np.load(embedded_compresed, allow_pickle=True)
             embedded, labeled = data_loaded['arr_0'], data_loaded['arr_1']
-            print(labeled)
             faces_embedded.extend(embedded)
             labels.extend(labeled)
     X_train, X_test, y_train, y_test= train_test_split(faces_embedded, labels, test_size=0.2, stratify=labels)
@@ -144,9 +142,9 @@ def train_model(args):
     trainy = out_encoder.transform(trainy)
     testy = out_encoder.transform(testy)
 
-    model = SVC(kernel='linear', probability=True)
+    # model = SVC(kernel='linear', probability=True)
+    model = SVC(kernel='rbf' , class_weight='balanced' , C=1000 , gamma=0.0082, probability=True)
     model.fit(trainX, trainy)
-    print(trainy)
     pickle.dump(model, open(args.trained_predict_model, 'wb'))
     yhat_train = model.predict(trainX)
     yhat_test = model.predict(testX)
@@ -170,7 +168,8 @@ def run_classify(args):
     out_encoder = LabelEncoder()
     out_encoder.fit(trainy)
 
-    model_predict_trained = SVC(kernel='linear', probability=True)
+    # model_predict_trained = SVC(kernel='linear', probability=True)
+    model_predict_trained = SVC(kernel='rbf' , class_weight='balanced' , C=1000 , gamma=0.0082, probability=True)
     model_predict_trained.fit(trainX, trainy)
 
     while True:
@@ -198,18 +197,19 @@ def run_classify(args):
             #======= recognition ===============================
             face_array = get_extract_face_array_from_image(frame, box)
             embedding = get_embedding(model, face_array)
+            # # test
+            # embedding = in_encoder.format(embedding)
 
             samples = np.expand_dims(embedding, axis=0)
             y_hatclass = model_predict_trained.predict(samples)
 
             y_hatprob = model_predict_trained.predict_proba(samples)
             class_index = y_hatclass[0]
-            print("Y_hatclass:", y_hatclass)
             index = y_hatprob.argmax()
             predic = y_hatprob[0, index] * 100
             text_print = None
             fonscale = 0.7
-            if predic >= 70:
+            if predic >= 85:
                 text_print = '%s  %.3f' % (class_index, predic)
             else:
                 text_print = 'U N K N O W'
@@ -242,7 +242,7 @@ def run(args):
     if args.mode == 'CAP':
         get_image_from_video(args)
         '''
-            python core/face_recognition.py --mode CAP
+            python core/face_recognition.py --mode CAP --stf core/dataset/raw
         '''
     elif args.mode == 'TRAIN':
         train_model(args)
@@ -250,14 +250,14 @@ def run(args):
             python core/face_recognition.py --mode TRAIN --data_dir core/data/dataset/raw/ \
             --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_001.npz \
             --data core/data/dataset/dataset_face_001.npz  --prototxt core/data/model/deploy.prototxt \
-            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel
+            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel  --trained_predict_model core/data/dataset/predict_model.sav
         '''
     else:
         run_classify(args)
         '''
             python core/face_recognition.py --mode CLASSIFY --prototxt core/data/model/deploy.prototxt \
             --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel --confidence 0.8 \
-            --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_001.npz 
+            --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_001.npz --trained_predict_model core/data/dataset/predict_model.sav
         '''
 
 run(parse_arguments(sys.argv[1:]))

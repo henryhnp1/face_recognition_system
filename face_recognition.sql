@@ -62,12 +62,17 @@ create table person(
     current_accommodation text,
     is_delete int
 );
+
+alter table person
+add name_en varchar(50) unique after name;
 create table apartment(
 	id int primary key auto_increment,
     name nvarchar(50) not null,
     floor int,
     foreign key (floor) references floor(id) on delete cascade
 );
+alter table apartment
+add status int;
 create table resident_apartment(
 	id int primary key auto_increment,
     resident int,
@@ -137,7 +142,9 @@ create table role_sys(
 create table user(
 	id int primary key auto_increment,
     username nvarchar(250) not null,
-    password nvarchar(255) not null
+    password nvarchar(255) not null,
+    role int,
+    foreign key (role) references role(id)
 );
 create table user_role_sys(
 	id int primary key auto_increment,
@@ -160,4 +167,9 @@ create table company_staff(
     staff int,
     foreign key (company) references company(id),
     foreign key (staff) references person(id)
+);
+
+create table role(
+	id int primary key auto_increment,
+    name varchar(10) unique
 );
