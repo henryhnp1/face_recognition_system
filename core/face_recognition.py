@@ -209,7 +209,7 @@ def run_classify(args):
             predic = y_hatprob[0, index] * 100
             text_print = None
             fonscale = 0.7
-            if predic >= 85:
+            if predic >= 87:
                 text_print = '%s  %.3f' % (class_index, predic)
             else:
                 text_print = 'U N K N O W'

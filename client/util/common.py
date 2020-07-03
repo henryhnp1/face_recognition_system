@@ -4,6 +4,8 @@ from .standardized import str_standard
 import pandas as pd
 import os
 import MySQLdb as db
+import re
+import unicodedata
 
 def search_common_building_setting(option_search, line_search, table, loader):
     field_search = option_search.currentText()
@@ -102,3 +104,45 @@ def get_list_model(database, model, query):
     except db.Error as e:
         print(e)
     return list_model
+
+def make_dir(name_dir):
+    try:
+        os.mkdir(dir_name)
+    except OSError:
+        pass
+
+def no_accent_vietnamese(s):
+    s = re.sub(u'[àáạảãâầấậẩẫăằắặẳẵ]', 'a', s)
+    s = re.sub(u'[ÀÁẠẢÃĂẰẮẶẲẴÂẦẤẬẨẪ]', 'A', s)
+    s = re.sub(u'[èéẹẻẽêềếệểễ]', 'e', s)
+    s = re.sub(u'[ÈÉẸẺẼÊỀẾỆỂỄ]', 'E', s)
+    s = re.sub(u'[òóọỏõôồốộổỗơờớợởỡ]', 'o', s)
+    s = re.sub(u'[ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ]', 'O', s)
+    s = re.sub(u'[ìíịỉĩ]', 'i', s)
+    s = re.sub(u'[ÌÍỊỈĨ]', 'I', s)
+    s = re.sub(u'[ùúụủũưừứựửữ]', 'u', s)
+    s = re.sub(u'[ƯỪỨỰỬỮÙÚỤỦŨ]', 'U', s)
+    s = re.sub(u'[ỳýỵỷỹ]', 'y', s)
+    s = re.sub(u'[ỲÝỴỶỸ]', 'Y', s)
+    s = re.sub(u'Đ', 'D', s)
+    s = re.sub(u'đ', 'd', s)
+    return s
+
+def make_acronym_name(name:str):
+    words = name.split()
+    if len(words) > 2:
+        main_name = words[-1]
+        firstname = words[0]
+        lastname = words[-2]
+        return main_name + firstname[0] + lastname[0]
+    else:
+        return words[1] + words[0]
+
+def make_name(name, birthday, id_num, current_date):
+    name = make_acronym_name(name).upper()
+    birthdays = birthday.split('-')
+    birthday = birthdays[1] + birthdays[2]
+    id_num = id_num[-3:]
+    current_dates = current_date.split('-')
+    current_date = current_dates[2] + '_' + current_dates[1] + '_' + current_dates[0][-2:]
+    return '{}_{}_{}'.format(name+birthday, id_num, current_date)

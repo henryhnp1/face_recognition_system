@@ -23,7 +23,7 @@ class Permission(object):
 
 class Floor(object):
     def __init__(self, pk, name, building, type_of_floor, number_of_aparment):
-        super(Building,self).__init__()
+        super(Floor,self).__init__()
         self.pk = pk
         self.name = name
         self.building = building
@@ -36,3 +36,9 @@ class Door(object):
         self.name = name
         self.floor = floor
         self.permission = permission
+
+class RoleDoor(object):
+    def __init__(self, pk, name, description):
+        self.pk = pk
+        self.name = name
+        self.description = description

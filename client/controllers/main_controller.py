@@ -49,10 +49,11 @@ class MainApp(QMainWindow, ui):
     from controllers.building.floor_tab import building_manage_handle_button_floor_manage_tab, building_manage_handle_combobox_floor_manage_tab, building_manage_handle_search_line_edit_floor_tab
     from controllers.building.floor_tab import building_manage_floor_manage_add_floor, building_manage_floor_manage_edit_floor, building_manage_floor_manage_delete_floor, building_manage_floor_manage_search_floor
     
-    from controllers.building.door_tab import building_manage_door_manage_load
+    from controllers.building.door_tab import building_manage_door_manage_load, building_manage_combobox_setting_data_change_door_manage_tab_building_combobox
     from controllers.building.door_tab import building_manage_button_setting_and_ui_door_tab, building_manage_combobox_setting_data_change_door_manage_tab, building_manage_combobox_setting_door_manage_tab
     from controllers.building.door_tab import building_manage_door_manage_tab_table_widget_setting, building_manage_handle_button_door_manage_tab, building_manage_handle_combobox_door_manage_tab, building_manage_handle_search_line_edit_door_tab
-    from controllers.building.door_tab import building_manage_door_manage_search_door
+    from controllers.building.door_tab import building_manage_door_manage_search_door, building_manage_door_manage_door_table_load, building_manage_door_manage_role_door_table_load
+    from controllers.building.door_tab import building_manage_door_manage_role_door_item_click, building_manage_door_manage_door_item_click, building_manage_combobox_setting_data_change_door_manage_tab_role_door_combobox, building_manage_combobox_setting_data_change_door_manage_tab_floor_combobox
 
     from controllers.apartment.apartment_controller import apartment_manage_button_setting_and_ui, apartment_manage_combobox_setting, apartment_manage_combobox_setting_data_change, apartment_manage_table_widget_setting
     from controllers.apartment.apartment_controller import apartment_manage_handle_button, apartment_manage_handle_combobox, apartment_manage_handle_search_line_edit
@@ -94,7 +95,7 @@ class MainApp(QMainWindow, ui):
         self.open_window()
         
         #for test ting
-        #self.handle_frame_ui()
+        self.handle_frame_ui()
 
     def check_login(self):
         print(self.session)

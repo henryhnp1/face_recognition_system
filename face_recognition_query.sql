@@ -321,6 +321,7 @@ insert into person_door_permission(person, door, permission) values
 (5, 2, 2),
 (6, 2, 2);
 /*select query*/
+use face_recognition;
 select * from floor;
 select * from permission;
 
