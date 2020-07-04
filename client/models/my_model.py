@@ -42,3 +42,10 @@ class RoleDoor(object):
         self.pk = pk
         self.name = name
         self.description = description
+
+class Apartment(object):
+    def __init__(self, pk, name, floor, status):
+        self.pk = pk
+        self.name = name
+        self.floor = floor
+        self.status = status

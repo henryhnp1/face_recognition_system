@@ -2,8 +2,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import sys
-# import MySQLdb as db
-# from util import ui_loader, db_connector, message_box, file_reader
 
 from util import common, standardized, message_box
 

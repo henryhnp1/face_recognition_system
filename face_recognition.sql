@@ -73,6 +73,10 @@ create table apartment(
 );
 alter table apartment
 add status int;
+
+alter table apartment
+add unique(name, floor);
+
 create table resident_apartment(
 	id int primary key auto_increment,
     resident int,
@@ -160,7 +164,8 @@ create table company(
     apartment int,
     foreign key (apartment) references apartment(id)
 );
-
+alter table company
+add unique(name, apartment);
 create table company_staff(
 	id int primary key auto_increment,
     company int,
@@ -184,3 +189,43 @@ end#
 delimiter ;
 
 call insert_door_from_file(1, 1, 'PUBLIC');
+
+
+drop procedure if exists insert_office_from_file;
+delimiter #
+create procedure insert_office_from_file(in building_name nvarchar(50),  floor_name int, in name_in nvarchar(50), in status_in nvarchar(50))
+begin
+	declare building_id int;
+    declare floor_id int;
+    declare status_int int;
+    set status_int = if (status_in = 'Available', 0, 1);
+    select b.id into building_id from building as b where b.name = building_name limit 1;
+    select f.id into floor_id from building as b join floor as f on f.building = b.id where b.id = building_id and f.name = floor_name limit 1;
+    insert into apartment(name, floor, status) value (name_in, floor_id, status_int);
+end#
+delimiter ;
+
+call insert_office_from_file('B', 1, 'B1012','Not Available');
+
+drop procedure if exists insert_company;
+delimiter #
+create procedure insert_company(in name_in nvarchar(255),in phone_in nvarchar(10),in office_in int)
+begin
+	update apartment set status = 1 where id = office_in;
+    insert into company(name, phone, apartment) value (name_in, phone_in, office_in);
+end#
+delimiter ;
+
+call insert_company('Test1', '0964092612', 5);
+
+drop procedure if exists update_company;
+delimiter #
+create procedure update_company(in id_in int, in name_in nvarchar(255),in phone_in nvarchar(10),in office_in_cur int, in office_in_new int)
+begin
+    update apartment set status = 0 where id = office_in_cur;
+	update apartment set status = 1 where id = office_in_new;
+    update company set name = name_in, phone = phone_in, apartment = office_in_new where id = id_in;
+end#
+delimiter ;
+
+call update_company(10,'Test1', '0964092613', 5, 10);

@@ -7,7 +7,7 @@ import MySQLdb as db
 
 from util import common, standardized, message_box
 from models import my_model
-fully_query_door = query = '''
+fully_query_door = '''
         select d.id, b.name as 'building', f.name as 'floor' , d.name as 'door', r.name as 'role' from door as d 
         join floor as f on d.floor = f.id 
         join building as b on f.building = b.id
@@ -332,35 +332,7 @@ def building_manage_door_mange_export_file_door(self):
     path_file = common.select_file_export(self, self.pushButton_export_door)
     if path_file:
         common.export_data_from_table_widget(self, self.tableWidget_door, path_file)
-        # filename, file_extension = os.path.splitext(path_file)
-        # with open(path_file, mode='w') as f:
-        #     header = []
-        #     for column in range(self.tableWidget_door.columnCount()):
-        #         if column == 0:
-        #             next
-        #         else:
-        #             item = self.tableWidget_door.horizontalHeaderItem(column).text()
-        #             header.append(item)
-        #     df = pd.DataFrame(columns = header)
-        #     index = 0
-        #     for row in range(self.tableWidget_door.rowCount()):
-        #         rowdata = []
-        #         for column in range(self.tableWidget_door.columnCount()):
-        #             if column == 0:
-        #                 next
-        #             else:
-        #                 item = self.tableWidget_door.item(row, column).text()
-        #                 if item is not None:
-        #                     rowdata.append(item)
-        #                 else:
-        #                     rowdata.append('')
-        #         df.loc[index] = rowdata
-        #         index += 1
-        #     if file_extension == '.csv':
-        #         df.to_csv(path_file, index=False)
-        #     else:
-        #         df.to_excel(path_file, index=False)
-
+        
 def building_manage_door_manage_clear_door_form(self):
     self.lineEdit_id_door.setText(None)
     self.spinBox_name_door.setValue(0)

@@ -180,3 +180,23 @@ def make_name(name, birthday, id_num, current_date):
     current_dates = current_date.split('-')
     current_date = current_dates[2] + '_' + current_dates[1] + '_' + current_dates[0][-2:]
     return '{}_{}_{}'.format(name+birthday, id_num, current_date)
+
+def get_row_data_item_click(table_data):
+    current_row = table_data.currentRow()
+    columns_num = table_data.columnCount()
+    data = []
+    for cell in range(0, columns_num):
+        item = table_data.item(current_row, cell).text()
+        data.append(item)
+    return data
+
+def get_single_value_from_table(table, field, where_clause, database):
+    query = "select {} from {} {}"
+    cursor = database.cursor()
+    try:
+        cursor.execute(query.format(field, table, where_clause))
+        data = cursor.fetchall()
+        cursor.close()
+        return data[0][0]
+    except:
+        pass

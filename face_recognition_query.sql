@@ -322,6 +322,11 @@ insert into person_door_permission(person, door, permission) values
 (2, 2, 1),
 (5, 2, 2),
 (6, 2, 2);
+
+insert into apartment(name, floor, status) value
+('A1001', 1, 0)
+
+delete from apartment where apartment.id > 90
 /*select query*/
 use face_recognition;
 select * from floor;
@@ -339,3 +344,19 @@ join building as b on f.building = b.id
 join type_of_floor as t on f.type_of_floor = t.id
 
 select * from door as r where r.id like '%1%'
+
+select a.id, a.name, if(a.status =0, 'Available', 'Not Available') as 'status', f.name as 'floor', b.name as 'building' from apartment as a join floor as f on a.floor = f.id
+join building as b on b.id = f.building
+join type_of_floor as t on t.id = f.type_of_floor
+where t.name = 'business'
+
+select c.id, b.name as 'building', f.name as 'floor', a.name as 'apartment' ,c.name, c.phone from company as c
+join apartment as a on c.apartment = a.id
+join floor as f on a.floor = f.id
+join building as b on f.building = b.id
+
+select a.id, a.name, a.floor, a.status from apartment as a join floor as f on a.floor = f.id where a.floor = 1
+
+SHOW INDEX FROM apartment;
+alter table apartment
+drop index `name`;
