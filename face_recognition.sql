@@ -173,3 +173,14 @@ create table role(
 	id int primary key auto_increment,
     name varchar(10) unique
 );
+drop procedure if exists insert_door_from_file;
+delimiter #
+create procedure insert_door_from_file(in floor_id int, in door_id int, in role_name nvarchar(50))
+begin
+	declare role_id int;
+	select r.id into role_id from role_door as r where r.name = role_name limit 1;
+    insert into door(name, floor, role) value (door_id, floor_id, role_id);
+end#
+delimiter ;
+
+call insert_door_from_file(1, 1, 'PUBLIC');

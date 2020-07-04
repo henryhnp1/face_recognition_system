@@ -887,7 +887,7 @@
            <rect>
             <x>250</x>
             <y>30</y>
-            <width>351</width>
+            <width>291</width>
             <height>31</height>
            </rect>
           </property>
@@ -912,6 +912,19 @@
           <column/>
           <column/>
           <column/>
+         </widget>
+         <widget class="QPushButton" name="pushButton_export_door">
+          <property name="geometry">
+           <rect>
+            <x>550</x>
+            <y>30</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export</string>
+          </property>
          </widget>
         </widget>
         <widget class="QGroupBox" name="groupBox_floor_edit_2">
@@ -1097,6 +1110,9 @@
             <width>61</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="maximum">
+           <number>10000</number>
           </property>
          </widget>
          <widget class="QComboBox" name="comboBox_door_manage_building">

@@ -160,10 +160,12 @@ insert into door(name, floor, role) values
 (342, 5, 2),
 (343, 5, 2);
 
--- insert into door(name, floor, role) values
--- (1, 11, 1),
+insert into door(name, floor, role) values
+(1, 1, 1)
 -- (2, 11, 4),
 -- (3, 11, 2);
+insert into role_door(name,description) value
+('ads', 'ads')
 
 insert into user(username, password, role) values 
 ('admin', '25d55ad283aa400af464c76d713c07ad', 1), 
@@ -327,4 +329,13 @@ select * from permission;
 
 select a.id, b.name, f.name, a.name, t.name  from apartment as a, floor as f, building as b, type_of_floor as t where a.floor = f.id and f.building = b.id and f.type_of_floor = t.id ;
 select f.name as 'floor' , f.id, b.name as 'building' from floor as f, building as b where f.building = b.id and b.name = 'C';
+select d.id, b.name as 'building', f.name as 'floor' , d.name as 'door', r.name as 'role' from door as d 
+join floor as f on d.floor = f.id 
+join building as b on f.building = b.id
+join role_door as r on d.role = r.id;
 
+select f.id, b.name as 'building', f.name as 'floor', t.name as 'type_of_floor', f.number_of_apartment as 'number_of_apartment' from floor as f
+join building as b on f.building = b.id
+join type_of_floor as t on f.type_of_floor = t.id
+
+select * from door as r where r.id like '%1%'

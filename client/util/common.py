@@ -24,6 +24,10 @@ def select_file_building_setting(parent, button_select_file, button_import_file)
     if button_select_file.text():
         button_import_file.setEnabled(True)
 
+def select_file_export(parent, button_sellect_file):
+    file_path = QFileDialog.getSaveFileName(parent, 'Save File', '/home',"Excel(*.csv *.xlsx)")
+    return file_path[0]
+
 def import_file_building_setting(button_select_file, database_connection, table, loader):
     file_path = button_select_file.text()
     filename, file_extension = os.path.splitext(file_path)
@@ -48,6 +52,36 @@ def import_file_building_setting(button_select_file, database_connection, table,
         except:
             MyMessageBox(QMessageBox.Critical, "Error", "Incorrect format file!").exec()
     loader()
+
+def export_data_from_table_widget(parrent, table_widget, file_save):
+    filename, file_extension = os.path.splitext(file_save)
+    with open(file_save, mode='w') as f:
+        header = []
+        for column in range(table_widget.columnCount()):
+            if column == 0:
+                next
+            else:
+                item = table_widget.horizontalHeaderItem(column).text()
+                header.append(item)
+        df = pd.DataFrame(columns = header)
+        index = 0
+        for row in range(table_widget.rowCount()):
+            rowdata = []
+            for column in range(table_widget.columnCount()):
+                if column == 0:
+                    next
+                else:
+                    item = table_widget.item(row, column).text()
+                    if item is not None:
+                        rowdata.append(item)
+                    else:
+                        rowdata.append('')
+            df.loc[index] = rowdata
+            index += 1
+        if file_extension == '.csv':
+            df.to_csv(file_save, index=False)
+        else:
+            df.to_excel(file_save, index=False)
 
 def set_push_button_when_other_clicked(*args):
     for arg in args:
