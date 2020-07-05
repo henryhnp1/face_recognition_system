@@ -457,16 +457,59 @@ def apartment_manage_edit_company(self):
             message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name of company must be not null").exec()
 
 def apartment_manage_delete_company(self):
-    pass
+    if self.lineEdit_company_id.text():
+        company_id = int(self.lineEdit_company_id.text())
+        office_old = common.get_single_value_from_table('company', 'apartment', 'where id = {}'.format(company_id), self.database)
+        query = 'update apartment set status = 0 where id = %s'
+        cursor = self.database.cursor()
+        try:
+            cursor.execute(query,(office_old))
+            self.database.commit()
+            common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table_2, fully_query_company)
+        except db.Error as e:
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "Wrong").exec()
+        cursor.close()
+        common.delete_item(self, 'company', self.database, company_id, self.apartment_manage_load_company_tab, self.apartment_manage_clear_data_form_company_form)
+
 
 def apartment_manage_select_import_company(self):
     common.select_file_building_setting(self, self.pushButton_select_file_company, self.pushButton_import_file_company)
 
 def apartment_manage_import_company(self):
-    pass
+    file_path = self.pushButton_select_file_company.text()
+    filename, file_extension = os.path.splitext(file_path)
+    with open(file_path, mode='rb') as f:
+        if file_extension == '.csv':
+            reader = pd.read_csv(f)
+        else:
+            reader = pd.read_excel(f)
+        header = reader.columns
+        cursor = self.database.cursor()
+        try:
+            for index, row in reader.iterrows():
+                building = row['building']
+                floor = int(row['floor'])
+                office = row['office']
+                name = row['name']
+                phone = row['phone']
+                try:
+                    query = "call insert_company_from_file(%s, %s, %s, %s, %s);"
+                    cursor.execute(query, (building, floor, office,name ,phone))
+                    print(cursor._last_executed )
+                    self.database.commit()
+                except db.Error as e:
+                    print(e)
+            cursor.close()
+        except:
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "Incorrect format file!").exec()
+    self.apartment_manage_load_company_tab()
+    self.statusBar().showMessage("Import Success")
 
 def apartment_manage_export_company(self):
-    pass
+    path_file = common.select_file_export(self, self.pushButton_export_company)
+    if path_file:
+        common.export_data_from_table_widget(self, self.tableWidget_company_apartment_table_2, path_file)
+        self.statusBar().showMessage("Export Success")
 
 def apartment_manage_clear_data_form_company_form(self):
     self.lineEdit_company_id.setText(None)

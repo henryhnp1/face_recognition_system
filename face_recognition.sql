@@ -229,3 +229,19 @@ end#
 delimiter ;
 
 call update_company(10,'Test1', '0964092613', 5, 10);
+
+drop procedure if exists insert_company_from_file;
+delimiter #
+create procedure insert_company_from_file(in building_name nvarchar(50),in floor_name int ,in office_name nvarchar(50), in name_company nvarchar(255),in phone_in nvarchar(10))
+begin
+	declare building_id int;
+    declare floor_id int;
+    declare office_id int;
+    select id into building_id from building where name = building_name limit 1;
+    select f.id into floor_id from floor as f join building as b on f.building = b.id where f.name = floor_name and b.id = building_id limit 1;
+    select a.id into office_id from apartment as a join floor as f on a.floor = f.id where f.id = floor_id and a.name = office_name limit 1;
+    call insert_company(name_company, phone_in, office_id);
+end#
+delimiter ;
+
+call insert_company_from_file('B', '1', 'B1003', 'Test5', '0965892179');
