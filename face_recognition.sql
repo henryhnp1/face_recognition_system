@@ -245,3 +245,19 @@ end#
 delimiter ;
 
 call insert_company_from_file('B', '1', 'B1003', 'Test5', '0965892179');
+
+drop procedure if exists insert_apartment_from_file;
+delimiter #
+create procedure insert_apartment_from_file(in building_name nvarchar(50),in floor_name int ,in apartment_name nvarchar(50), in status_in nvarchar(50))
+begin
+	declare building_id int;
+    declare floor_id int;
+    declare status_int int;
+    set status_int = if (status_in = 'Available', 0, 1);
+    select b.id into building_id from building as b where b.name = building_name limit 1;
+    select f.id into floor_id from building as b join floor as f on f.building = b.id where b.id = building_id and f.name = floor_name limit 1;
+    insert into apartment(name, floor, status) value (apartment_name, floor_id, status_int);
+end#
+delimiter ;
+
+call insert_apartment_from_file('A', '5', 'A5001', 'Available');

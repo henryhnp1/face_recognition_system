@@ -360,3 +360,9 @@ select a.id, a.name, a.floor, a.status from apartment as a join floor as f on a.
 SHOW INDEX FROM apartment;
 alter table apartment
 drop index `name`;
+
+select a.id, b.name, f.name, a.name, a.status from apartment as a 
+join floor as f on f.id = a.floor
+join building as b on b.id = f.building
+join type_of_floor as t on f.type_of_floor = t.id
+where t.id = 2

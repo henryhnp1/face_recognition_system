@@ -1777,7 +1777,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_10">
         <attribute name="title">
@@ -2387,6 +2387,17 @@
            <height>571</height>
           </rect>
          </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+         </property>
+         <property name="columnCount">
+          <number>5</number>
+         </property>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
         </widget>
         <widget class="QLabel" name="label_30">
          <property name="geometry">
@@ -2499,12 +2510,12 @@
           </rect>
          </property>
         </widget>
-        <widget class="QSpinBox" name="spinBox_2">
+        <widget class="QSpinBox" name="spinBox_apartment_number">
          <property name="geometry">
           <rect>
-           <x>840</x>
+           <x>880</x>
            <y>260</y>
-           <width>81</width>
+           <width>71</width>
            <height>31</height>
           </rect>
          </property>
@@ -2539,7 +2550,7 @@
          <property name="geometry">
           <rect>
            <x>840</x>
-           <y>320</y>
+           <y>310</y>
            <width>141</width>
            <height>31</height>
           </rect>
@@ -2582,6 +2593,32 @@
          </property>
          <property name="text">
           <string>Delete</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_export_apartment">
+         <property name="geometry">
+          <rect>
+           <x>640</x>
+           <y>20</y>
+           <width>81</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Export</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label__prefix_apartment_number">
+         <property name="geometry">
+          <rect>
+           <x>840</x>
+           <y>260</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </widget>

@@ -134,10 +134,10 @@ def apartment_manage_search_line_edit_setting_search_office(self):
 def apartment_manage_search_line_edit_setting_search_company(self):
     field_search = self.comboBox_field_search_company_apartment_2.currentText()
     if field_search == 'id' or field_search=='phone':
-        self.lineEdit_line_search_company_apartment_2.setText('')
-        self.lineEdit_line_search_company_apartment_2.setValidator(QIntValidator(0, 1147483647, self))
+        self.lineEdit_line_search_apartment.setText('')
+        self.lineEdit_line_search_apartment.setValidator(QIntValidator(0, 1147483647, self))
     else:
-        self.lineEdit_line_search_company_apartment_2.setValidator(None)
+        self.lineEdit_line_search_apartment.setValidator(None)
 
 def apartment_manage_search_office(self):
     field_search = self.comboBox_field_search_company_office.currentText()
@@ -166,7 +166,7 @@ def apartment_manage_search_office(self):
             query = query.format("and a.status = 1".format(text_search))
         else:
             query = query.format('')
-    common.data_loader(self, self.database, 'None', self.tableWidget_company_apartment_table, query)
+    common.data_loader(self, self.database, 'None', self.tableWidget_resident_apartment_table, query)
 
 def apartment_manage_office_item_click(self):
     data = common.get_row_data_item_click(self.tableWidget_company_apartment_table)
@@ -261,10 +261,10 @@ def apartment_manage_edit_office(self):
                 self.database.commit()
                 common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table, fully_query_office)
             except db.Error as e:
-                message_box.MyMessageBox(QMessageBox.Critical, "Error", "The door Is Exist!").exec()
+                message_box.MyMessageBox(QMessageBox.Critical, "Error", "The office Is Exist!").exec()
             cursor.close()
         else:
-            message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name of door must be bigger than 0").exec()
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name of office must be bigger than 0").exec()
     else:
         pass
 
