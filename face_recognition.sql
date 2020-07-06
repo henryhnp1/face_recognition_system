@@ -65,6 +65,16 @@ create table person(
 
 alter table person
 add name_en varchar(50) unique after name;
+
+alter table person
+add unique(id_card);
+
+alter table person
+add phone varchar(10) after gender;
+
+alter table person
+add is_resident int;
+
 create table apartment(
 	id int primary key auto_increment,
     name nvarchar(50) not null,
@@ -166,6 +176,7 @@ create table company(
 );
 alter table company
 add unique(name, apartment);
+
 create table company_staff(
 	id int primary key auto_increment,
     company int,
@@ -261,3 +272,44 @@ end#
 delimiter ;
 
 call insert_apartment_from_file('A', '5', 'A5001', 'Available');
+
+drop procedure if exists insert_staff;
+delimiter #
+create procedure insert_staff(in company_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text)
+begin
+	declare person_id int;
+    declare person_id_number nvarchar(12);
+    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
+    if person_id_number is null then
+		begin
+			insert into person(name, birthday, id_card, gender, phone, village, current_accommodation, is_delete, is_resident)
+			value (name_in, birthday_in, id_card_in, gender_in, phone_in, village_in, current_accommodation_in, 0, 1);
+			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+			insert into company_staff(company, staff) value (company_in, person_id);
+		end;
+	else
+		begin
+			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+			insert into company_staff(company, staff) value (company_in, person_id);
+        end;
+	end if;
+end#
+delimiter ;
+
+call insert_staff(2, 'Trần Đức Long', '1978-06-10', 1, '0986256817', '162780124', 'Nguyễn Trãi, Thanh Xuân, Hà Nội', 'Đốc Ngữ, Ba Đình, Hà Nội');
+
+drop procedure if exists edit_staff;
+delimiter #
+create procedure edit_staff(in company_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text, in cur_id_card varchar(12), in cur_company int)
+begin
+	declare person_id int;
+    declare person_id_number nvarchar(12);
+    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
+	update person set name = name_in, birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
+	village = village_in, current_accommodation=current_accommodation_in where id_card = cur_id_card;
+	select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+	update company_staff set company = company_in where staff = person_id and company = cur_company;
+
+end#
+delimiter ;
+call edit_staff(3, 'Trần Đức Long', '1978-06-10', 1, '0986256817', '162780125', 'Nguyễn Trãi, Thanh Xuân, Hà Nội', 'Đốc Ngữ, Ba Đình, Hà Nội','162780124',2);

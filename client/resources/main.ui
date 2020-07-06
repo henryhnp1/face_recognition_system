@@ -279,7 +279,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -2695,7 +2695,7 @@
          <widget class="QLineEdit" name="lineEdit_search_company_staff">
           <property name="geometry">
            <rect>
-            <x>370</x>
+            <x>270</x>
             <y>30</y>
             <width>391</width>
             <height>31</height>
@@ -2711,6 +2711,22 @@
             <height>581</height>
            </rect>
           </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+          </property>
+          <property name="columnCount">
+           <number>10</number>
+          </property>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
          </widget>
          <widget class="QLabel" name="label_47">
           <property name="geometry">
@@ -2781,7 +2797,7 @@
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>130</y>
+            <y>120</y>
             <width>67</width>
             <height>31</height>
            </rect>
@@ -2794,7 +2810,7 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>130</y>
+            <y>120</y>
             <width>161</width>
             <height>31</height>
            </rect>
@@ -2804,17 +2820,20 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>180</y>
+            <y>160</y>
             <width>161</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="displayFormat">
+           <string>dd/MM/yyyy</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_50">
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>180</y>
+            <y>160</y>
             <width>67</width>
             <height>31</height>
            </rect>
@@ -2827,7 +2846,7 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>230</y>
+            <y>200</y>
             <width>101</width>
             <height>31</height>
            </rect>
@@ -2837,7 +2856,7 @@
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>230</y>
+            <y>200</y>
             <width>67</width>
             <height>31</height>
            </rect>
@@ -2850,7 +2869,7 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>280</y>
+            <y>240</y>
             <width>161</width>
             <height>31</height>
            </rect>
@@ -2863,7 +2882,7 @@
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>280</y>
+            <y>240</y>
             <width>91</width>
             <height>31</height>
            </rect>
@@ -2876,7 +2895,7 @@
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>380</y>
+            <y>320</y>
             <width>91</width>
             <height>31</height>
            </rect>
@@ -2889,9 +2908,9 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>380</y>
+            <y>320</y>
             <width>181</width>
-            <height>61</height>
+            <height>51</height>
            </rect>
           </property>
          </widget>
@@ -2899,9 +2918,9 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>460</y>
+            <y>380</y>
             <width>181</width>
-            <height>61</height>
+            <height>51</height>
            </rect>
           </property>
          </widget>
@@ -2909,7 +2928,7 @@
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>460</y>
+            <y>380</y>
             <width>121</width>
             <height>41</height>
            </rect>
@@ -2925,7 +2944,7 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>540</y>
+            <y>520</y>
             <width>181</width>
             <height>31</height>
            </rect>
@@ -2935,13 +2954,16 @@
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>540</y>
+            <y>520</y>
             <width>67</width>
             <height>31</height>
            </rect>
           </property>
           <property name="text">
-           <string>Company</string>
+           <string>Company Office</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
          <widget class="QPushButton" name="pushButton_company_staff_add">
@@ -2970,7 +2992,7 @@
            <string>Edit</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_company_staff_add_">
+         <widget class="QPushButton" name="pushButton_company_staff_delete">
           <property name="geometry">
            <rect>
             <x>1010</x>
@@ -2987,7 +3009,7 @@
           <property name="geometry">
            <rect>
             <x>780</x>
-            <y>330</y>
+            <y>280</y>
             <width>91</width>
             <height>31</height>
            </rect>
@@ -3000,13 +3022,72 @@
           <property name="geometry">
            <rect>
             <x>910</x>
-            <y>330</y>
+            <y>280</y>
             <width>161</width>
             <height>31</height>
            </rect>
           </property>
           <property name="text">
            <string/>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_export_staff">
+          <property name="geometry">
+           <rect>
+            <x>670</x>
+            <y>30</y>
+            <width>89</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_70">
+          <property name="geometry">
+           <rect>
+            <x>780</x>
+            <y>440</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Building</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_71">
+          <property name="geometry">
+           <rect>
+            <x>780</x>
+            <y>480</y>
+            <width>67</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Floor</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_company_staff_building">
+          <property name="geometry">
+           <rect>
+            <x>910</x>
+            <y>440</y>
+            <width>111</width>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_company_staff_floor">
+          <property name="geometry">
+           <rect>
+            <x>910</x>
+            <y>480</y>
+            <width>181</width>
+            <height>31</height>
+           </rect>
           </property>
          </widget>
         </widget>
@@ -3488,7 +3569,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_16">
         <attribute name="title">

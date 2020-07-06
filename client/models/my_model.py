@@ -49,3 +49,35 @@ class Apartment(object):
         self.name = name
         self.floor = floor
         self.status = status
+
+class Staff(object):
+    def __init__(self, pk, company, office, name, birthday, gender, id_card, phone,village, current_accommodation):
+        self.pk = pk
+        self.company = company
+        self.office = office
+        self.name = name
+        self.birthday = birthday
+        self.gender = gender
+        self.id_card = id_card
+        self.phone = phone
+        self.village = village
+        self.current_accommodation = current_accommodation
+
+class Company(object):
+    def __init__(self, pk, name, phone, apartment, office=None):
+        self.pk = pk
+        self.name = name
+        self.phone = phone
+        self.apartment = apartment
+        self.office = office
+
+class Company_Office_Building(object):
+    def __init__(self, pk, name, office_pk, office_name, floor_pk, floor_name, building_pk, building_name):
+        self.pk = pk
+        self.name = name
+        self.office_pk = office_pk
+        self.office_name = office_name
+        self.floor_pk = floor_pk
+        self.floor_name = floor_name
+        self.building_pk = building_pk
+        self.building_name = building_name

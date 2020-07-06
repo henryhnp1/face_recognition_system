@@ -156,7 +156,7 @@ def apartment_manage_search_office(self):
     elif field_search == 'floor':
         query = query.format("and f.name like '%{}%'".format(int(text_search)))
     elif field_search == 'name':
-        query = query.format("and a.name like '%{}%'".format((ext_search)))
+        query = query.format("and a.name like '%{}%'".format((text_search)))
     elif field_search == 'building':
         query = query.format("and b.name like '%{}%'".format(text_search))
     elif field_search == 'status':

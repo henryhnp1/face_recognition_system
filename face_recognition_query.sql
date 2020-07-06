@@ -161,11 +161,11 @@ insert into door(name, floor, role) values
 (343, 5, 2);
 
 insert into door(name, floor, role) values
-(1, 1, 1)
+(1, 1, 1);
 -- (2, 11, 4),
 -- (3, 11, 2);
 insert into role_door(name,description) value
-('ads', 'ads')
+('ads', 'ads');
 
 insert into user(username, password, role) values 
 ('admin', '25d55ad283aa400af464c76d713c07ad', 1), 
@@ -341,28 +341,49 @@ join role_door as r on d.role = r.id;
 
 select f.id, b.name as 'building', f.name as 'floor', t.name as 'type_of_floor', f.number_of_apartment as 'number_of_apartment' from floor as f
 join building as b on f.building = b.id
-join type_of_floor as t on f.type_of_floor = t.id
+join type_of_floor as t on f.type_of_floor = t.id;
 
-select * from door as r where r.id like '%1%'
+select * from door as r where r.id like '%1%';
 
 select a.id, a.name, if(a.status =0, 'Available', 'Not Available') as 'status', f.name as 'floor', b.name as 'building' from apartment as a join floor as f on a.floor = f.id
 join building as b on b.id = f.building
 join type_of_floor as t on t.id = f.type_of_floor
-where t.name = 'business'
+where t.name = 'business';
 
 select c.id, b.name as 'building', f.name as 'floor', a.name as 'apartment' ,c.name, c.phone from company as c
 join apartment as a on c.apartment = a.id
 join floor as f on a.floor = f.id
-join building as b on f.building = b.id
+join building as b on f.building = b.id;
 
-select a.id, a.name, a.floor, a.status from apartment as a join floor as f on a.floor = f.id where a.floor = 1
+select a.id, a.name, a.floor, a.status from apartment as a join floor as f on a.floor = f.id where a.floor = 1;
 
-SHOW INDEX FROM apartment;
-alter table apartment
+SHOW INDEX FROM company;
+alter table company
 drop index `name`;
 
 select a.id, b.name, f.name, a.name, a.status from apartment as a 
 join floor as f on f.id = a.floor
 join building as b on b.id = f.building
 join type_of_floor as t on f.type_of_floor = t.id
-where t.id = 2
+where t.id = 2;
+
+select s.id, c.name as 'company', a.name as 'office', p.name, p.birthday, if(p.gender=1,'Male', 'Female') as 'gender' , p.id_card, p.phone, p.village, p.current_accommodation from company_staff as s
+join person as p on s.staff = p.id
+join company as c on s.company = c.id
+join apartment as a on a.id = c.apartment
+where p.is_delete = 0;
+
+select c.id, c.name, c.phone, c.apartment, a.name as 'office'from company as c
+join apartment as a on c.apartment = a.id
+join floor as f on a.floor = f.id
+join building as b on b.id = f.building
+join type_of_floor as t on t.id = f.type_of_floor
+where t.name = 'business' and b.id = 1 and f.id = 1;
+
+select c.id, c.name, a.id as 'office_id', a.name as 'office', f.id as 'floor_id', 
+f.name as 'floor', b.id as 'building_id', b.name as 'building' from company as c
+join apartment as a on c.apartment = a.id
+join floor as f on a.floor = f.id
+join building as b on b.id = f.building
+join type_of_floor as t on t.id = f.type_of_floor
+where t.name = 'business' and c.name = 'CTY BAA' and a.name = 'B1001';
