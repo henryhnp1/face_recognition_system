@@ -7,6 +7,7 @@ import MySQLdb as db
 
 from util import common, standardized, message_box
 from models import my_model
+from datetime import date
 full_select_staff = '''
     select s.id, c.name as 'company', a.name as 'office', p.name, p.birthday, if(p.gender=1,'Male', 'Female') as 'gender' ,
     p.id_card, p.phone, p.village, p.current_accommodation from company_staff as s
@@ -105,15 +106,15 @@ def resident_manage_staff_tab_add_staff(self):
     if self.lineEdit_company_staff_name.text() and self.lineEdit_company_staff_id_number.text():
         phone_number = self.lineEdit_company_staff_phone.text()
         id_number = self.lineEdit_company_staff_id_number.text()
-        if (len(phone_number) > 0 and len(phone_number) <= 10) or (len(id_number) > 0 and (len(id_number) != 9) and len(id_number)!=12):
-            if len(phone_number) > 0 and len(phone_number) <= 10:
+        if (len(phone_number) > 0 and len(phone_number) <10) or (len(id_number) > 0 and (len(id_number) != 9) and len(id_number)!=12):
+            if len(phone_number) > 0 and len(phone_number) <10:
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Phone Must Be lenght 10").exec()
             else:
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Must Be lenght = 9 or 13").exec()
         else:
             name = self.lineEdit_company_staff_name.text()
             birthday = self.dateEdit_company_staff_birthday.date()
-            birthday_mysql = str(birthday.year()) + '-' +str(birthday.month()) + '-'+str(birthday.day())
+            birthday_mysql = standardized.str_date_standard(birthday.year(), birthday.month(), birthday.day())
             gender = self.comboBox_company_staff_gender.currentText()
             if gender == 'Male':
                 gender = 1
@@ -122,60 +123,81 @@ def resident_manage_staff_tab_add_staff(self):
             phone =self.lineEdit_company_staff_phone.text()
             village = self.textEdit_company_staff_village.toPlainText()
             curr_accommodation = self.textEdit_company_staff_current_accommodation.toPlainText()
+            today_mysql = common.get_today_str()
+            name_en = common.make_name(name, birthday_mysql, id_number, today_mysql)
             company = self.comboBox_company_staff_company.currentData().pk
-            query = 'call insert_staff(%s, %s, %s, %s, %s, %s, %s, %s)'
+            query = 'call insert_staff(%s, %s, %s, %s, %s, %s, %s, %s, %s)'
             cursor = self.database.cursor()
             try:
-                cursor.execute(query,(company, name, birthday, phone, id_number, village, curr_accommodation))
+                cursor.execute(query,(company, name, name_en, birthday_mysql, gender, phone, id_number, village, curr_accommodation))
                 self.database.commit()
-                common.data_loader(self, self.database, 'None', self.tableWidget_staff_table, fully_query_apartment)
+                common.data_loader(self, self.database, 'None', self.tableWidget_staff_table, full_select_staff)
             except db.Error as e:
+                print(e)
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Is Exist!").exec()
             cursor.close()
     else:
         message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name or ID Number must be Not Null").exec()
 
 def resident_manage_staff_tab_edit_staff(self):
-    if self.lineEdit_company_staff_name.text() and self.lineEdit_company_staff_id_number.text():
-        phone_number = self.lineEdit_company_staff_phone.text()
-        id_number = self.lineEdit_company_staff_id_number.text()
-        if (len(phone_number) > 0 and len(phone_number) <= 10) or (len(id_number) > 0 and (len(id_number) != 9) and len(id_number)!=12):
-            if len(phone_number) > 0 and len(phone_number) <= 10:
-                message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Phone Must Be lenght 10").exec()
-            else:
-                message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Must Be lenght = 9 or 13").exec()
-        else:
-            name = self.lineEdit_company_staff_name.text()
-            birthday = self.dateEdit_company_staff_birthday.date()
-            birthday_mysql = str(birthday.year()) + '-' +str(birthday.month()) + '-'+str(birthday.day())
-            gender = self.comboBox_company_staff_gender.currentText()
-            if gender == 'Male':
-                gender = 1
-            else: gender = 0
+    if self.lineEdit_company_staff_id.text():
+        cur_id_staff = int(self.lineEdit_company_staff_id.text())
+        if self.lineEdit_company_staff_name.text() and self.lineEdit_company_staff_id_number.text():
+            phone_number = self.lineEdit_company_staff_phone.text()
             id_number = self.lineEdit_company_staff_id_number.text()
-            phone =self.lineEdit_company_staff_phone.text()
-            village = self.textEdit_company_staff_village.toPlainText()
-            curr_accommodation = self.textEdit_company_staff_current_accommodation.toPlainText()
-            company = self.comboBox_company_staff_company.currentData().pk
-            query = 'call edit_staff(%s, %s, %s, %s, %s, %s, %s, %s)'
-            cursor = self.database.cursor()
-            try:
-                cursor.execute(query,(company, name, birthday, phone, id_number, village, curr_accommodation))
-                self.database.commit()
-                common.data_loader(self, self.database, 'None', self.tableWidget_staff_table, fully_query_apartment)
-            except db.Error as e:
-                message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Is Exist!").exec()
-            cursor.close()
-    else:
-        message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name or ID Number must be Not Null").exec()
+            if (len(phone_number) > 0 and len(phone_number) < 10) or (len(id_number) > 0 and (len(id_number) != 9) and len(id_number)!=12):
+                if len(phone_number) > 0 and len(phone_number) < 10:
+                    message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Phone Must Be lenght 10").exec()
+                else:
+                    message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Must Be lenght = 9 or 13").exec()
+            else:
+                query_get_cur_staff = '''
+                    select s.id, c.id as 'company', a.id as 'office', p.name, p.birthday, if(p.gender=1,'Male', 'Female') as 'gender' ,
+                    p.id_card, p.phone, p.village, p.current_accommodation from company_staff as s
+                    join person as p on s.staff = p.id
+                    join company as c on s.company = c.id
+                    join apartment as a on a.id = c.apartment
+                    where p.is_delete = 0 and s.id = {}
+                '''
+                cur_staff = common.get_single_item_from_query(query_get_cur_staff.format(cur_id_staff), self.database)
+                name = self.lineEdit_company_staff_name.text()
+                birthday = self.dateEdit_company_staff_birthday.date()
+                birthday_mysql = standardized.str_date_standard(birthday.year(), birthday.month(), birthday.day())
+                gender = self.comboBox_company_staff_gender.currentText()
+                if gender == 'Male':
+                    gender = 1
+                else: gender = 0
+                id_number = self.lineEdit_company_staff_id_number.text()
+                phone =self.lineEdit_company_staff_phone.text()
+                village = self.textEdit_company_staff_village.toPlainText()
+                curr_accommodation = self.textEdit_company_staff_current_accommodation.toPlainText()
+                company = self.comboBox_company_staff_company.currentData().pk
+                today_mysql = common.get_today_str()
+                name_en = common.make_name(name, birthday_mysql, id_number, today_mysql)
+                query = 'call edit_staff(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+                cursor = self.database.cursor()
+                try:
+                    cursor.execute(query,(company, name, birthday_mysql, gender, phone, id_number, village, curr_accommodation, cur_staff[6], cur_staff[1], name_en))
+                    self.database.commit()
+                    common.data_loader(self, self.database, 'None', self.tableWidget_staff_table, full_select_staff)
+                except db.Error as e:
+                    print(e)
+                    message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Is Exist!").exec()
+                cursor.close()
+        else:
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name or ID Number must be Not Null").exec()
 
 def resident_manage_staff_tab_delete_staff(self):
-    pass
+    if self.lineEdit_company_staff_id.text():
+        cur_id_staff = int(self.lineEdit_company_staff_id.text())
+        common.delete_item(self, 'company_staff', self.database, cur_id_staff, self.resident_manage_staff_load, self.resident_manage_staff_tab_clear_form)
 
 def resident_manage_staff_tab_clear_form(self):
     self.lineEdit_company_staff_id.setText(None)
     self.lineEdit_company_staff_name.setText(None)
-    self.dateEdit_company_staff_birthday.setDate(QDate().setDate(2000, 1, 1))
+    date_tpm = QDate()
+    date_tpm.setDate(2000, 1, 1)
+    self.dateEdit_company_staff_birthday.setDate(date_tpm)
     self.comboBox_company_staff_gender.setCurrentIndex(0)
     self.lineEdit_company_staff_id_number.setText(None)
     self.lineEdit_company_staff_phone.setText(None)
@@ -186,13 +208,47 @@ def resident_manage_staff_tab_clear_form(self):
     self.pushButton_import_company_staff.setEnabled(False)
 
 def resident_manage_staff_tab_sellect_file_import_staff(self):
-    pass
+    common.select_file_building_setting(self, self.pushButton_select_company_staff_file, self.pushButton_import_company_staff)
 
 def resident_manage_staff_tab_import_file_staff(self):
-    pass
+    file_path = self.pushButton_select_company_staff_file.text()
+    filename, file_extension = os.path.splitext(file_path)
+    with open(file_path, mode='rb') as f:
+        if file_extension == '.csv':
+            reader = pd.read_csv(f)
+        else:
+            reader = pd.read_excel(f)
+        header = reader.columns
+        cursor = self.database.cursor()
+        try:
+            for index, row in reader.iterrows():
+                company = row['company']
+                office = row['office']
+                name = row['name']
+                birthday = row['birthday']
+                gender = row['gender']
+                id_card = str(row['id_card'])
+                phone = row['phone']
+                village = row['village']
+                current_accomodation = row['current_accommodation']
+                cur_date = common.get_today_str()
+                name_en = common.make_name(name, birthday, id_card, cur_date)
+                try:
+                    query = "call insert_staff_from_file(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+                    cursor.execute(query, (company, office, name, name_en ,birthday, gender, phone, id_card, village, current_accomodation))
+                    self.database.commit()
+                except db.Error as e:
+                    print(e)
+            cursor.close()
+        except:
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "Incorrect format file!").exec()
+    self.resident_manage_staff_load()
 
 def resident_manage_staff_tab_export_file_staff(self):
-    pass
+    path_file = common.select_file_export(self, self.pushButton_export_staff)
+    if path_file:
+        common.export_data_from_table_widget(self, self.tableWidget_staff_table, path_file)
+        self.statusBar().showMessage("Export Success")
 
 def resident_manage_staff_tab_item_click(self):
     data = common.get_row_data_item_click(self.tableWidget_staff_table)

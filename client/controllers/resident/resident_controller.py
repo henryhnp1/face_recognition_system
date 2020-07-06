@@ -44,9 +44,9 @@ def resident_manage_button_setting_and_ui(self):
 def resident_manage_open_tab_staff(self):
     self.tabWidget_resident_manage.setCurrentIndex(0)
     common.set_tab_when_clicked(self.pushButton_company_staff, self.pushButton_resident)
-    self.load_apartment_manage()
+    self.load_resident_manage()
 
 def resident_manage_open_tab_resident(self):
-    self.tabWidget_resident_manage.setCurrentIndex(0)
+    self.tabWidget_resident_manage.setCurrentIndex(1)
     common.set_tab_when_clicked(self.pushButton_resident, self.pushButton_company_staff)
-    self.load_apartment_manage()
+    self.load_resident_manage()

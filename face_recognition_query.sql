@@ -254,21 +254,21 @@ insert into apartment(name, floor) values
 ('C3003', 13),
 ('C3004', 13),
 ('C3005', 13),
-('C6001', 64),
-('C6002', 64),
-('C6003', 64),
-('C6004', 64),
-('C6005', 64),
-('C7001', 65),
-('C7002', 65),
-('C7003', 65),
-('C7004', 65),
-('C7005', 65),
-('C8001', 66),
-('C8002', 66),
-('C8003', 66),
-('C8004', 66),
-('C8005', 66);
+('C6001', 61),
+('C6002', 61),
+('C6003', 61),
+('C6004', 61),
+('C6005', 61),
+('C7001', 61),
+('C7002', 62),
+('C7003', 62),
+('C7004', 62),
+('C7005', 62),
+('C8001', 63),
+('C8002', 63),
+('C8003', 63),
+('C8004', 63),
+('C8005', 63);
 
 update apartment
 set status = 0;
@@ -280,9 +280,9 @@ insert into company(name, phone, apartment) values
 ('CTY BAA', '0245092612', 31),
 ('CTY BAB', '0245092613', 36),
 ('CTY BAC', '0245092614', 41),
-('CTY CAA', '0246092612', 61),
-('CTY CAB', '0246092613', 66),
-('CTY CAC', '0246092614', 71);
+('CTY CAA', '0246092612', 121),
+('CTY CAB', '0246092613', 126),
+('CTY CAC', '0246092614', 131);
 
 insert into person(name, name_en, birthday, id_card, gender, village, current_accommodation, is_delete) values
 ('Hoàng Mai Nghị', 'NghiHM2406_618_29_06_20','1996-06-24', '163355618',1, 'Việt Hùng, Trực Ninh, Nam Định', 'Minh Khai, Bắc Từ Liêm, Hà Nội', 0);
@@ -295,17 +295,17 @@ insert into person(name, name_en, birthday, id_card, gender, village, current_ac
 ('Lê Thị Ánh', 'AnhLT2007_624_29_06_20','2000-07-20', '163355624',0, 'Kim Sơn, Ninh Bình', 'Thanh Xuân, Hà Nội', 0);
 
 insert into company_staff(company, staff) values
-(1, 1), 
-(1, 2),
-(2, 3),
-(4, 4);
+(10, 1), 
+(10, 2),
+(12, 3),
+(14, 4);
 
 insert into resident_apartment(resident, apartment) values
 (1, 22),
 (2, 22),
 (1, 56),
-(7, 85),
-(4, 87);
+(7, 146),
+(4, 147);
 
 insert into guest(person) values
 (5), (6);

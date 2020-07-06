@@ -47,11 +47,7 @@ create table permission(
     description nvarchar(2000)
 );
 /*-------------------------------------------------------------------------------*/
-create table guest(
-	id int primary key auto_increment,
-    person int,
-    foreign key (person) references person(id)
-);
+
 create table person(
 	id int primary key auto_increment,
     name nvarchar(255) not null,
@@ -74,7 +70,11 @@ add phone varchar(10) after gender;
 
 alter table person
 add is_resident int;
-
+create table guest(
+	id int primary key auto_increment,
+    person int,
+    foreign key (person) references person(id)
+);
 create table apartment(
 	id int primary key auto_increment,
     name nvarchar(50) not null,
@@ -153,6 +153,10 @@ create table role_sys(
     update_role int,
     delete_role int
 );
+create table role(
+	id int primary key auto_increment,
+    name varchar(10) unique
+);
 create table user(
 	id int primary key auto_increment,
     username nvarchar(250) not null,
@@ -185,10 +189,6 @@ create table company_staff(
     foreign key (staff) references person(id)
 );
 
-create table role(
-	id int primary key auto_increment,
-    name varchar(10) unique
-);
 drop procedure if exists insert_door_from_file;
 delimiter #
 create procedure insert_door_from_file(in floor_id int, in door_id int, in role_name nvarchar(50))
@@ -199,7 +199,7 @@ begin
 end#
 delimiter ;
 
-call insert_door_from_file(1, 1, 'PUBLIC');
+-- call insert_door_from_file(1, 1, 'PUBLIC');
 
 
 drop procedure if exists insert_office_from_file;
@@ -216,7 +216,7 @@ begin
 end#
 delimiter ;
 
-call insert_office_from_file('B', 1, 'B1012','Not Available');
+-- call insert_office_from_file('B', 1, 'B1012','Not Available');
 
 drop procedure if exists insert_company;
 delimiter #
@@ -227,7 +227,7 @@ begin
 end#
 delimiter ;
 
-call insert_company('Test1', '0964092612', 5);
+-- call insert_company('Test1', '0964092612', 5);
 
 drop procedure if exists update_company;
 delimiter #
@@ -239,7 +239,7 @@ begin
 end#
 delimiter ;
 
-call update_company(10,'Test1', '0964092613', 5, 10);
+-- call update_company(10,'Test1', '0964092613', 5, 10);
 
 drop procedure if exists insert_company_from_file;
 delimiter #
@@ -255,7 +255,7 @@ begin
 end#
 delimiter ;
 
-call insert_company_from_file('B', '1', 'B1003', 'Test5', '0965892179');
+-- call insert_company_from_file('B', '1', 'B1003', 'Test5', '0965892179');
 
 drop procedure if exists insert_apartment_from_file;
 delimiter #
@@ -271,45 +271,71 @@ begin
 end#
 delimiter ;
 
-call insert_apartment_from_file('A', '5', 'A5001', 'Available');
+-- call insert_apartment_from_file('A', '5', 'A5001', 'Available');
 
-drop procedure if exists insert_staff;
-delimiter #
-create procedure insert_staff(in company_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text)
-begin
-	declare person_id int;
-    declare person_id_number nvarchar(12);
-    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
-    if person_id_number is null then
-		begin
-			insert into person(name, birthday, id_card, gender, phone, village, current_accommodation, is_delete, is_resident)
-			value (name_in, birthday_in, id_card_in, gender_in, phone_in, village_in, current_accommodation_in, 0, 1);
-			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
-			insert into company_staff(company, staff) value (company_in, person_id);
-		end;
-	else
-		begin
-			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
-			insert into company_staff(company, staff) value (company_in, person_id);
-        end;
-	end if;
-end#
-delimiter ;
 
-call insert_staff(2, 'Trần Đức Long', '1978-06-10', 1, '0986256817', '162780124', 'Nguyễn Trãi, Thanh Xuân, Hà Nội', 'Đốc Ngữ, Ba Đình, Hà Nội');
+
+-- call insert_staff(2, 'Trần Đức Long', '1978-06-10', 1, '0986256817', '162780124', 'Nguyễn Trãi, Thanh Xuân, Hà Nội', 'Đốc Ngữ, Ba Đình, Hà Nội');
 
 drop procedure if exists edit_staff;
 delimiter #
-create procedure edit_staff(in company_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text, in cur_id_card varchar(12), in cur_company int)
+create procedure edit_staff(in company_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text, in cur_id_card varchar(12), in cur_company int, in name_en_in varchar(50))
 begin
 	declare person_id int;
     declare person_id_number nvarchar(12);
     select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
-	update person set name = name_in, birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
+	update person set name = name_in, name_en = name_en_in ,birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
 	village = village_in, current_accommodation=current_accommodation_in where id_card = cur_id_card;
 	select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
 	update company_staff set company = company_in where staff = person_id and company = cur_company;
 
 end#
 delimiter ;
-call edit_staff(3, 'Trần Đức Long', '1978-06-10', 1, '0986256817', '162780125', 'Nguyễn Trãi, Thanh Xuân, Hà Nội', 'Đốc Ngữ, Ba Đình, Hà Nội','162780124',2);
+-- call edit_staff(3, 'Trần Đức Long', '1978-06-10', 1, '0986256817', '162780125', 'Nguyễn Trãi, Thanh Xuân, Hà Nội', 'Đốc Ngữ, Ba Đình, Hà Nội','162780124',2);
+drop procedure if exists insert_staff;
+delimiter #
+create procedure insert_staff(in company_in int,in name_in nvarchar(255),in name_en_in varchar(50),in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text)
+begin
+	declare person_id int;
+    declare person_id_number nvarchar(12);
+    declare company_id int;
+    declare staff_id int;
+    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
+    if person_id_number is null then
+		begin
+			insert into person(name,name_en,birthday, id_card, gender, phone, village, current_accommodation, is_delete, is_resident)
+			value (name_in,name_en_in ,birthday_in, id_card_in, gender_in, phone_in, village_in, current_accommodation_in, 0, 1);
+			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+			insert into company_staff(company, staff) value (company_in, person_id);
+		end;
+	else
+		begin
+			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+            select s.company into company_id from company_staff as s where s.company = company_in and s.staff = person_id;
+            select s.staff into staff_id from company_staff as s where s.company = company_in and s.staff = person_id;
+            if company_id is null and staff_id is null then
+				begin
+					insert into company_staff(company, staff) value (company_in, person_id);
+				end;
+			end if;
+        end;
+	end if;
+end#
+delimiter ;
+
+drop procedure if exists insert_staff_from_file;
+delimiter #
+create procedure insert_staff_from_file(in company_name nvarchar(255), in office_name nvarchar(50), in name_in nvarchar(255), in name_en_in varchar(50), in birthday_in date, in gender_in varchar(10),in phone_in varchar(10), in id_card_in varchar(12),in village_in nvarchar(255), in cur_accom text)
+begin
+	declare company_id int;
+    declare office_id int;
+    declare gender_new int;
+    set gender_new = if(gender_in ='Male', 1, 0);
+    select a.id into office_id from apartment as a where a.name = office_name limit 1;
+    select c.id into company_id from company as c where c.name = company_name and c.apartment = office_id limit 1;
+    call insert_staff(company_id, name_in, name_en_in, birthday_in, gender_new, phone_in, id_card_in, village_in, cur_accom);
+end#
+delimiter ;
+
+call insert_staff_from_file('CTY ABC','A1001', 'Hoàng Mai Nghị', 'NghiHM0624_618_07_06','1996-06-24', 'Male', '163355618', '0964092612', 'Việt Hùng, Trực Ninh, Nam Định', 'Minh Khai, Bắc Từ Liêm, Hà Nội');
+select c.id from company as c where c.name = 'CTY ABC' and c.apartment = 1 limit 1;

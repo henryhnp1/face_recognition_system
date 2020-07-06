@@ -6,6 +6,7 @@ import os
 import MySQLdb as db
 import re
 import unicodedata
+from datetime import date
 
 def search_common_building_setting(option_search, line_search, table, loader):
     field_search = option_search.currentText()
@@ -173,7 +174,7 @@ def make_acronym_name(name:str):
         return words[1] + words[0]
 
 def make_name(name, birthday, id_num, current_date):
-    name = make_acronym_name(name).upper()
+    name = make_acronym_name(no_accent_vietnamese(name)).upper()
     birthdays = birthday.split('-')
     birthday = birthdays[1] + birthdays[2]
     id_num = id_num[-3:]
@@ -198,5 +199,25 @@ def get_single_value_from_table(table, field, where_clause, database):
         data = cursor.fetchall()
         cursor.close()
         return data[0][0]
+    except:
+        pass
+
+def get_today_str():
+    today = date.today()
+    year = str(today.year)
+    month = str(today.month)
+    day = str(today.day)
+    if today.month < 10: month = '0'+month
+    if today.day < 10: day = '0'+day
+    today_msql = '{}-{}-{}'.format(year, month, day)
+    return today_msql
+
+def get_single_item_from_query(query, database):
+    cursor = database.cursor()
+    try:
+        cursor.execute(query)
+        data = cursor.fetchall()
+        cursor.close()
+        return data[0]
     except:
         pass
