@@ -21,7 +21,7 @@ def resident_manage_staff_load(self):
 
 def resident_manage_handle_button_staff_tab(self):
     self.pushButton_export_staff.clicked.connect(self.resident_manage_staff_tab_export_file_staff)
-    self.pushButton_select_company_staff_file.clicked.connect(self.resident_manage_staff_tab_sellect_file_import_staff)
+    self.pushButton_select_company_staff_file.clicked.connect(self.resident_manage_staff_tab_select_file_import_staff)
     self.pushButton_import_company_staff.clicked.connect(self.resident_manage_staff_tab_import_file_staff)
     self.pushButton_company_staff_add.clicked.connect(self.resident_manage_staff_tab_add_staff)
     self.pushButton_company_staff_edit.clicked.connect(self.resident_manage_staff_tab_edit_staff)
@@ -172,12 +172,10 @@ def resident_manage_staff_tab_edit_staff(self):
                 village = self.textEdit_company_staff_village.toPlainText()
                 curr_accommodation = self.textEdit_company_staff_current_accommodation.toPlainText()
                 company = self.comboBox_company_staff_company.currentData().pk
-                today_mysql = common.get_today_str()
-                name_en = common.make_name(name, birthday_mysql, id_number, today_mysql)
-                query = 'call edit_staff(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+                query = 'call edit_staff(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
                 cursor = self.database.cursor()
                 try:
-                    cursor.execute(query,(company, name, birthday_mysql, gender, phone, id_number, village, curr_accommodation, cur_staff[6], cur_staff[1], name_en))
+                    cursor.execute(query,(company, name, birthday_mysql, gender, phone, id_number, village, curr_accommodation, cur_staff[6], cur_staff[1]))
                     self.database.commit()
                     common.data_loader(self, self.database, 'None', self.tableWidget_staff_table, full_select_staff)
                 except db.Error as e:
@@ -204,10 +202,10 @@ def resident_manage_staff_tab_clear_form(self):
     self.textEdit_company_staff_village.setPlainText(None)
     self.textEdit_company_staff_current_accommodation.setPlainText(None)
     self.comboBox_company_staff_building.setCurrentIndex(0)
-    self.pushButton_select_company_staff_file.setText(None)
+    self.pushButton_select_company_staff_file.setText('Choose file')
     self.pushButton_import_company_staff.setEnabled(False)
 
-def resident_manage_staff_tab_sellect_file_import_staff(self):
+def resident_manage_staff_tab_select_file_import_staff(self):
     common.select_file_building_setting(self, self.pushButton_select_company_staff_file, self.pushButton_import_company_staff)
 
 def resident_manage_staff_tab_import_file_staff(self):

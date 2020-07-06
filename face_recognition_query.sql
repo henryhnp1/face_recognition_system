@@ -388,10 +388,27 @@ join building as b on b.id = f.building
 join type_of_floor as t on t.id = f.type_of_floor
 where t.name = 'business' and c.name = 'CTY BAA' and a.name = 'B1001';
 
-select p.id, b.name as 'building', f.name as 'floor', a.name as 'apartment', p.name, p.birthday, p.gender, p.id_card, p.phone, p.village, p.current_accommodation  from person as p
+select p.id, a.name as 'apartment', p.name, p.birthday, p.gender, p.id_card, p.phone, p.village, p.current_accommodation  from person as p
 join resident_apartment as r on p.id = r.resident
 join apartment as a on a.id = r.apartment
 join floor as f on a.floor = f.id
 join building as b on b.id = f.building
 join type_of_floor as t on t.id = 2
-where p.is_delete = 0 and p.is_resident = 1
+where p.is_delete = 0 and p.is_resident = 1;
+
+select a.id as 'apartment_id', a.name as 'apartment', f.id as 'floor_id', 
+f.name as 'floor', b.id as 'building_id', b.name as 'building' from apartment as a
+join floor as f on a.floor = f.id
+join building as b on b.id = f.building
+join type_of_floor as t on t.id = f.type_of_floor
+where t.id = 2 and a.name = 'A6001';
+
+select p.id, a.name as 'apartment', p.name, p.birthday, 
+if(p.gender=1, 'Male', 'Female') as 'gender', p.id_card, 
+p.phone, p.village, p.current_accommodation  from person as p
+join resident_apartment as r on p.id = r.resident
+join apartment as a on a.id = r.apartment
+join floor as f on a.floor = f.id
+join building as b on b.id = f.building
+join type_of_floor as t on t.id = 2
+where p.is_delete = 0 and p.is_resident = 1 and r.id = 1

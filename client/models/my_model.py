@@ -81,3 +81,12 @@ class Company_Office_Building(object):
         self.floor_name = floor_name
         self.building_pk = building_pk
         self.building_name = building_name
+
+class Apartment_Floor_Building(object):
+    def __init__(self, pk, name, floor_pk, floor_name, building_pk, building_name):
+        self.pk = pk
+        self.name = name
+        self.floor_pk = floor_pk
+        self.floor_name = floor_name
+        self.building_pk = building_pk
+        self.building_name = building_name

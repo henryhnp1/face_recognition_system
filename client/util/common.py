@@ -7,6 +7,7 @@ import MySQLdb as db
 import re
 import unicodedata
 from datetime import date
+from models import my_model
 
 def search_common_building_setting(option_search, line_search, table, loader):
     field_search = option_search.currentText()
@@ -221,3 +222,70 @@ def get_single_item_from_query(query, database):
         return data[0]
     except:
         pass
+
+def set_building_combobox_data_change(building_combobox, database):
+    building_combobox.clear()
+    query_get_building = "select * from building"
+    list_building = get_list_model(database, my_model.Building, query_get_building)
+    for building in list_building:
+        building_model = my_model.Building(*building)
+        building_combobox.addItem(building[1], building_model)
+
+def set_floor_combobox_data_change(building_combobox, floor_combobox, type_of_floor, database):
+    building_object = building_combobox.currentData()
+    if building_object:
+        building_id = building_object.pk
+        floor_combobox.clear()
+        query_select_floor = '''
+            select f.id, f.name as 'floor', b.name as 'building' ,t.name as 'type_of_floor', 
+            f.number_of_apartment as 'number_of_apartment' from floor as f
+            join building as b on f.building = b.id
+            join type_of_floor as t on f.type_of_floor = t.id
+            where b.id = {} and t.id = {}
+        '''
+        data_floor = get_list_model(database, my_model.Floor, query_select_floor.format(building_id, type_of_floor))
+        for floor in data_floor:
+            floor_object = my_model.Floor(*floor)
+            floor_name = 'Tầng ' + str(floor[1])+' Tòa Nhà ' + floor[2]
+            floor_combobox.addItem(floor_name, floor_object)
+
+def set_company_office_combobox_data_change(building_combobox, floor_combobox, company_combobox, database):
+    building_object = building_combobox.currentData()
+    floor_object = floor_combobox.currentData()
+    if building_object and floor_object:
+        building_id = building_object.pk
+        floor_id = floor_object.pk
+        company_combobox.clear()
+        query_select_company = '''
+            select c.id, c.name, c.phone, c.apartment, a.name as 'office'from company as c
+            join apartment as a on c.apartment = a.id
+            join floor as f on a.floor = f.id
+            join building as b on b.id = f.building
+            join type_of_floor as t on t.id = f.type_of_floor
+            where t.id = 1 and b.id = {} and f.id = {};
+        '''
+        data_company = get_list_model(database, my_model.Company, query_select_company.format(building_id, floor_id))
+        for company in data_company:
+            company_object = my_model.Company(*company)
+            comapny_name = 'Công Ty ' + str(company[1]) + ' Phòng ' + company[4]
+            company_combobox.addItem(comapny_name, company_object)
+
+def set_apartment_combobox_data_change(building_combobox, floor_combobox, apartment_combobox, database):
+    building_object = building_combobox.currentData()
+    floor_object = floor_combobox.currentData()
+    if building_object and floor_object:
+        building_id = building_object.pk
+        floor_id = floor_object.pk
+        apartment_combobox.clear()
+        query_select_apartment = '''
+            select a.id, a.name, a.floor, a.status from apartment as a 
+            join floor as f on a.floor = f.id
+            join building as b on b.id = f.building
+            join type_of_floor as t on t.id = f.type_of_floor
+            where t.id = 2 and b.id = {} and f.id = {};
+        '''
+        data_apartment = get_list_model(database, my_model.Apartment, query_select_apartment.format(building_id, floor_id))
+        for apartment in data_apartment:
+            apartment_object = my_model.Apartment(*apartment)
+            apartment_name = 'Phòng ' + apartment_object.name
+            apartment_combobox.addItem(apartment_name, apartment_object)

@@ -279,12 +279,12 @@ delimiter ;
 
 drop procedure if exists edit_staff;
 delimiter #
-create procedure edit_staff(in company_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text, in cur_id_card varchar(12), in cur_company int, in name_en_in varchar(50))
+create procedure edit_staff(in company_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text, in cur_id_card varchar(12), in cur_company int)
 begin
 	declare person_id int;
     declare person_id_number nvarchar(12);
     select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
-	update person set name = name_in, name_en = name_en_in ,birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
+	update person set name = name_in, birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
 	village = village_in, current_accommodation=current_accommodation_in where id_card = cur_id_card;
 	select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
 	update company_staff set company = company_in where staff = person_id and company = cur_company;
@@ -338,3 +338,61 @@ end#
 delimiter ;
 
 call insert_staff_from_file('CTY ABC','A1001', 'Hoàng Mai Nghị', 'NghiHM0624_618_07_06','1996-06-24', 'Male', '163355618', '0964092612', 'Việt Hùng, Trực Ninh, Nam Định', 'Minh Khai, Bắc Từ Liêm, Hà Nội');
+
+drop procedure if exists insert_staff;
+delimiter #
+create procedure insert_resident(in apartment_in int,in name_in nvarchar(255),in name_en_in varchar(50),in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text)
+begin
+	declare person_id int;
+    declare person_id_number nvarchar(12);
+    declare apartment_id int;
+    declare resident_id int;
+    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
+    if person_id_number is null then
+		begin
+			insert into person(name,name_en,birthday, id_card, gender, phone, village, current_accommodation, is_delete, is_resident)
+			value (name_in,name_en_in ,birthday_in, id_card_in, gender_in, phone_in, village_in, current_accommodation_in, 0, 1);
+			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+			insert into resident_apartment(resident, apartment) value (person_id, apartment_in);
+		end;
+	else
+		begin
+			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+            select r.apartment into apartment_id from resident_apartment as r where r.apartment = apartment_in and r.resident = person_id;
+            select r.resident into resident_id from resident_apartment as r where r.resident = person_id and r.apartment = apartment;
+            if company_id is null and staff_id is null then
+				begin
+					insert into resident_apartment(resident, apartment) value (person_id, apartment_in);
+				end;
+			end if;
+        end;
+	end if;
+end#
+delimiter ;
+
+drop procedure if exists edit_resident;
+delimiter #
+create procedure edit_resident(in apartment_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text, in cur_id_card varchar(12), in cur_apartment int)
+begin
+	declare person_id int;
+    declare person_id_number nvarchar(12);
+    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
+	update person set name = name_in, birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
+	village = village_in, current_accommodation=current_accommodation_in where id_card = cur_id_card;
+	select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+	update resident_apartment set apartment = apartment_in where resident = person_id and apartment = cur_apartment;
+
+end#
+delimiter ;
+
+drop procedure if exists insert_resident_from_file;
+delimiter #
+create procedure insert_resident_from_file(in apartment_name nvarchar(50), in name_in nvarchar(255), in name_en_in varchar(50), in birthday_in date, in gender_in varchar(10),in phone_in varchar(10), in id_card_in varchar(12),in village_in nvarchar(255), in cur_accom text)
+begin
+	declare apartment_id int;
+    declare gender_new int;
+    set gender_new = if(gender_in ='Male', 1, 0);
+    select a.id into apartment_id from apartment as a where a.name = apartment_name limit 1;
+    call insert_resident(apartment_id, name_in, name_en_in, birthday_in, gender_new, phone_in, id_card_in, village_in, cur_accom);
+end#
+delimiter ;
