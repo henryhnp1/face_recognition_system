@@ -387,3 +387,11 @@ join floor as f on a.floor = f.id
 join building as b on b.id = f.building
 join type_of_floor as t on t.id = f.type_of_floor
 where t.name = 'business' and c.name = 'CTY BAA' and a.name = 'B1001';
+
+select p.id, b.name as 'building', f.name as 'floor', a.name as 'apartment', p.name, p.birthday, p.gender, p.id_card, p.phone, p.village, p.current_accommodation  from person as p
+join resident_apartment as r on p.id = r.resident
+join apartment as a on a.id = r.apartment
+join floor as f on a.floor = f.id
+join building as b on b.id = f.building
+join type_of_floor as t on t.id = 2
+where p.is_delete = 0 and p.is_resident = 1

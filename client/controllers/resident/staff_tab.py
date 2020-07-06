@@ -129,7 +129,7 @@ def resident_manage_staff_tab_add_staff(self):
             query = 'call insert_staff(%s, %s, %s, %s, %s, %s, %s, %s, %s)'
             cursor = self.database.cursor()
             try:
-                cursor.execute(query,(company, name, name_en, birthday_mysql, gender, phone, id_number, village, curr_accommodation))
+                cursor.execute(query,(company, name, name_en, birthday_mysql, gender, id_number, phone, village, curr_accommodation))
                 self.database.commit()
                 common.data_loader(self, self.database, 'None', self.tableWidget_staff_table, full_select_staff)
             except db.Error as e:

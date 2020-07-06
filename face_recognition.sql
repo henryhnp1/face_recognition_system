@@ -338,4 +338,3 @@ end#
 delimiter ;
 
 call insert_staff_from_file('CTY ABC','A1001', 'Hoàng Mai Nghị', 'NghiHM0624_618_07_06','1996-06-24', 'Male', '163355618', '0964092612', 'Việt Hùng, Trực Ninh, Nam Định', 'Minh Khai, Bắc Từ Liêm, Hà Nội');
-select c.id from company as c where c.name = 'CTY ABC' and c.apartment = 1 limit 1;
