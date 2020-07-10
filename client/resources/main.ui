@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1736</width>
-    <height>957</height>
+    <height>963</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -48,7 +48,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="pushButton_buiding_manage_3">
+      <widget class="QPushButton" name="pushButton_buiding_manage">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -61,7 +61,7 @@
         <string>Buiding Manage</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_resident_manage_3">
+      <widget class="QPushButton" name="pushButton_resident_manage">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -74,7 +74,7 @@
         <string>Resident manage</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_apartment_manage_3">
+      <widget class="QPushButton" name="pushButton_apartment_manage">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -87,7 +87,7 @@
         <string>Apartment Manage</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_gest_manage_3">
+      <widget class="QPushButton" name="pushButton_gest_manage">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -100,7 +100,7 @@
         <string>Guest Manage</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_video_access_control_3">
+      <widget class="QPushButton" name="pushButton_video_access_control">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -113,7 +113,7 @@
         <string>Access Control</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_logout_3">
+      <widget class="QPushButton" name="pushButton_logout_main">
        <property name="geometry">
         <rect>
          <x>1470</x>
@@ -126,7 +126,7 @@
         <string>Logout</string>
        </property>
       </widget>
-      <widget class="QTabWidget" name="tabWidget_main_3">
+      <widget class="QTabWidget" name="tabWidget_main">
        <property name="geometry">
         <rect>
          <x>220</x>
@@ -136,13 +136,13 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_21">
         <attribute name="title">
          <string>Tab 1</string>
         </attribute>
-        <widget class="QPushButton" name="pushButton_block_manage_3">
+        <widget class="QPushButton" name="pushButton_block_manage">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -155,7 +155,7 @@
           <string>Block Manage</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_floor_manage_3">
+        <widget class="QPushButton" name="pushButton_floor_manage">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -168,7 +168,7 @@
           <string>Floor Manage</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_door_manage_3">
+        <widget class="QPushButton" name="pushButton_door_manage">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -181,7 +181,7 @@
           <string>Door Manage</string>
          </property>
         </widget>
-        <widget class="QTabWidget" name="tabWidget_building_manage_3">
+        <widget class="QTabWidget" name="tabWidget_building_manage">
          <property name="geometry">
           <rect>
            <x>160</x>
@@ -191,13 +191,13 @@
           </rect>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tab_40">
           <attribute name="title">
            <string>Tab 1</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_block_edit_3">
+          <widget class="QGroupBox" name="groupBox_block_edit">
            <property name="geometry">
             <rect>
              <x>710</x>
@@ -222,7 +222,7 @@
              <string>ID</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_block_3">
+           <widget class="QLineEdit" name="lineEdit_id_block">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -287,7 +287,7 @@
              <string>Acreage</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_name_block_3">
+           <widget class="QLineEdit" name="lineEdit_name_block">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -297,7 +297,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_location_block_3">
+           <widget class="QLineEdit" name="lineEdit_location_block">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -307,7 +307,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QSpinBox" name="spinBox_numOfFloor_block_3">
+           <widget class="QSpinBox" name="spinBox_numOfFloor_block">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -317,7 +317,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_acreage_block_3">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_acreage_block">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -343,7 +343,7 @@
              <string>m2</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_add_block_3">
+           <widget class="QPushButton" name="pushButton_add_block">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -356,7 +356,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_edit_block_3">
+           <widget class="QPushButton" name="pushButton_edit_block">
             <property name="geometry">
              <rect>
               <x>150</x>
@@ -369,7 +369,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_delete_block_3">
+           <widget class="QPushButton" name="pushButton_delete_block">
             <property name="geometry">
              <rect>
               <x>290</x>
@@ -383,7 +383,7 @@
             </property>
            </widget>
           </widget>
-          <widget class="QGroupBox" name="groupBox_table_block_3">
+          <widget class="QGroupBox" name="groupBox_table_block">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -395,7 +395,7 @@
            <property name="title">
             <string/>
            </property>
-           <widget class="QComboBox" name="comboBox_search_block_3">
+           <widget class="QComboBox" name="comboBox_search_block">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -405,7 +405,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_block_3">
+           <widget class="QLineEdit" name="lineEdit_search_block">
             <property name="geometry">
              <rect>
               <x>260</x>
@@ -418,7 +418,7 @@
              <string>Enter the value of block to seach</string>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_block_3">
+           <widget class="QTableWidget" name="tableWidget_block">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -446,7 +446,7 @@
           <attribute name="title">
            <string>Tab 2</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_floor_edit_5">
+          <widget class="QGroupBox" name="groupBox_floor_edit">
            <property name="geometry">
             <rect>
              <x>710</x>
@@ -471,7 +471,7 @@
              <string>ID</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_floor_3">
+           <widget class="QLineEdit" name="lineEdit_id_floor">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -536,7 +536,7 @@
              <string>Num Of Apartment</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_add_floor_5">
+           <widget class="QPushButton" name="pushButton_add_floor">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -549,7 +549,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_edit_floor_5">
+           <widget class="QPushButton" name="pushButton_edit_floor">
             <property name="geometry">
              <rect>
               <x>150</x>
@@ -562,7 +562,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_delete_floor_5">
+           <widget class="QPushButton" name="pushButton_delete_floor">
             <property name="geometry">
              <rect>
               <x>290</x>
@@ -575,7 +575,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_floor_building_3">
+           <widget class="QComboBox" name="comboBox_floor_building">
             <property name="geometry">
              <rect>
               <x>160</x>
@@ -585,7 +585,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_typeOfFloor_3">
+           <widget class="QComboBox" name="comboBox_typeOfFloor">
             <property name="geometry">
              <rect>
               <x>160</x>
@@ -595,7 +595,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QSpinBox" name="spinBox_numOfApartment_3">
+           <widget class="QSpinBox" name="spinBox_numOfApartment">
             <property name="geometry">
              <rect>
               <x>160</x>
@@ -618,7 +618,7 @@
              <string>Import File</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_choose_import_file_floor_3">
+           <widget class="QPushButton" name="pushButton_choose_import_file_floor">
             <property name="geometry">
              <rect>
               <x>160</x>
@@ -631,7 +631,7 @@
              <string>Choose File</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_floor_file_3">
+           <widget class="QPushButton" name="pushButton_import_floor_file">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -647,7 +647,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QSpinBox" name="spinBox_name_floor_3">
+           <widget class="QSpinBox" name="spinBox_name_floor">
             <property name="geometry">
              <rect>
               <x>160</x>
@@ -658,7 +658,7 @@
             </property>
            </widget>
           </widget>
-          <widget class="QGroupBox" name="groupBox_table_floor_5">
+          <widget class="QGroupBox" name="groupBox_table_floor">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -670,7 +670,7 @@
            <property name="title">
             <string/>
            </property>
-           <widget class="QComboBox" name="comboBox_search_floor_3">
+           <widget class="QComboBox" name="comboBox_search_floor">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -680,7 +680,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_floor_3">
+           <widget class="QLineEdit" name="lineEdit_search_floor">
             <property name="geometry">
              <rect>
               <x>250</x>
@@ -693,7 +693,7 @@
              <string>Enter the value of floor to seach</string>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_floor_3">
+           <widget class="QTableWidget" name="tableWidget_floor">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -717,7 +717,7 @@
           <attribute name="title">
            <string>Page</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_table_floor_6">
+          <widget class="QGroupBox" name="groupBox_table_floor_2">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -729,7 +729,7 @@
            <property name="title">
             <string>Door manage</string>
            </property>
-           <widget class="QComboBox" name="comboBox_search_door_3">
+           <widget class="QComboBox" name="comboBox_search_door">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -739,7 +739,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_door_3">
+           <widget class="QLineEdit" name="lineEdit_search_door">
             <property name="geometry">
              <rect>
               <x>250</x>
@@ -752,7 +752,7 @@
              <string>Enter the value of door to seach</string>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_door_3">
+           <widget class="QTableWidget" name="tableWidget_door">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -770,7 +770,7 @@
             <column/>
             <column/>
            </widget>
-           <widget class="QPushButton" name="pushButton_export_door_3">
+           <widget class="QPushButton" name="pushButton_export_door">
             <property name="geometry">
              <rect>
               <x>550</x>
@@ -784,7 +784,7 @@
             </property>
            </widget>
           </widget>
-          <widget class="QGroupBox" name="groupBox_floor_edit_6">
+          <widget class="QGroupBox" name="groupBox_floor_edit_2">
            <property name="geometry">
             <rect>
              <x>680</x>
@@ -809,7 +809,7 @@
              <string>ID</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_door_3">
+           <widget class="QLineEdit" name="lineEdit_id_door">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -861,7 +861,7 @@
              <string>Permission</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_add_floor_6">
+           <widget class="QPushButton" name="pushButton_add_door">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -874,7 +874,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_edit_floor_6">
+           <widget class="QPushButton" name="pushButton_edit_door">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -887,7 +887,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_delete_floor_6">
+           <widget class="QPushButton" name="pushButton_delete_door">
             <property name="geometry">
              <rect>
               <x>320</x>
@@ -900,7 +900,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_door_permission_3">
+           <widget class="QComboBox" name="comboBox_door_permission">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -910,7 +910,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_door_manage_floor_3">
+           <widget class="QComboBox" name="comboBox_door_manage_floor">
             <property name="geometry">
              <rect>
               <x>280</x>
@@ -933,7 +933,7 @@
              <string>Import door</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_file_door_3">
+           <widget class="QPushButton" name="pushButton_select_file_door">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -946,7 +946,7 @@
              <string>Choose File</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_file_door_3">
+           <widget class="QPushButton" name="pushButton_import_file_door">
             <property name="geometry">
              <rect>
               <x>340</x>
@@ -959,7 +959,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QSpinBox" name="spinBox_name_door_3">
+           <widget class="QSpinBox" name="spinBox_name_door">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -972,7 +972,7 @@
              <number>10000</number>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_door_manage_building_3">
+           <widget class="QComboBox" name="comboBox_door_manage_building">
             <property name="geometry">
              <rect>
               <x>100</x>
@@ -996,7 +996,7 @@
             </property>
            </widget>
           </widget>
-          <widget class="QGroupBox" name="groupBox_role_door_table_3">
+          <widget class="QGroupBox" name="groupBox_role_door_table">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -1008,7 +1008,7 @@
            <property name="title">
             <string>Role Door</string>
            </property>
-           <widget class="QComboBox" name="comboBox_search_role_door_3">
+           <widget class="QComboBox" name="comboBox_search_role_door">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -1018,7 +1018,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_role_door_3">
+           <widget class="QLineEdit" name="lineEdit_search_role_door">
             <property name="geometry">
              <rect>
               <x>240</x>
@@ -1028,7 +1028,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_role_door_3">
+           <widget class="QTableWidget" name="tableWidget_role_door">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -1045,7 +1045,7 @@
             <column/>
            </widget>
           </widget>
-          <widget class="QGroupBox" name="groupBox_role_door_form_3">
+          <widget class="QGroupBox" name="groupBox_role_door_form">
            <property name="geometry">
             <rect>
              <x>680</x>
@@ -1096,7 +1096,7 @@
              <string>Description</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_role_door_add_3">
+           <widget class="QPushButton" name="pushButton_role_door_add">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -1109,7 +1109,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_role_door_edit_3">
+           <widget class="QPushButton" name="pushButton_role_door_edit">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -1122,7 +1122,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_role_door_delete_3">
+           <widget class="QPushButton" name="pushButton_role_door_delete">
             <property name="geometry">
              <rect>
               <x>310</x>
@@ -1135,7 +1135,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_role_door_id_3">
+           <widget class="QLineEdit" name="lineEdit_role_door_id">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1148,7 +1148,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_role_door_name_3">
+           <widget class="QLineEdit" name="lineEdit_role_door_name">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -1158,7 +1158,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_role_door_description_3">
+           <widget class="QTextEdit" name="textEdit_role_door_description">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -1171,10 +1171,13 @@
           </widget>
          </widget>
          <widget class="QWidget" name="tab_43">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <attribute name="title">
            <string>Page</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_permission_edit_3">
+          <widget class="QGroupBox" name="groupBox_permission_edit">
            <property name="geometry">
             <rect>
              <x>20</x>
@@ -1186,7 +1189,7 @@
            <property name="title">
             <string>Permission</string>
            </property>
-           <widget class="QComboBox" name="comboBox_permission_search_3">
+           <widget class="QComboBox" name="comboBox_permission_search">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -1196,7 +1199,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_permission_3">
+           <widget class="QLineEdit" name="lineEdit_search_permission">
             <property name="geometry">
              <rect>
               <x>200</x>
@@ -1206,7 +1209,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_permission_id_3">
+           <widget class="QLineEdit" name="lineEdit_permission_id">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1219,7 +1222,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_permission_name_3">
+           <widget class="QLineEdit" name="lineEdit_permission_name">
             <property name="geometry">
              <rect>
               <x>820</x>
@@ -1268,7 +1271,7 @@
              <string>Description</string>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_permission_description_3">
+           <widget class="QTextEdit" name="textEdit_permission_description">
             <property name="geometry">
              <rect>
               <x>820</x>
@@ -1278,7 +1281,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_permission_add_3">
+           <widget class="QPushButton" name="pushButton_permission_add">
             <property name="geometry">
              <rect>
               <x>640</x>
@@ -1291,7 +1294,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_permission_edit_3">
+           <widget class="QPushButton" name="pushButton_permission_edit">
             <property name="geometry">
              <rect>
               <x>810</x>
@@ -1304,7 +1307,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_permission_delete_3">
+           <widget class="QPushButton" name="pushButton_permission_delete">
             <property name="geometry">
              <rect>
               <x>970</x>
@@ -1317,7 +1320,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_permission_3">
+           <widget class="QTableWidget" name="tableWidget_permission">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -1350,7 +1353,7 @@
              <string>Import: </string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_file_permission_3">
+           <widget class="QPushButton" name="pushButton_select_file_permission">
             <property name="geometry">
              <rect>
               <x>820</x>
@@ -1363,7 +1366,7 @@
              <string>Choose file</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_file_permission_3">
+           <widget class="QPushButton" name="pushButton_import_file_permission">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1383,7 +1386,7 @@
             </property>
            </widget>
           </widget>
-          <widget class="QGroupBox" name="groupBox_typeOfFloor_edit_3">
+          <widget class="QGroupBox" name="groupBox_typeOfFloor_edit">
            <property name="geometry">
             <rect>
              <x>20</x>
@@ -1395,7 +1398,7 @@
            <property name="title">
             <string>Type Of Floor</string>
            </property>
-           <widget class="QComboBox" name="comboBox_typeOFloor_search_3">
+           <widget class="QComboBox" name="comboBox_typeOFloor_search">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -1408,7 +1411,7 @@
              <bool>false</bool>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_typeOFloor_search_3">
+           <widget class="QLineEdit" name="lineEdit_typeOFloor_search">
             <property name="geometry">
              <rect>
               <x>200</x>
@@ -1418,7 +1421,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_typeOFloor_id_3">
+           <widget class="QLineEdit" name="lineEdit_typeOFloor_id">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1431,7 +1434,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_typeOFloor_name_3">
+           <widget class="QLineEdit" name="lineEdit_typeOFloor_name">
             <property name="geometry">
              <rect>
               <x>820</x>
@@ -1480,7 +1483,7 @@
              <string>Description</string>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_typeOFloor_description_3">
+           <widget class="QTextEdit" name="textEdit_typeOFloor_description">
             <property name="geometry">
              <rect>
               <x>820</x>
@@ -1490,7 +1493,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_typeOFloor_add_3">
+           <widget class="QPushButton" name="pushButton_typeOFloor_add">
             <property name="geometry">
              <rect>
               <x>630</x>
@@ -1503,7 +1506,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_typeOFloor_edit_3">
+           <widget class="QPushButton" name="pushButton_typeOFloor_edit">
             <property name="geometry">
              <rect>
               <x>810</x>
@@ -1516,7 +1519,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_typeOFloor_delete_3">
+           <widget class="QPushButton" name="pushButton_typeOFloor_delete">
             <property name="geometry">
              <rect>
               <x>970</x>
@@ -1529,7 +1532,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_type_of_floor_3">
+           <widget class="QTableWidget" name="tableWidget_type_of_floor">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -1571,7 +1574,7 @@
              <string>Import: </string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_file_type_floor_3">
+           <widget class="QPushButton" name="pushButton_import_file_type_floor">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1590,7 +1593,7 @@
              <bool>false</bool>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_file_type_floor_3">
+           <widget class="QPushButton" name="pushButton_select_file_type_floor">
             <property name="geometry">
              <rect>
               <x>820</x>
@@ -1606,7 +1609,7 @@
           </widget>
          </widget>
         </widget>
-        <widget class="QPushButton" name="pushButton_setting_manage_3">
+        <widget class="QPushButton" name="pushButton_setting_manage">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -1624,23 +1627,23 @@
         <attribute name="title">
          <string>Tab 2</string>
         </attribute>
-        <widget class="QTabWidget" name="tabWidget_apartment_3">
+        <widget class="QTabWidget" name="tabWidget_apartment">
          <property name="geometry">
           <rect>
            <x>160</x>
            <y>10</y>
            <width>1151</width>
-           <height>711</height>
+           <height>731</height>
           </rect>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_45">
           <attribute name="title">
            <string>Tab 1</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_company_table_3">
+          <widget class="QGroupBox" name="groupBox_company_table">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -1652,7 +1655,7 @@
            <property name="title">
             <string>Office</string>
            </property>
-           <widget class="QComboBox" name="comboBox_field_search_company_office_3">
+           <widget class="QComboBox" name="comboBox_field_search_company_office">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -1662,7 +1665,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_line_search_company_office_3">
+           <widget class="QLineEdit" name="lineEdit_line_search_company_office">
             <property name="geometry">
              <rect>
               <x>250</x>
@@ -1672,7 +1675,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_company_apartment_table_5">
+           <widget class="QTableWidget" name="tableWidget_company_apartment_table_office">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -1703,7 +1706,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_file_company_office_3">
+           <widget class="QPushButton" name="pushButton_select_file_company_office">
             <property name="geometry">
              <rect>
               <x>840</x>
@@ -1716,7 +1719,7 @@
              <string>Choose file</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_file_company_office_3">
+           <widget class="QPushButton" name="pushButton_import_file_company_office">
             <property name="geometry">
              <rect>
               <x>1010</x>
@@ -1742,7 +1745,7 @@
              <string>Id</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_office_id_3">
+           <widget class="QLineEdit" name="lineEdit_company_office_id">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1768,7 +1771,7 @@
              <string>Block</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_office_building_3">
+           <widget class="QComboBox" name="comboBox_company_office_building">
             <property name="geometry">
              <rect>
               <x>840</x>
@@ -1791,7 +1794,7 @@
              <string>Floor</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_office_floor_3">
+           <widget class="QComboBox" name="comboBox_company_office_floor">
             <property name="geometry">
              <rect>
               <x>840</x>
@@ -1801,7 +1804,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QSpinBox" name="spinBox__company_office_number_3">
+           <widget class="QSpinBox" name="spinBox__company_office_number">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -1837,7 +1840,7 @@
              <string>Status</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_office_status_3">
+           <widget class="QComboBox" name="comboBox_company_office_status">
             <property name="geometry">
              <rect>
               <x>840</x>
@@ -1847,7 +1850,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_office_add_3">
+           <widget class="QPushButton" name="pushButton_company_office_add">
             <property name="geometry">
              <rect>
               <x>690</x>
@@ -1860,7 +1863,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_office_edit_3">
+           <widget class="QPushButton" name="pushButton_company_office_edit">
             <property name="geometry">
              <rect>
               <x>840</x>
@@ -1873,7 +1876,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_office_delete_3">
+           <widget class="QPushButton" name="pushButton_company_office_delete">
             <property name="geometry">
              <rect>
               <x>980</x>
@@ -1886,7 +1889,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QLabel" name="label_prefix_office_number_3">
+           <widget class="QLabel" name="label_prefix_office_number">
             <property name="geometry">
              <rect>
               <x>840</x>
@@ -1899,20 +1902,7 @@
              <string/>
             </property>
            </widget>
-           <widget class="QLabel" name="label_spinbox_prefix_3">
-            <property name="geometry">
-             <rect>
-              <x>880</x>
-              <y>200</y>
-              <width>31</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="pushButton_export_office_3">
+           <widget class="QPushButton" name="pushButton_export_office">
             <property name="geometry">
              <rect>
               <x>570</x>
@@ -1926,7 +1916,7 @@
             </property>
            </widget>
           </widget>
-          <widget class="QGroupBox" name="groupBox_company_manage_3">
+          <widget class="QGroupBox" name="groupBox_company_manage">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -1938,7 +1928,7 @@
            <property name="title">
             <string>Company</string>
            </property>
-           <widget class="QLineEdit" name="lineEdit_line_search_company_apartment_4">
+           <widget class="QLineEdit" name="lineEdit_line_search_company_apartment">
             <property name="geometry">
              <rect>
               <x>250</x>
@@ -1948,7 +1938,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_field_search_company_apartment_4">
+           <widget class="QComboBox" name="comboBox_field_search_company_apartment">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -1958,13 +1948,13 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_company_apartment_table_6">
+           <widget class="QTableWidget" name="tableWidget_company_apartment_table">
             <property name="geometry">
              <rect>
               <x>10</x>
               <y>70</y>
               <width>631</width>
-              <height>251</height>
+              <height>271</height>
              </rect>
             </property>
             <property name="columnCount">
@@ -1990,7 +1980,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_file_company_3">
+           <widget class="QPushButton" name="pushButton_select_file_company">
             <property name="geometry">
              <rect>
               <x>830</x>
@@ -2003,7 +1993,7 @@
              <string>Choose file</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_file_company_3">
+           <widget class="QPushButton" name="pushButton_import_file_company">
             <property name="geometry">
              <rect>
               <x>1000</x>
@@ -2016,7 +2006,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_id_3">
+           <widget class="QLineEdit" name="lineEdit_company_id">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -2042,7 +2032,7 @@
              <string>Id</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_name_3">
+           <widget class="QLineEdit" name="lineEdit_company_name">
             <property name="geometry">
              <rect>
               <x>830</x>
@@ -2065,7 +2055,7 @@
              <string>Name</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_phone_3">
+           <widget class="QLineEdit" name="lineEdit_company_phone">
             <property name="geometry">
              <rect>
               <x>830</x>
@@ -2101,7 +2091,7 @@
              <string>Office Number</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_office_number_3">
+           <widget class="QComboBox" name="comboBox_company_office_number">
             <property name="geometry">
              <rect>
               <x>830</x>
@@ -2111,7 +2101,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_edit_3">
+           <widget class="QPushButton" name="pushButton_company_edit">
             <property name="geometry">
              <rect>
               <x>830</x>
@@ -2124,7 +2114,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_add_3">
+           <widget class="QPushButton" name="pushButton_company_add">
             <property name="geometry">
              <rect>
               <x>680</x>
@@ -2137,7 +2127,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_delete_3">
+           <widget class="QPushButton" name="pushButton_company_delete">
             <property name="geometry">
              <rect>
               <x>970</x>
@@ -2150,7 +2140,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_export_company_3">
+           <widget class="QPushButton" name="pushButton_export_company">
             <property name="geometry">
              <rect>
               <x>570</x>
@@ -2163,7 +2153,7 @@
              <string>Export</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_office_building_company_3">
+           <widget class="QComboBox" name="comboBox_company_office_building_company">
             <property name="geometry">
              <rect>
               <x>750</x>
@@ -2186,7 +2176,7 @@
              <string>Floor</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_office_floor_company_3">
+           <widget class="QComboBox" name="comboBox_company_office_floor_company">
             <property name="geometry">
              <rect>
               <x>950</x>
@@ -2215,7 +2205,7 @@
           <attribute name="title">
            <string>Tab 2</string>
           </attribute>
-          <widget class="QComboBox" name="comboBox_field_search_apartment_3">
+          <widget class="QComboBox" name="comboBox_field_search_apartment">
            <property name="geometry">
             <rect>
              <x>35</x>
@@ -2225,7 +2215,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QLineEdit" name="lineEdit_line_search_apartment_3">
+          <widget class="QLineEdit" name="lineEdit_line_search_apartment">
            <property name="geometry">
             <rect>
              <x>280</x>
@@ -2235,7 +2225,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QTableWidget" name="tableWidget_resident_apartment_table_3">
+          <widget class="QTableWidget" name="tableWidget_resident_apartment_table">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -2269,7 +2259,7 @@
             <string>Import</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_select_file_apartment_resident_import_3">
+          <widget class="QPushButton" name="pushButton_select_file_apartment_resident_import">
            <property name="geometry">
             <rect>
              <x>840</x>
@@ -2282,7 +2272,7 @@
             <string>Choose file</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_import_resident_apartment_3">
+          <widget class="QPushButton" name="pushButton_import_resident_apartment">
            <property name="geometry">
             <rect>
              <x>1060</x>
@@ -2308,7 +2298,7 @@
             <string>Id</string>
            </property>
           </widget>
-          <widget class="QLineEdit" name="lineEdit_id_resident_apartment_3">
+          <widget class="QLineEdit" name="lineEdit_id_resident_apartment">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -2321,7 +2311,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QComboBox" name="comboBox_resident_apartment_block_3">
+          <widget class="QComboBox" name="comboBox_resident_apartment_block">
            <property name="geometry">
             <rect>
              <x>840</x>
@@ -2357,7 +2347,7 @@
             <string>Floor</string>
            </property>
           </widget>
-          <widget class="QComboBox" name="comboBox_resident_apartment_floor_3">
+          <widget class="QComboBox" name="comboBox_resident_apartment_floor">
            <property name="geometry">
             <rect>
              <x>840</x>
@@ -2367,7 +2357,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QSpinBox" name="spinBox_apartment_number_3">
+          <widget class="QSpinBox" name="spinBox_apartment_number">
            <property name="geometry">
             <rect>
              <x>880</x>
@@ -2403,7 +2393,7 @@
             <string>Status</string>
            </property>
           </widget>
-          <widget class="QComboBox" name="comboBox_resident_apartment_status_3">
+          <widget class="QComboBox" name="comboBox_resident_apartment_status">
            <property name="geometry">
             <rect>
              <x>840</x>
@@ -2413,7 +2403,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_resident_apartment_add_3">
+          <widget class="QPushButton" name="pushButton_resident_apartment_add">
            <property name="geometry">
             <rect>
              <x>740</x>
@@ -2426,7 +2416,7 @@
             <string>Add</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_resident_apartment_edit_3">
+          <widget class="QPushButton" name="pushButton_resident_apartment_edit">
            <property name="geometry">
             <rect>
              <x>890</x>
@@ -2439,7 +2429,7 @@
             <string>Edit</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_resident_apartment_delete_3">
+          <widget class="QPushButton" name="pushButton_resident_apartment_delete">
            <property name="geometry">
             <rect>
              <x>1028</x>
@@ -2452,7 +2442,7 @@
             <string>Delete</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_export_apartment_3">
+          <widget class="QPushButton" name="pushButton_export_apartment">
            <property name="geometry">
             <rect>
              <x>640</x>
@@ -2465,7 +2455,7 @@
             <string>Export</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label__prefix_apartment_number_3">
+          <widget class="QLabel" name="label__prefix_apartment_number">
            <property name="geometry">
             <rect>
              <x>840</x>
@@ -2480,7 +2470,7 @@
           </widget>
          </widget>
         </widget>
-        <widget class="QPushButton" name="pushButton_company_apartment_manage_3">
+        <widget class="QPushButton" name="pushButton_company_apartment_manage">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -2493,7 +2483,7 @@
           <string>Company</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_apartment_resident_manage_3">
+        <widget class="QPushButton" name="pushButton_apartment_resident_manage">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -2511,7 +2501,7 @@
         <attribute name="title">
          <string>Page</string>
         </attribute>
-        <widget class="QTabWidget" name="tabWidget_resident_manage_3">
+        <widget class="QTabWidget" name="tabWidget_resident_manage">
          <property name="geometry">
           <rect>
            <x>160</x>
@@ -2521,13 +2511,13 @@
           </rect>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_48">
           <attribute name="title">
            <string>Tab 1</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_staff_3">
+          <widget class="QGroupBox" name="groupBox_staff">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -2539,7 +2529,7 @@
            <property name="title">
             <string>Staff Manage</string>
            </property>
-           <widget class="QComboBox" name="comboBox_fields_search_company_staff_3">
+           <widget class="QComboBox" name="comboBox_fields_search_company_staff">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -2549,7 +2539,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_company_staff_3">
+           <widget class="QLineEdit" name="lineEdit_search_company_staff">
             <property name="geometry">
              <rect>
               <x>270</x>
@@ -2559,7 +2549,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_staff_table_3">
+           <widget class="QTableWidget" name="tableWidget_staff_table">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -2598,7 +2588,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_company_staff_file_3">
+           <widget class="QPushButton" name="pushButton_select_company_staff_file">
             <property name="geometry">
              <rect>
               <x>850</x>
@@ -2611,7 +2601,7 @@
              <string>Choose file</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_company_staff_3">
+           <widget class="QPushButton" name="pushButton_import_company_staff">
             <property name="geometry">
              <rect>
               <x>1040</x>
@@ -2624,7 +2614,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_staff_id_3">
+           <widget class="QLineEdit" name="lineEdit_company_staff_id">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -2663,7 +2653,7 @@
              <string>Name</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_staff_name_3">
+           <widget class="QLineEdit" name="lineEdit_company_staff_name">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2673,7 +2663,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QDateEdit" name="dateEdit_company_staff_birthday_3">
+           <widget class="QDateEdit" name="dateEdit_company_staff_birthday">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2699,7 +2689,7 @@
              <string>Birthday</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_staff_gender_3">
+           <widget class="QComboBox" name="comboBox_company_staff_gender">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2722,7 +2712,7 @@
              <string>Gender</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_staff_id_number_3">
+           <widget class="QLineEdit" name="lineEdit_company_staff_id_number">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2761,7 +2751,7 @@
              <string>Village</string>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_company_staff_village_3">
+           <widget class="QTextEdit" name="textEdit_company_staff_village">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2771,7 +2761,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_company_staff_current_accommodation_3">
+           <widget class="QTextEdit" name="textEdit_company_staff_current_accommodation">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2797,7 +2787,7 @@
              <bool>true</bool>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_staff_company_3">
+           <widget class="QComboBox" name="comboBox_company_staff_company">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2823,7 +2813,7 @@
              <bool>true</bool>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_staff_add_3">
+           <widget class="QPushButton" name="pushButton_company_staff_add">
             <property name="geometry">
              <rect>
               <x>770</x>
@@ -2836,7 +2826,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_staff_edit_3">
+           <widget class="QPushButton" name="pushButton_company_staff_edit">
             <property name="geometry">
              <rect>
               <x>890</x>
@@ -2849,7 +2839,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_company_staff_delete_3">
+           <widget class="QPushButton" name="pushButton_company_staff_delete">
             <property name="geometry">
              <rect>
               <x>1010</x>
@@ -2875,7 +2865,7 @@
              <string>Phone</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_company_staff_phone_3">
+           <widget class="QLineEdit" name="lineEdit_company_staff_phone">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2888,7 +2878,7 @@
              <string/>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_export_staff_3">
+           <widget class="QPushButton" name="pushButton_export_staff">
             <property name="geometry">
              <rect>
               <x>670</x>
@@ -2927,7 +2917,7 @@
              <string>Floor</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_staff_building_3">
+           <widget class="QComboBox" name="comboBox_company_staff_building">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2937,7 +2927,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_company_staff_floor_3">
+           <widget class="QComboBox" name="comboBox_company_staff_floor">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -2953,7 +2943,7 @@
           <attribute name="title">
            <string>Tab 2</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_resident_3">
+          <widget class="QGroupBox" name="groupBox_resident">
            <property name="geometry">
             <rect>
              <x>20</x>
@@ -2965,7 +2955,7 @@
            <property name="title">
             <string>Resident</string>
            </property>
-           <widget class="QComboBox" name="comboBox_fields_search_resident_3">
+           <widget class="QComboBox" name="comboBox_fields_search_resident">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -2975,7 +2965,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_resident_3">
+           <widget class="QLineEdit" name="lineEdit_search_resident">
             <property name="geometry">
              <rect>
               <x>280</x>
@@ -2985,7 +2975,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_resident_3">
+           <widget class="QTableWidget" name="tableWidget_resident">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -3020,7 +3010,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_resident_3">
+           <widget class="QPushButton" name="pushButton_select_resident">
             <property name="geometry">
              <rect>
               <x>850</x>
@@ -3033,7 +3023,7 @@
              <string>Choose file</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_resident_3">
+           <widget class="QPushButton" name="pushButton_import_resident">
             <property name="geometry">
              <rect>
               <x>1040</x>
@@ -3046,7 +3036,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_resident_id_3">
+           <widget class="QLineEdit" name="lineEdit_resident_id">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -3085,7 +3075,7 @@
              <string>Name</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_resident_name_3">
+           <widget class="QLineEdit" name="lineEdit_resident_name">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3095,7 +3085,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QDateEdit" name="dateEdit_resident_birthday_3">
+           <widget class="QDateEdit" name="dateEdit_resident_birthday">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3118,7 +3108,7 @@
              <string>Birthday</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_resident_gender_3">
+           <widget class="QComboBox" name="comboBox_resident_gender">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3141,7 +3131,7 @@
              <string>Gender</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_resident_id_number_3">
+           <widget class="QLineEdit" name="lineEdit_resident_id_number">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3180,7 +3170,7 @@
              <string>Village</string>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_resident_village_3">
+           <widget class="QTextEdit" name="textEdit_resident_village">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3190,7 +3180,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_resident_current_accomodation_3">
+           <widget class="QTextEdit" name="textEdit_resident_current_accomodation">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3216,7 +3206,7 @@
              <bool>true</bool>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_resident_room_number_3">
+           <widget class="QComboBox" name="comboBox_resident_room_number">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3239,7 +3229,7 @@
              <string>Room Number</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_resident_add_3">
+           <widget class="QPushButton" name="pushButton_resident_add">
             <property name="geometry">
              <rect>
               <x>780</x>
@@ -3252,7 +3242,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_resident_edit_3">
+           <widget class="QPushButton" name="pushButton_resident_edit">
             <property name="geometry">
              <rect>
               <x>900</x>
@@ -3265,7 +3255,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_resident_delete_3">
+           <widget class="QPushButton" name="pushButton_resident_delete">
             <property name="geometry">
              <rect>
               <x>1020</x>
@@ -3291,7 +3281,7 @@
              <string>Phone</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_resident_phone_3">
+           <widget class="QLineEdit" name="lineEdit_resident_phone">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3304,7 +3294,7 @@
              <string/>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_export_resident_3">
+           <widget class="QPushButton" name="pushButton_export_resident">
             <property name="geometry">
              <rect>
               <x>690</x>
@@ -3317,7 +3307,7 @@
              <string>Export</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_resident_building_3">
+           <widget class="QComboBox" name="comboBox_resident_building">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3327,7 +3317,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_resident_floor_3">
+           <widget class="QComboBox" name="comboBox_resident_floor">
             <property name="geometry">
              <rect>
               <x>910</x>
@@ -3366,7 +3356,7 @@
           </widget>
          </widget>
         </widget>
-        <widget class="QPushButton" name="pushButton_company_staff_3">
+        <widget class="QPushButton" name="pushButton_company_staff">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -3379,7 +3369,7 @@
           <string>Company Staff</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_resident_3">
+        <widget class="QPushButton" name="pushButton_resident">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -3397,7 +3387,7 @@
         <attribute name="title">
          <string>Page</string>
         </attribute>
-        <widget class="QGroupBox" name="groupBox_guest_3">
+        <widget class="QGroupBox" name="groupBox_guest">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -3409,7 +3399,7 @@
          <property name="title">
           <string>Guest</string>
          </property>
-         <widget class="QComboBox" name="comboBox_fields_search_guest_3">
+         <widget class="QComboBox" name="comboBox_fields_search_guest">
           <property name="geometry">
            <rect>
             <x>20</x>
@@ -3419,7 +3409,7 @@
            </rect>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_search_guest_3">
+         <widget class="QLineEdit" name="lineEdit_search_guest">
           <property name="geometry">
            <rect>
             <x>720</x>
@@ -3429,7 +3419,7 @@
            </rect>
           </property>
          </widget>
-         <widget class="QTableWidget" name="tableWidget_guest_3">
+         <widget class="QTableWidget" name="tableWidget_guest">
           <property name="geometry">
            <rect>
             <x>20</x>
@@ -3439,7 +3429,7 @@
            </rect>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_export_guest_3">
+         <widget class="QPushButton" name="pushButton_export_guest">
           <property name="geometry">
            <rect>
             <x>1160</x>
@@ -3458,7 +3448,7 @@
         <attribute name="title">
          <string>Page</string>
         </attribute>
-        <widget class="QPushButton" name="pushButton_grant_role_3">
+        <widget class="QPushButton" name="pushButton_grant_role">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -3471,7 +3461,7 @@
           <string>Grant Role</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_person_image_3">
+        <widget class="QPushButton" name="pushButton_person_image">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -3484,7 +3474,7 @@
           <string>Person Image</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_access_track_3">
+        <widget class="QPushButton" name="pushButton_access_track">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -3497,7 +3487,7 @@
           <string>Access Track</string>
          </property>
         </widget>
-        <widget class="QTabWidget" name="tabWidget_access_control_3">
+        <widget class="QTabWidget" name="tabWidget_access_control">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -3510,13 +3500,13 @@
           </rect>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tab_52">
           <attribute name="title">
            <string>Tab 1</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_role_grant_3">
+          <widget class="QGroupBox" name="groupBox_role_grant">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -3528,7 +3518,7 @@
            <property name="title">
             <string/>
            </property>
-           <widget class="QComboBox" name="comboBox_fields_search_grant_role_3">
+           <widget class="QComboBox" name="comboBox_fields_search_grant_role">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -3538,7 +3528,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_line_search_grant_role_3">
+           <widget class="QLineEdit" name="lineEdit_line_search_grant_role">
             <property name="geometry">
              <rect>
               <x>310</x>
@@ -3548,7 +3538,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_grant_role_3">
+           <widget class="QTableWidget" name="tableWidget_grant_role">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -3571,7 +3561,7 @@
              <string>ID</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_grant_role_5">
+           <widget class="QLineEdit" name="lineEdit_id_grant_role">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -3597,7 +3587,7 @@
              <string>Info</string>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_3">
+           <widget class="QTextEdit" name="textEdit_info_person">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -3623,7 +3613,7 @@
              <string>ID Num</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_grant_role_6">
+           <widget class="QLineEdit" name="lineEdit_id_grant_role_2">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -3636,7 +3626,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_block_3">
+           <widget class="QComboBox" name="comboBox_grant_role_block">
             <property name="geometry">
              <rect>
               <x>890</x>
@@ -3659,7 +3649,7 @@
              <string>Block</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_floor_3">
+           <widget class="QComboBox" name="comboBox_grant_role_floor">
             <property name="geometry">
              <rect>
               <x>890</x>
@@ -3682,7 +3672,7 @@
              <string>Floor</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_door_5">
+           <widget class="QComboBox" name="comboBox_grant_role_door">
             <property name="geometry">
              <rect>
               <x>890</x>
@@ -3718,7 +3708,7 @@
              <string>Permission</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_door_6">
+           <widget class="QComboBox" name="comboBox_grant_role_door_permission">
             <property name="geometry">
              <rect>
               <x>890</x>
@@ -3728,7 +3718,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_grant_role_add_5">
+           <widget class="QPushButton" name="pushButton_grant_role_add">
             <property name="geometry">
              <rect>
               <x>780</x>
@@ -3741,7 +3731,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_grant_role_edit_3">
+           <widget class="QPushButton" name="pushButton_grant_role_edit">
             <property name="geometry">
              <rect>
               <x>900</x>
@@ -3754,7 +3744,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_grant_role_add_6">
+           <widget class="QPushButton" name="pushButton_grant_role_add_2">
             <property name="geometry">
              <rect>
               <x>1020</x>
@@ -3767,7 +3757,7 @@
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_export_grant_role_3">
+           <widget class="QPushButton" name="pushButton_export_grant_role">
             <property name="geometry">
              <rect>
               <x>690</x>
@@ -3793,7 +3783,7 @@
              <string>Import</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_select_file_grant_role_3">
+           <widget class="QPushButton" name="pushButton_select_file_grant_role">
             <property name="geometry">
              <rect>
               <x>890</x>
@@ -3806,7 +3796,7 @@
              <string>Choose File</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_import_grant_role_3">
+           <widget class="QPushButton" name="pushButton_import_grant_role">
             <property name="geometry">
              <rect>
               <x>1070</x>
@@ -3825,7 +3815,7 @@
           <attribute name="title">
            <string>Tab 2</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_person_image_3">
+          <widget class="QGroupBox" name="groupBox_person_image">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -3837,7 +3827,7 @@
            <property name="title">
             <string/>
            </property>
-           <widget class="QComboBox" name="comboBox_fields_search_person_image_3">
+           <widget class="QComboBox" name="comboBox_fields_search_person_image">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -3847,7 +3837,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_type_search_person_email_3">
+           <widget class="QLineEdit" name="lineEdit_type_search_person_email">
             <property name="geometry">
              <rect>
               <x>240</x>
@@ -3857,7 +3847,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_person_image_info_3">
+           <widget class="QTableWidget" name="tableWidget_person_image_info">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -3867,7 +3857,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTabWidget" name="tabWidget_person_image_manage_3">
+           <widget class="QTabWidget" name="tabWidget_person_image_manage">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -3877,7 +3867,7 @@
              </rect>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="tab_54">
              <attribute name="title">
@@ -3890,7 +3880,7 @@
              </attribute>
             </widget>
            </widget>
-           <widget class="QPushButton" name="pushButton_person_manage_add_photo_3">
+           <widget class="QPushButton" name="pushButton_person_manage_add_photo">
             <property name="geometry">
              <rect>
               <x>700</x>
@@ -3903,7 +3893,7 @@
              <string>Add New Photo</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_person_manage_manage_photo_3">
+           <widget class="QPushButton" name="pushButton_person_manage_manage_photo">
             <property name="geometry">
              <rect>
               <x>700</x>
@@ -3922,7 +3912,7 @@
           <attribute name="title">
            <string>Page</string>
           </attribute>
-          <widget class="QLineEdit" name="lineEdit_search_access_track_3">
+          <widget class="QLineEdit" name="lineEdit_search_access_track">
            <property name="geometry">
             <rect>
              <x>610</x>
@@ -3932,7 +3922,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QComboBox" name="comboBox_fields_search_access_track_3">
+          <widget class="QComboBox" name="comboBox_fields_search_access_track">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -3942,7 +3932,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QTableWidget" name="tableWidget_access_track_3">
+          <widget class="QTableWidget" name="tableWidget_access_track">
            <property name="geometry">
             <rect>
              <x>12</x>
@@ -3952,7 +3942,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_export_access_track_3">
+          <widget class="QPushButton" name="pushButton_export_access_track">
            <property name="geometry">
             <rect>
              <x>1050</x>
@@ -3969,7 +3959,7 @@
         </widget>
        </widget>
       </widget>
-      <widget class="QLabel" name="label_username_session_3">
+      <widget class="QLabel" name="label_username_session_main">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -4165,7 +4155,7 @@
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QFrame" name="frame_main_2">
+     <widget class="QFrame" name="frame_main_securety">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -4183,7 +4173,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="pushButton_gest_manage_4">
+      <widget class="QPushButton" name="pushButton_guest_manage">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -4196,7 +4186,7 @@
         <string>Guest Manage</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_video_access_control_4">
+      <widget class="QPushButton" name="pushButton_video_access_control_securyty">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -4209,7 +4199,7 @@
         <string>Access Control</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_logout_4">
+      <widget class="QPushButton" name="pushButton_logout_securety">
        <property name="geometry">
         <rect>
          <x>1470</x>
@@ -4222,7 +4212,7 @@
         <string>Logout</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_username_session_4">
+      <widget class="QLabel" name="label_username_session_securety">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -4248,7 +4238,7 @@
         <string>User:</string>
        </property>
       </widget>
-      <widget class="QTabWidget" name="tabWidget_main_4">
+      <widget class="QTabWidget" name="tabWidget_main_securety">
        <property name="geometry">
         <rect>
          <x>220</x>
@@ -4258,13 +4248,13 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_58">
         <attribute name="title">
          <string>Tab 1</string>
         </attribute>
-        <widget class="QTabWidget" name="tabWidget_access_control_4">
+        <widget class="QTabWidget" name="tabWidget_access_control_securety">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -4283,7 +4273,7 @@
           <attribute name="title">
            <string>Tab 1</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_role_grant_4">
+          <widget class="QGroupBox" name="groupBox_role_grant_securety">
            <property name="geometry">
             <rect>
              <x>20</x>
@@ -4295,7 +4285,7 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
-           <widget class="QComboBox" name="comboBox_fields_search_grant_role_4">
+           <widget class="QComboBox" name="comboBox_fields_search_grant_role_securety">
             <property name="geometry">
              <rect>
               <x>30</x>
@@ -4305,7 +4295,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_line_search_grant_role_4">
+           <widget class="QLineEdit" name="lineEdit_line_search_grant_role_securety">
             <property name="geometry">
              <rect>
               <x>390</x>
@@ -4315,7 +4305,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_grant_role_4">
+           <widget class="QTableWidget" name="tableWidget_grant_role_securety">
             <property name="geometry">
              <rect>
               <x>30</x>
@@ -4338,7 +4328,7 @@
              <string>ID</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_grant_role_7">
+           <widget class="QLineEdit" name="lineEdit_id_num_grant_role_securety">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -4364,7 +4354,7 @@
              <string>Info</string>
             </property>
            </widget>
-           <widget class="QTextEdit" name="textEdit_4">
+           <widget class="QTextEdit" name="textEdit_info_person_securety">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -4390,7 +4380,7 @@
              <string>ID Num</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_grant_role_8">
+           <widget class="QLineEdit" name="lineEdit_id_grant_role_securety">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -4403,7 +4393,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_block_4">
+           <widget class="QComboBox" name="comboBox_grant_role_block_securety">
             <property name="geometry">
              <rect>
               <x>900</x>
@@ -4426,7 +4416,7 @@
              <string>Block</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_floor_4">
+           <widget class="QComboBox" name="comboBox_grant_role_floor_securety">
             <property name="geometry">
              <rect>
               <x>900</x>
@@ -4449,7 +4439,7 @@
              <string>Floor</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_door_7">
+           <widget class="QComboBox" name="comboBox_grant_role_door_securety">
             <property name="geometry">
              <rect>
               <x>900</x>
@@ -4485,7 +4475,7 @@
              <string>Permission</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_grant_role_door_8">
+           <widget class="QComboBox" name="comboBox_grant_role_door_permission_securety">
             <property name="geometry">
              <rect>
               <x>900</x>
@@ -4495,7 +4485,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_grant_role_add_7">
+           <widget class="QPushButton" name="pushButton_grant_role_add_securety">
             <property name="geometry">
              <rect>
               <x>780</x>
@@ -4508,7 +4498,7 @@
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_grant_role_edit_4">
+           <widget class="QPushButton" name="pushButton_grant_role_edit_securety">
             <property name="geometry">
              <rect>
               <x>900</x>
@@ -4521,7 +4511,7 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_grant_role_add_8">
+           <widget class="QPushButton" name="pushButton_grant_role_delete_securety">
             <property name="geometry">
              <rect>
               <x>1020</x>
@@ -4540,7 +4530,7 @@
           <attribute name="title">
            <string>Tab 2</string>
           </attribute>
-          <widget class="QGroupBox" name="groupBox_person_image_4">
+          <widget class="QGroupBox" name="groupBox_person_image_securety">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -4552,7 +4542,7 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
-           <widget class="QComboBox" name="comboBox_fields_search_person_image_4">
+           <widget class="QComboBox" name="comboBox_fields_search_person_image_securety">
             <property name="geometry">
              <rect>
               <x>100</x>
@@ -4562,7 +4552,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_type_search_person_email_4">
+           <widget class="QLineEdit" name="lineEdit_type_search_person_email_securety">
             <property name="geometry">
              <rect>
               <x>600</x>
@@ -4572,7 +4562,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_person_image_info_4">
+           <widget class="QTableWidget" name="tableWidget_person_image_info_securety">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -4642,7 +4632,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_fields_search_access_track_4">
+           <widget class="QComboBox" name="comboBox_fields_search_access_track_securety">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -4781,7 +4771,7 @@
              <string>Name</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_search_access_track_4">
+           <widget class="QLineEdit" name="lineEdit_search_access_track_securety">
             <property name="geometry">
              <rect>
               <x>300</x>
@@ -4804,7 +4794,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox_access_track_role_accident_2">
+           <widget class="QComboBox" name="comboBox_access_track_role_accident_securety">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -4817,7 +4807,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_access_track_update_accident_2">
+           <widget class="QPushButton" name="pushButton_access_track_update_accident_securety">
             <property name="geometry">
              <rect>
               <x>810</x>
@@ -4830,7 +4820,7 @@
              <string>Update</string>
             </property>
            </widget>
-           <widget class="QDateTimeEdit" name="dateTimeEdit_access_track_time_accident_2">
+           <widget class="QDateTimeEdit" name="dateTimeEdit_access_track_time_accident_securety">
             <property name="geometry">
              <rect>
               <x>860</x>
@@ -4840,7 +4830,7 @@
              </rect>
             </property>
            </widget>
-           <widget class="QTableWidget" name="tableWidget_access_track_4">
+           <widget class="QTableWidget" name="tableWidget_access_track_securety">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -4895,7 +4885,7 @@
           </widget>
          </widget>
         </widget>
-        <widget class="QPushButton" name="pushButton_grant_role_4">
+        <widget class="QPushButton" name="pushButton_grant_role_securety">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -4908,7 +4898,7 @@
           <string>Grant Role</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_person_image_4">
+        <widget class="QPushButton" name="pushButton_person_image_securety">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -4921,7 +4911,7 @@
           <string>Person Image</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_access_track_4">
+        <widget class="QPushButton" name="pushButton_access_track_securety">
          <property name="geometry">
           <rect>
            <x>10</x>

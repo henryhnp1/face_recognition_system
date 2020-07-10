@@ -126,7 +126,7 @@ class MainApp(QMainWindow, ui):
             self.handle_frame_ui()
 
     def handle_ui(self):
-        self.label_username_session.setStyleSheet("QLabel{font-family: ubuntu 30; color: blue; font-weight: bold}")
+        # self.label_username_session.setStyleSheet("QLabel{font-family: ubuntu 30; color: blue; font-weight: bold}")
         self.tabWidget_main.tabBar().setVisible(False)
         self.tabWidget_building_manage.tabBar().setVisible(False)
 
@@ -177,7 +177,6 @@ class MainApp(QMainWindow, ui):
 
     def handle_buttons_login_tab(self):
         self.pushButton_login.clicked.connect(self.login)
-        self.pushButton_logout.clicked.connect(self.logout)
         self.lineEdit_password.returnPressed.connect(self.login)
 
     def handle_combobox(self):
@@ -233,8 +232,6 @@ class MainApp(QMainWindow, ui):
                 cursor.close()
                 break
         if self.session:
-            self.label_username_session.setText(self.session)
-            self.handle_frame_ui()
             self.lineEdit_username.setText('')
             self.lineEdit_password.setText('')
             self.label_error.setText('')

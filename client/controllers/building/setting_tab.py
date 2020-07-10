@@ -127,19 +127,22 @@ def edit_type_of_floor(self):
     if self.lineEdit_typeOFloor_id.text():
         if self.lineEdit_typeOFloor_name.text().strip():
             index = int(self.lineEdit_typeOFloor_id.text())
-            name = standardized.str_standard(self.lineEdit_typeOFloor_name.text()).lower()
-            description_0 = standardized.str_standard(self.textEdit_typeOFloor_description.toPlainText())
-            description = description_0 if description_0 else None
-            cursor = self.database.cursor()
-            try:
-                cursor.execute("update type_of_floor set name=%s, description=%s where id=%s", (name, description, index))
-                self.database.commit()
-                self.statusBar().showMessage("New Type Of Floor Updated With ID={}".format(index))
-                self.load_type_of_floor_setting()
-                cursor.close()
-            except db.Error as e:
-                print(e)
-                message_box.MyMessageBox(QMessageBox.Critical,"Error data", "name's type of floor exist. Please choose other").exec()
+            if index == 1 or index == 2:
+                message_box.MyMessageBox(QMessageBox.Critical,"Error", "This Data Cannot Modify Or Delete").exec()
+            else:
+                name = standardized.str_standard(self.lineEdit_typeOFloor_name.text()).lower()
+                description_0 = standardized.str_standard(self.textEdit_typeOFloor_description.toPlainText())
+                description = description_0 if description_0 else None
+                cursor = self.database.cursor()
+                try:
+                    cursor.execute("update type_of_floor set name=%s, description=%s where id=%s", (name, description, index))
+                    self.database.commit()
+                    self.statusBar().showMessage("New Type Of Floor Updated With ID={}".format(index))
+                    self.load_type_of_floor_setting()
+                    cursor.close()
+                except db.Error as e:
+                    print(e)
+                    message_box.MyMessageBox(QMessageBox.Critical,"Error data", "name's type of floor exist. Please choose other").exec()
         else:
             message_box.MyMessageBox(QMessageBox.Critical,"Missing data", "Your Name Input Must Be Not Null").exec()
 
@@ -147,18 +150,21 @@ def edit_type_of_floor(self):
 def delete_type_of_floor(self):
     if self.lineEdit_typeOFloor_id.text():
         index = int(self.lineEdit_typeOFloor_id.text())
-        cursor = self.database.cursor()
-        try:
-            cursor.execute("delete from type_of_floor where id=%s", [(index)])
-            self.database.commit()
-            self.load_type_of_floor_setting()
-            self.statusBar().showMessage("A Type Of Floor Deleted With ID={}".format(index))
-            cursor.close()
-            self.lineEdit_typeOFloor_id.setText(None)
-            self.lineEdit_typeOFloor_name.setText(None)
-            self.textEdit_typeOFloor_description.setPlainText(None)
-        except db.Error as e:
-            pass
+        if index == 1 or index == 2:
+            message_box.MyMessageBox(QMessageBox.Critical,"Error", "This Data Cannot Modify Or Delete").exec()
+        else:
+            cursor = self.database.cursor()
+            try:
+                cursor.execute("delete from type_of_floor where id=%s", [(index)])
+                self.database.commit()
+                self.load_type_of_floor_setting()
+                self.statusBar().showMessage("A Type Of Floor Deleted With ID={}".format(index))
+                cursor.close()
+                self.lineEdit_typeOFloor_id.setText(None)
+                self.lineEdit_typeOFloor_name.setText(None)
+                self.textEdit_typeOFloor_description.setPlainText(None)
+            except db.Error as e:
+                pass
 
 ### setting line search validator when combobox search changed
 def set_line_search_type_of_building(self):
@@ -251,19 +257,22 @@ def edit_permission(self):
     if self.lineEdit_permission_id.text():
         if self.lineEdit_permission_name.text().strip():
             index = int(self.lineEdit_permission_id.text())
-            name = standardized.str_standard(self.lineEdit_permission_name.text()).upper()
-            description_0 = standardized.str_standard(self.textEdit_permission_description.toPlainText())
-            description = description_0 if description_0 else None
-            cursor = self.database.cursor()
-            try:
-                cursor.execute("update permission set name=%s, description=%s where id=%s", (name, description, index))
-                self.database.commit()
-                self.statusBar().showMessage("Permission Updated With ID={}".format(index))
-                self.load_permission_setting()
-                cursor.close()
-            except db.Error as e:
-                print(e)
-                message_box.MyMessageBox(QMessageBox.Critical,"Error data", "name's permission exist. Please choose other").exec()
+            if index == 1 or index == 2:
+                 message_box.MyMessageBox(QMessageBox.Critical,"Error", "This Data Cannot Modify Or Delete").exec()
+            else:
+                name = standardized.str_standard(self.lineEdit_permission_name.text()).upper()
+                description_0 = standardized.str_standard(self.textEdit_permission_description.toPlainText())
+                description = description_0 if description_0 else None
+                cursor = self.database.cursor()
+                try:
+                    cursor.execute("update permission set name=%s, description=%s where id=%s", (name, description, index))
+                    self.database.commit()
+                    self.statusBar().showMessage("Permission Updated With ID={}".format(index))
+                    self.load_permission_setting()
+                    cursor.close()
+                except db.Error as e:
+                    print(e)
+                    message_box.MyMessageBox(QMessageBox.Critical,"Error data", "name's permission exist. Please choose other").exec()
         else:
             message_box.MyMessageBox(QMessageBox.Critical,"Missing data", "Your Name Input Must Be Not Null").exec()
 
@@ -271,18 +280,21 @@ def edit_permission(self):
 def delete_permission(self):
     if self.lineEdit_permission_id.text():
         index = int(self.lineEdit_permission_id.text())
-        cursor = self.database.cursor()
-        try:
-            cursor.execute("delete from permission where id=%s", [(index)])
-            self.database.commit()
-            self.load_permission_setting()
-            self.statusBar().showMessage("A Permission Deleted With ID={}".format(index))
-            cursor.close()
-            self.lineEdit_permission_id.setText(None)
-            self.lineEdit_permission_name.setText(None)
-            self.textEdit_permission_description.setPlainText(None)
-        except db.Error as e:
-            pass
+        if index == 1 or index == 2:
+            message_box.MyMessageBox(QMessageBox.Critical,"Error", "This Data Cannot Modify Or Delete").exec()
+        else:
+            cursor = self.database.cursor()
+            try:
+                cursor.execute("delete from permission where id=%s", [(index)])
+                self.database.commit()
+                self.load_permission_setting()
+                self.statusBar().showMessage("A Permission Deleted With ID={}".format(index))
+                cursor.close()
+                self.lineEdit_permission_id.setText(None)
+                self.lineEdit_permission_name.setText(None)
+                self.textEdit_permission_description.setPlainText(None)
+            except db.Error as e:
+                pass
 
 ### set line search permission when it's combobox change
 def set_line_search_permission(self):

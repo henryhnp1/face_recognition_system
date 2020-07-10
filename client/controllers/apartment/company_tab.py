@@ -30,7 +30,7 @@ def apartment_manage_handle_combobox_company_tab(self):
     self.comboBox_company_office_floor.currentTextChanged.connect(self.apartment_manage_set_prefix_office_number)
 
     self.comboBox_field_search_company_office.currentTextChanged.connect(self.apartment_manage_search_line_edit_setting_search_office)
-    self.comboBox_field_search_company_apartment_2.currentTextChanged.connect(self.apartment_manage_search_line_edit_setting_search_company)
+    self.comboBox_field_search_company_apartment.currentTextChanged.connect(self.apartment_manage_search_line_edit_setting_search_company)
 
     self.comboBox_company_office_building_company.currentTextChanged.connect(self.apartment_manage_combobox_setting_data_change_company_tab_floor_combobox)
     self.comboBox_company_office_floor_company.currentTextChanged.connect(self.apartment_manage_combobox_setting_data_change_company_tab_office_combobox)
@@ -64,7 +64,7 @@ def apartment_manage_combobox_setting_company_tab(self):
     self.comboBox_company_office_status.addItems(field_of_status)
 
     field_search_company = ['id', 'building','floor','office', 'name', 'phone']
-    self.comboBox_field_search_company_apartment_2.addItems(field_search_company)
+    self.comboBox_field_search_company_apartment.addItems(field_search_company)
 
 def apartment_manage_combobox_setting_data_change_company_tab(self):
     self.apartment_manage_combobox_setting_data_change_company_tab_office_table()
@@ -72,15 +72,15 @@ def apartment_manage_combobox_setting_data_change_company_tab(self):
 
 def apartment_manage_handle_search_line_edit_company_tab(self):
     self.lineEdit_line_search_company_office.returnPressed.connect(self.apartment_manage_search_office)
-    self.lineEdit_line_search_company_apartment_2.returnPressed.connect(self.apartment_manage_search_company)
+    self.lineEdit_line_search_company_apartment.returnPressed.connect(self.apartment_manage_search_company)
 
 def apartment_manage_table_widget_setting_company_tab(self):
     self.tableWidget_company_apartment_table.setSortingEnabled(True)
-    self.tableWidget_company_apartment_table_2.setSortingEnabled(True)
+    self.tableWidget_company_apartment_table_office.setSortingEnabled(True)
     self.tableWidget_company_apartment_table.setSelectionBehavior(QTableView.SelectRows)
-    self.tableWidget_company_apartment_table_2.setSelectionBehavior(QTableView.SelectRows)
+    self.tableWidget_company_apartment_table_office.setSelectionBehavior(QTableView.SelectRows)
     self.tableWidget_company_apartment_table.itemClicked.connect(self.apartment_manage_office_item_click)
-    self.tableWidget_company_apartment_table_2.itemClicked.connect(self.apartment_manage_company_item_click)
+    self.tableWidget_company_apartment_table_office.itemClicked.connect(self.apartment_manage_company_item_click)
 
 def apartment_manage_button_setting_and_ui_company_tab(self):
     self.pushButton_select_file_company_office.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; text-align:left}")
@@ -132,7 +132,7 @@ def apartment_manage_search_line_edit_setting_search_office(self):
         self.lineEdit_line_search_company_office.setValidator(None)
 
 def apartment_manage_search_line_edit_setting_search_company(self):
-    field_search = self.comboBox_field_search_company_apartment_2.currentText()
+    field_search = self.comboBox_field_search_company_apartment.currentText()
     if field_search == 'id' or field_search=='phone':
         self.lineEdit_line_search_apartment.setText('')
         self.lineEdit_line_search_apartment.setValidator(QIntValidator(0, 1147483647, self))
@@ -310,7 +310,7 @@ def apartment_manage_export_office(self):
         common.export_data_from_table_widget(self, self.tableWidget_company_apartment_table, path_file)
  #======================================================================================================       
 def apartment_manage_load_company_tab_load_company_table(self):
-    common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table_2, fully_query_company)
+    common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table_office, fully_query_company)
 
 def apartment_manage_combobox_setting_data_change_company_tab_company_table(self):
     self.comboBox_company_office_building_company.clear()
@@ -360,7 +360,7 @@ def apartment_manage_combobox_setting_data_change_company_tab_office_combobox(se
             self.comboBox_company_office_number.addItem(office_name, office_object)
 
 def apartment_manage_company_item_click(self):
-    data = common.get_row_data_item_click(self.tableWidget_company_apartment_table_2)
+    data = common.get_row_data_item_click(self.tableWidget_company_apartment_table_office)
 
     self.lineEdit_company_id.setText(data[0])
     self.lineEdit_company_name.setText(data[4])
@@ -388,8 +388,8 @@ def apartment_manage_company_item_click(self):
             break
 
 def apartment_manage_search_company(self):
-    field_search = self.comboBox_field_search_company_apartment_2.currentText()
-    text_search = self.lineEdit_line_search_company_apartment_2.text()
+    field_search = self.comboBox_field_search_company_apartment.currentText()
+    text_search = self.lineEdit_line_search_company_apartment.text()
     query = '''
         select c.id, b.name as 'building', f.name as 'floor', a.name as 'apartment' ,c.name, c.phone from company as c
         join apartment as a on c.apartment = a.id
@@ -411,7 +411,7 @@ def apartment_manage_search_company(self):
         query = query.format("where a.name like '%{}%'".format(text_search))
     else:
         query = query.format("where c.phone like '%{}%'".format(text_search))
-    common.data_loader(self, self.database, 'None', self.tableWidget_company_apartment_table_2, query)
+    common.data_loader(self, self.database, 'None', self.tableWidget_company_apartment_table_office, query)
 
 def apartment_manage_add_company(self):
     if self.lineEdit_company_name.text():
@@ -449,7 +449,7 @@ def apartment_manage_edit_company(self):
             try:
                 cursor.execute(query,(company_id, name, phone, office_old, office_new))
                 self.database.commit()
-                common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table_2, fully_query_company)
+                common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table_office, fully_query_company)
             except db.Error as e:
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Company Is Exist!").exec()
             cursor.close()
@@ -465,7 +465,7 @@ def apartment_manage_delete_company(self):
         try:
             cursor.execute(query,(office_old))
             self.database.commit()
-            common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table_2, fully_query_company)
+            common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table_office, fully_query_company)
         except db.Error as e:
             message_box.MyMessageBox(QMessageBox.Critical, "Error", "Wrong").exec()
         cursor.close()
@@ -508,7 +508,7 @@ def apartment_manage_import_company(self):
 def apartment_manage_export_company(self):
     path_file = common.select_file_export(self, self.pushButton_export_company)
     if path_file:
-        common.export_data_from_table_widget(self, self.tableWidget_company_apartment_table_2, path_file)
+        common.export_data_from_table_widget(self, self.tableWidget_company_apartment_table_office, path_file)
         self.statusBar().showMessage("Export Success")
 
 def apartment_manage_clear_data_form_company_form(self):

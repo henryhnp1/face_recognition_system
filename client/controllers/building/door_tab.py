@@ -31,9 +31,9 @@ def building_manage_door_manage_role_door_table_load(self, query=None):
     common.data_loader(self, self.database, 'role_door', self.tableWidget_role_door, query)
 
 def building_manage_handle_button_door_manage_tab(self):
-    self.pushButton_add_floor_2.clicked.connect(self.building_manage_door_manage_add_door)
-    self.pushButton_edit_floor_2.clicked.connect(self.building_manage_door_manage_edit_door)
-    self.pushButton_delete_floor_2.clicked.connect(self.building_manage_door_manage_delete_door)
+    self.pushButton_add_door.clicked.connect(self.building_manage_door_manage_add_door)
+    self.pushButton_edit_door.clicked.connect(self.building_manage_door_manage_edit_door)
+    self.pushButton_delete_door.clicked.connect(self.building_manage_door_manage_delete_door)
     self.pushButton_select_file_door.clicked.connect(self.building_manage_door_manage_choose_file_door_import)
     self.pushButton_import_file_door.clicked.connect(self.building_manage_door_manage_import_file_door)
     self.pushButton_export_door.clicked.connect(self.building_manage_door_mange_export_file_door)
