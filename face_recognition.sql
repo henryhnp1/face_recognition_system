@@ -69,6 +69,9 @@ alter table person
 add phone varchar(10) after gender;
 
 alter table person
+add unique (phone);
+
+alter table person
 add is_resident int;
 create table guest(
 	id int primary key auto_increment,
@@ -283,7 +286,7 @@ create procedure edit_staff(in company_in int,in name_in nvarchar(255), in birth
 begin
 	declare person_id int;
     declare person_id_number nvarchar(12);
-    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
+    select p.id_card into person_id_number from person as p where p.id_card = cur_id_card;
 	update person set name = name_in, birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
 	village = village_in, current_accommodation=current_accommodation_in where id_card = cur_id_card;
 	select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
@@ -339,7 +342,7 @@ delimiter ;
 
 call insert_staff_from_file('CTY ABC','A1001', 'Hoàng Mai Nghị', 'NghiHM0624_618_07_06','1996-06-24', 'Male', '163355618', '0964092612', 'Việt Hùng, Trực Ninh, Nam Định', 'Minh Khai, Bắc Từ Liêm, Hà Nội');
 
-drop procedure if exists insert_staff;
+drop procedure if exists insert_resident;
 delimiter #
 create procedure insert_resident(in apartment_in int,in name_in nvarchar(255),in name_en_in varchar(50),in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text)
 begin
@@ -376,7 +379,7 @@ create procedure edit_resident(in apartment_in int,in name_in nvarchar(255), in 
 begin
 	declare person_id int;
     declare person_id_number nvarchar(12);
-    select p.id_card into person_id_number from person as p where p.id_card = id_card_in;
+    select p.id_card into person_id_number from person as p where p.id_card = cur_id_card limit 1;
 	update person set name = name_in, birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
 	village = village_in, current_accommodation=current_accommodation_in where id_card = cur_id_card;
 	select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
@@ -384,7 +387,7 @@ begin
 
 end#
 delimiter ;
-
+call edit_resident(85,'Lê Thị Ánh', '2000-07-20', 0, '0974926411', '163355624', 'Kim Sơn, Ninh Bình', 'Thanh Xuân, Hà Nội', 'Female', 85);
 drop procedure if exists insert_resident_from_file;
 delimiter #
 create procedure insert_resident_from_file(in apartment_name nvarchar(50), in name_in nvarchar(255), in name_en_in varchar(50), in birthday_in date, in gender_in varchar(10),in phone_in varchar(10), in id_card_in varchar(12),in village_in nvarchar(255), in cur_accom text)

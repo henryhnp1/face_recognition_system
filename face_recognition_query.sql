@@ -411,4 +411,24 @@ join apartment as a on a.id = r.apartment
 join floor as f on a.floor = f.id
 join building as b on b.id = f.building
 join type_of_floor as t on t.id = 2
-where p.is_delete = 0 and p.is_resident = 1 and r.id = 1
+where p.is_delete = 0 and p.is_resident = 1 and r.id = 1;
+
+-- select company office
+select c.id, c.name, a.id as 'office_id', a.name as 'office', f.id as 'floor_id', 
+        f.name as 'floor', b.id as 'building_id', b.name as 'building' from company as c
+        join apartment as a on c.apartment = a.id
+        join floor as f on a.floor = f.id
+        join building as b on b.id = f.building
+        join type_of_floor as t on t.id = f.type_of_floor
+        where t.id = 1 and c.name = 'CTY ABC' and a.name = 'A1001';
+
+select p.id, a.name as 'apartment', a.id as 'apartment_id', p.name, p.birthday, 
+                    if(p.gender=1, 'Male', 'Female') as 'gender', p.id_card, 
+                    p.phone, p.village, p.current_accommodation  from person as p
+                    join resident_apartment as r on p.id = r.resident
+                    join apartment as a on a.id = r.apartment
+                    join floor as f on a.floor = f.id
+                    join building as b on b.id = f.building
+                    join type_of_floor as t on t.id = 2
+                    where p.is_delete = 0 and p.is_resident = 1 and p.id =7;
+        

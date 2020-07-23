@@ -277,7 +277,7 @@ def resident_manage_staff_tab_item_click(self):
         join floor as f on a.floor = f.id
         join building as b on b.id = f.building
         join type_of_floor as t on t.id = f.type_of_floor
-        where t.name = 'business' and c.name = '{}' and a.name = '{}'
+        where t.id = 1 and c.name = '{}' and a.name = '{}'
     '''
     list_company_office_building = common.get_list_model(self.database, my_model.Company_Office_Building, query_select_company_office_building.format(company_name, office_name))
     target = list_company_office_building[0]

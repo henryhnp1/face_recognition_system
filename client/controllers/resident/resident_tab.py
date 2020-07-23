@@ -157,8 +157,8 @@ def resident_manage_resident_tab_edit_resident(self):
                 else:
                     message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Must Be lenght = 9 or 13").exec()
             else:
-                query_get_cur_staff = '''
-                    select p.id, a.name as 'apartment', p.name, p.birthday, 
+                query_get_cur_resident = '''
+                    select p.id, a.name as 'apartment', a.id as 'apartment_id', p.name, p.birthday, 
                     if(p.gender=1, 'Male', 'Female') as 'gender', p.id_card, 
                     p.phone, p.village, p.current_accommodation  from person as p
                     join resident_apartment as r on p.id = r.resident
@@ -166,9 +166,9 @@ def resident_manage_resident_tab_edit_resident(self):
                     join floor as f on a.floor = f.id
                     join building as b on b.id = f.building
                     join type_of_floor as t on t.id = 2
-                    where p.is_delete = 0 and p.is_resident = 1 and r.id = {}
+                    where p.is_delete = 0 and p.is_resident = 1 and p.id = {}
                 '''
-                cur_resident = common.get_single_item_from_query(query_get_cur_staff.format(cur_id_resident), self.database)
+                cur_resident = common.get_single_item_from_query(query_get_cur_resident.format(cur_id_resident), self.database)
                 name = self.lineEdit_resident_name.text()
                 birthday = self.dateEdit_resident_birthday.date()
                 birthday_mysql = standardized.str_date_standard(birthday.year(), birthday.month(), birthday.day())
@@ -182,12 +182,13 @@ def resident_manage_resident_tab_edit_resident(self):
                 curr_accommodation = self.textEdit_resident_current_accomodation.toPlainText()
                 apartment = self.comboBox_resident_room_number.currentData().pk
                 today_mysql = common.get_today_str()
-                query = 'call edit_staff(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+                query = 'call edit_resident(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
                 cursor = self.database.cursor()
                 try:
-                    cursor.execute(query,(apartment, name, birthday_mysql, gender, phone, id_number, village, curr_accommodation, cur_resident[5], cur_resident[1]))
+                    cursor.execute(query,(apartment, name, birthday_mysql, gender, phone, id_number, village, curr_accommodation, cur_resident[6], cur_resident[2]))
+                    print(cursor._last_executed)
                     self.database.commit()
-                    common.data_loader(self, self.database, 'None', self.tableWidget_staff_table, full_select_staff)
+                    common.data_loader(self, self.database, 'None', self.tableWidget_resident, fully_query_resident)
                 except db.Error as e:
                     print(e)
                     message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Is Exist!").exec()

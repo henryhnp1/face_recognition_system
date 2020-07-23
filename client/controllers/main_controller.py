@@ -95,9 +95,10 @@ class MainApp(QMainWindow, ui):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
-        self.frame_main.setHidden(True)
-        self.frame_login.setHidden(False)
         self.setWindowTitle("Face Access Control")
+        # for testing self.user_role = 1
+        self.user_role = 1
+        #self.user_role = 0
         self.database = db_connector.connector('localhost', 'henrydb', 'root', 'face_recognition')
         if self.database == None:
             msg = message_box.MyMessageBox(QMessageBox.Critical,"Wrong db or authentication", "You must change setting in .config file")
@@ -114,25 +115,29 @@ class MainApp(QMainWindow, ui):
         self.handle_ui_login()
         self.button_setting_and_ui()
         self.open_window()
-        
         #for test ting
-        self.handle_frame_ui()
+        self.handle_tab_ui()
 
     def check_login(self):
         print(self.session)
         if self.session == None:
             sys.exit()
         if self.session == 'NoOne':
-            self.handle_frame_ui()
+            self.handle_tab_ui()
 
     def handle_ui(self):
         # self.label_username_session.setStyleSheet("QLabel{font-family: ubuntu 30; color: blue; font-weight: bold}")
         self.tabWidget_main.tabBar().setVisible(False)
         self.tabWidget_building_manage.tabBar().setVisible(False)
+        self.tabWidget_all.tabBar().setVisible(False)
 
-    def handle_frame_ui(self):
-        self.frame_main.setHidden(not self.frame_main.isHidden())
-        self.frame_login.setHidden(not self.frame_login.isHidden())
+    def handle_tab_ui(self):
+        if self.user_role == 1:
+            self.tabWidget_all.setCurrentIndex(0)
+        elif self.user_role == 2:
+            self.tabWidget_all.setCurrentIndex(2)
+        else:
+            self.tabWidget_all.setCurrentIndex(1)
 
     def handle_ui_login(self):
         self.label_login.setStyleSheet("QLabel{font-family: ubuntu 30; color: blue}")
@@ -145,11 +150,18 @@ class MainApp(QMainWindow, ui):
 
     #load_data
     def load_data(self):
+        self.load_admin()
+        self.load_securety()
+
+    def load_admin(self):
         self.load_building_manage()
         self.load_apartment_manage()
         self.load_resident_manage()
         self.load_guest_manage()
         self.load_access_control()
+    
+    def load_securety(self):
+        pass
         
     def button_setting_and_ui(self):
         self.building_manage_button_setting_and_ui()
@@ -229,19 +241,22 @@ class MainApp(QMainWindow, ui):
             result = cursor.fetchall()
             if len(result) == 1:
                 self.session = username
+                self.user_role = result[0][3]
                 cursor.close()
                 break
-        if self.session:
+        if self.session!= 'NoOne':
             self.lineEdit_username.setText('')
             self.lineEdit_password.setText('')
             self.label_error.setText('')
+            self.handle_tab_ui()
             self.load_data()
         else:
             self.label_error.setText('Wrong username or password')
     
     def logout(self):
         self.session = None
-        self.handle_frame_ui()
+        self.user_role = 0
+        self.handle_tab_ui()
         # To do: set all line, textedit to ''
 
     # open tab main
