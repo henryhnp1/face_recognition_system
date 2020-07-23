@@ -88,9 +88,15 @@ class MainApp(QMainWindow, ui):
     from controllers.guest.guest_controller import guest_manage_button_setting_and_ui, guest_manage_combobox_setting, guest_manage_combobox_setting_data_change
     from controllers.guest.guest_controller import guest_manage_handle_button, guest_manage_handle_combobox, guest_manage_handle_search_line_edit
 
-    from controllers.access_control.access_control_controller import load_access_control, access_control_table_widget_setting
+    from controllers.access_control.access_control_controller import load_access_control, access_control_table_widget_setting, access_control_handle_button
     from controllers.access_control.access_control_controller import access_control_button_setting_and_ui, access_control_combobox_setting, access_control_combobox_setting_data_change
-    from controllers.access_control.access_control_controller import access_control_handle_button, access_control_handle_combobox, access_control_handle_search_line_edit
+    from controllers.access_control.access_control_controller import access_control_handle_combobox, access_control_handle_search_line_edit, access_control_open_tab_grant_role, access_control_open_tab_person_image, access_control_open_tab_access_track
+
+    from controllers.access_control.grant_role_tab import access_control_grant_role_load, access_control_button_setting_and_ui_grant_role_tab, access_control_combobox_setting_data_change_grant_role_tab, access_control_combobox_setting_grant_role_tab, access_control_handle_button_grant_role_tab, access_control_handle_combobox_grant_role_tab, access_control_handle_search_line_edit_grant_role_tab, access_control_table_widget_setting_grant_role_tab
+
+    from controllers.access_control.person_image_tab import access_control_person_image_load, access_control_button_setting_and_ui_person_image_tab, access_control_combobox_setting_data_change_person_image_tab, access_control_combobox_setting_person_image_tab, access_control_handle_button_person_image_tab, access_control_handle_combobox_person_image_tab, access_control_handle_search_line_edit_person_image_tab, access_control_table_widget_setting_person_image_tab
+
+    from controllers.access_control.access_track_tab import access_control_access_track_load, access_control_button_setting_and_ui_access_track_tab, access_control_combobox_setting_data_change_access_track_tab, access_control_combobox_setting_access_track_tab, access_control_handle_button_access_track_tab, access_control_handle_combobox_access_track_tab, access_control_handle_search_line_edit_access_track_tab, access_control_table_widget_setting_access_track_tab
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -179,6 +185,7 @@ class MainApp(QMainWindow, ui):
         self.apartment_manage_handle_button()
         self.resident_manage_handle_button()
         self.guest_manage_handle_button()
+        self.access_control_handle_button()
 
     def handle_buttons_main_tab(self):
         self.pushButton_buiding_manage.clicked.connect(self.open_tab_building)
@@ -322,3 +329,6 @@ class MainApp(QMainWindow, ui):
          self.pushButton_buiding_manage, self.pushButton_apartment_manage,
          self.pushButton_resident_manage, self.pushButton_gest_manage,
          self.pushButton_video_access_control)
+
+        self.tabWidget_access_control.setCurrentIndex(0)
+        common.set_tab_when_clicked(self.pushButton_grant_role, self.pushButton_person_image, self.pushButton_access_track)
