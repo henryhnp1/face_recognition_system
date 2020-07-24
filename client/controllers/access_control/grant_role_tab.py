@@ -168,13 +168,11 @@ def access_control_grant_role_import_file(self):
                 building = row['building']
                 floor = row['floor']
                 door = row['door']
-                person = row['peron']
                 id_card = str(row['id_card'])
-                phone = row['phone']
                 permisson = row['permission']
                 try:
-                    query = "call insert_grant_role_from_file(%s, %s, %s, %s, %s, %s, %s);"
-                    cursor.execute(query, (building, floor, door , person, id_card, phone, permission))
+                    query = "call insert_grant_role_from_file(%s, %s, %s, %s, %s);"
+                    cursor.execute(query, (building, floor, door, id_card, permission))
                     self.database.commit()
                 except db.Error as e:
                     print(e)
