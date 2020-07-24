@@ -105,7 +105,7 @@ def resident_manage_resident_tab_search_resident(self):
     elif field_search == 'village':
         query = query.format("and p.village like '%{}%'".format(text_search))
     else:
-        query = query.format("and p.current_accommodation like '%{}%'".format())
+        query = query.format("and p.current_accommodation like '%{}%'".format(text_search))
     common.data_loader(self, self.database, 'None', self.tableWidget_resident, query)
 
 def resident_manage_resident_tab_add_resident(self):

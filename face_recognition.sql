@@ -123,6 +123,8 @@ create table person_door_permission(
     foreign key(permission) references permission(id) on delete cascade,
     foreign key(door) references door(id) on delete cascade
 );
+alter table person_door_permission
+add unique (person, door, permission);
 create table out_in_of_guest(
 	id int primary key auto_increment,
     guest int,
@@ -378,8 +380,6 @@ delimiter #
 create procedure edit_resident(in apartment_in int,in name_in nvarchar(255), in birthday_in date, in gender_in int, in phone_in varchar(10), in id_card_in varchar(12), in village_in nvarchar(255), in current_accommodation_in text, in cur_id_card varchar(12), in cur_apartment int)
 begin
 	declare person_id int;
-    declare person_id_number nvarchar(12);
-    select p.id_card into person_id_number from person as p where p.id_card = cur_id_card limit 1;
 	update person set name = name_in, birthday= birthday_in, id_card = id_card_in, gender=gender_in, phone = phone_in, 
 	village = village_in, current_accommodation=current_accommodation_in where id_card = cur_id_card;
 	select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
@@ -399,3 +399,27 @@ begin
     call insert_resident(apartment_id, name_in, name_en_in, birthday_in, gender_new, phone_in, id_card_in, village_in, cur_accom);
 end#
 delimiter ;
+
+drop procedure if exists insert_grant_role_from_file;
+delimiter #
+create procedure insert_grant_role_from_file(in building_in nvarchar(50), in floor_in int, in door_in int, in id_card_in varchar(12), in permission_in nvarchar(50))
+begin
+	declare person_id int;
+    declare door_id int;
+    declare permission_id int;
+    
+    select d.id into door_id from door as d 
+    join floor as f on f.id = d.floor 
+    join building as b on b.id = f.building 
+    where d.name = door_in and f.name = floor_in and b.name = building_in limit 1;
+    
+    select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+    select p.id into permission_id from permission as p where p.name = permission_in limit 1;
+    
+    insert into person_door_permission(person, door, permission) value (person_id, door_id, permission_id);
+end#
+delimiter ;
+
+call insert_grant_role_from_file('A', 3, 132, '163355618', 'ACCEPT');
+
+select p.id from person as p where p.id_card = '163355618' limit 1;

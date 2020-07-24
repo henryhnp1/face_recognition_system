@@ -191,7 +191,7 @@
           </rect>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tab_40">
           <attribute name="title">
@@ -3506,7 +3506,7 @@
           </rect>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_52">
           <attribute name="title">
@@ -3548,16 +3548,31 @@
             <property name="geometry">
              <rect>
               <x>10</x>
-              <y>70</y>
-              <width>751</width>
-              <height>581</height>
+              <y>120</y>
+              <width>761</width>
+              <height>531</height>
              </rect>
             </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+            </property>
+            <property name="columnCount">
+             <number>9</number>
+            </property>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
            </widget>
            <widget class="QLabel" name="label_235">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>70</y>
               <width>67</width>
               <height>31</height>
@@ -3579,11 +3594,14 @@
               <height>31</height>
              </rect>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
            </widget>
            <widget class="QLabel" name="label_236">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>170</y>
               <width>67</width>
               <height>31</height>
@@ -3595,7 +3613,7 @@
            </widget>
            <widget class="QTextEdit" name="textEdit_info_person">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="geometry">
              <rect>
@@ -3605,11 +3623,14 @@
               <height>101</height>
              </rect>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
            </widget>
            <widget class="QLabel" name="label_237">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>120</y>
               <width>67</width>
               <height>31</height>
@@ -3619,9 +3640,9 @@
              <string>ID Num</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_id_grant_role_2">
+           <widget class="QLineEdit" name="lineEdit_id_num_grant_role">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="geometry">
              <rect>
@@ -3630,6 +3651,9 @@
               <width>161</width>
               <height>31</height>
              </rect>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
             </property>
            </widget>
            <widget class="QComboBox" name="comboBox_grant_role_block">
@@ -3645,7 +3669,7 @@
            <widget class="QLabel" name="label_238">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>290</y>
               <width>67</width>
               <height>31</height>
@@ -3668,7 +3692,7 @@
            <widget class="QLabel" name="label_239">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>340</y>
               <width>67</width>
               <height>31</height>
@@ -3691,7 +3715,7 @@
            <widget class="QLabel" name="label_240">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>390</y>
               <width>67</width>
               <height>31</height>
@@ -3704,7 +3728,7 @@
            <widget class="QLabel" name="label_241">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>440</y>
               <width>81</width>
               <height>31</height>
@@ -3727,7 +3751,7 @@
            <widget class="QPushButton" name="pushButton_grant_role_add">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>790</x>
               <y>520</y>
               <width>101</width>
               <height>41</height>
@@ -3740,7 +3764,7 @@
            <widget class="QPushButton" name="pushButton_grant_role_edit">
             <property name="geometry">
              <rect>
-              <x>900</x>
+              <x>910</x>
               <y>520</y>
               <width>101</width>
               <height>41</height>
@@ -3750,10 +3774,10 @@
              <string>Edit</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_grant_role_add_2">
+           <widget class="QPushButton" name="pushButton_grant_role_delete">
             <property name="geometry">
              <rect>
-              <x>1020</x>
+              <x>1030</x>
               <y>520</y>
               <width>101</width>
               <height>41</height>
@@ -3768,7 +3792,7 @@
              <rect>
               <x>690</x>
               <y>30</y>
-              <width>71</width>
+              <width>81</width>
               <height>31</height>
              </rect>
             </property>
@@ -3779,7 +3803,7 @@
            <widget class="QLabel" name="label_242">
             <property name="geometry">
              <rect>
-              <x>780</x>
+              <x>800</x>
               <y>30</y>
               <width>67</width>
               <height>31</height>
@@ -3813,6 +3837,75 @@
             </property>
             <property name="text">
              <string>Import</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="comboBox_grant_role_block_search">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>80</y>
+              <width>81</width>
+              <height>31</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_278">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>80</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Block</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_279">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>80</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Floor</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="comboBox_grant_role_floor_search">
+            <property name="geometry">
+             <rect>
+              <x>330</x>
+              <y>80</y>
+              <width>151</width>
+              <height>31</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_280">
+            <property name="geometry">
+             <rect>
+              <x>590</x>
+              <y>80</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Door</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="comboBox_grant_role_door_search">
+            <property name="geometry">
+             <rect>
+              <x>650</x>
+              <y>80</y>
+              <width>121</width>
+              <height>31</height>
+             </rect>
             </property>
            </widget>
           </widget>

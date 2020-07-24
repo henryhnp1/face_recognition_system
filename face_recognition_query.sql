@@ -431,4 +431,25 @@ select p.id, a.name as 'apartment', a.id as 'apartment_id', p.name, p.birthday,
                     join building as b on b.id = f.building
                     join type_of_floor as t on t.id = 2
                     where p.is_delete = 0 and p.is_resident = 1 and p.id =7;
-        
+select pdp.id, b.name as 'building', f.name as 'floor', d.name as 'door', p.name as 'person',  p.id_card, p.phone, p.current_accommodation, pm.name as 'permission' from person_door_permission as pdp 
+join person as p on pdp.person = p.id
+join door as d on pdp.door = d.id
+join floor as f on d.floor = f.id
+join building as b on f.building = b.id
+join permission as pm on pdp.permission = pm.id
+join role_door as rd on d.role = rd.id
+where rd.id = 2;
+
+-- select door with building and floor
+select d.id, d.floor, d.name, d.role from door as d
+join floor as f on d.floor = f.id
+join building as b on b.id = f.building
+join role_door as r on d.role = r.id
+where r.id = 2;
+
+-- select permission with door
+
+select r.id, r.name, r.description from role_door as r
+join door as d on r.id = d.role
+join person_door_permission 
+where d.id = 5;
