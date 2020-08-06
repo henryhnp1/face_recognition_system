@@ -3,6 +3,7 @@ import numpy as np
 import imutils
 from imutils.video import VideoStream
 import math
+import os
 
 def get_single_bbox_from_image(image_path, prototxt, detect_model, confidence_param=0.5, frame=None):
     net = cv2.dnn.readNetFromCaffe(prototxt, detect_model)
@@ -10,6 +11,11 @@ def get_single_bbox_from_image(image_path, prototxt, detect_model, confidence_pa
         image = frame
     else:
         image = cv2.imread(image_path)  # to do: image link
+        try:
+            shape = image.shape
+        except:
+            return None
+    
     h, w = image.shape[:2]
     blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0,
         (300, 300), (104.0, 177.0, 123.0))

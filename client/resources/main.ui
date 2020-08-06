@@ -3502,11 +3502,11 @@
            <x>160</x>
            <y>9</y>
            <width>1161</width>
-           <height>711</height>
+           <height>721</height>
           </rect>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_52">
           <attribute name="title">
@@ -3518,7 +3518,7 @@
              <x>10</x>
              <y>10</y>
              <width>1141</width>
-             <height>661</height>
+             <height>681</height>
             </rect>
            </property>
            <property name="title">
@@ -3550,7 +3550,7 @@
               <x>10</x>
               <y>120</y>
               <width>761</width>
-              <height>531</height>
+              <height>551</height>
              </rect>
             </property>
             <property name="editTriggers">
@@ -3918,9 +3918,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>10</y>
-             <width>1131</width>
-             <height>661</height>
+             <y>0</y>
+             <width>1161</width>
+             <height>691</height>
             </rect>
            </property>
            <property name="title">
@@ -3929,19 +3929,19 @@
            <widget class="QComboBox" name="comboBox_fields_search_person_image">
             <property name="geometry">
              <rect>
-              <x>20</x>
+              <x>160</x>
               <y>30</y>
               <width>181</width>
               <height>31</height>
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_type_search_person_email">
+           <widget class="QLineEdit" name="lineEdit_type_search_person_image">
             <property name="geometry">
              <rect>
-              <x>240</x>
+              <x>560</x>
               <y>30</y>
-              <width>441</width>
+              <width>561</width>
               <height>31</height>
              </rect>
             </property>
@@ -3949,20 +3949,32 @@
            <widget class="QTableWidget" name="tableWidget_person_image_info">
             <property name="geometry">
              <rect>
-              <x>20</x>
+              <x>160</x>
               <y>70</y>
-              <width>661</width>
+              <width>961</width>
               <height>201</height>
              </rect>
             </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+            </property>
+            <property name="columnCount">
+             <number>6</number>
+            </property>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
            </widget>
            <widget class="QTabWidget" name="tabWidget_person_image_manage">
             <property name="geometry">
              <rect>
-              <x>20</x>
+              <x>160</x>
               <y>280</y>
-              <width>661</width>
-              <height>371</height>
+              <width>961</width>
+              <height>411</height>
              </rect>
             </property>
             <property name="currentIndex">
@@ -3972,18 +3984,97 @@
              <attribute name="title">
               <string>Tab 1</string>
              </attribute>
+             <widget class="QGroupBox" name="groupBox_person_image_image_deleted">
+              <property name="geometry">
+               <rect>
+                <x>490</x>
+                <y>10</y>
+                <width>461</width>
+                <height>361</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Image Deleted</string>
+              </property>
+              <widget class="QListWidget" name="listWidget_image_delete_admin_panel">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>30</y>
+                 <width>441</width>
+                 <height>321</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QGroupBox" name="groupBox_person_image_image_not_deleted">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>461</width>
+                <height>361</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Image Not Deleted</string>
+              </property>
+              <widget class="QListWidget" name="listWidget_image_ndelete_admin_panel">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>30</y>
+                 <width>441</width>
+                 <height>321</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
             </widget>
             <widget class="QWidget" name="tab_55">
              <attribute name="title">
               <string>Tab 2</string>
              </attribute>
+             <widget class="QWidget" name="widget_video_image_capture" native="true">
+              <property name="geometry">
+               <rect>
+                <x>110</x>
+                <y>9</y>
+                <width>431</width>
+                <height>361</height>
+               </rect>
+              </property>
+             </widget>
+             <widget class="QListWidget" name="listWidget">
+              <property name="geometry">
+               <rect>
+                <x>560</x>
+                <y>10</y>
+                <width>391</width>
+                <height>361</height>
+               </rect>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="pushButton_capture_image">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>60</y>
+                <width>89</width>
+                <height>41</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Captute</string>
+              </property>
+             </widget>
             </widget>
            </widget>
            <widget class="QPushButton" name="pushButton_person_manage_add_photo">
             <property name="geometry">
              <rect>
-              <x>700</x>
-              <y>380</y>
+              <x>20</x>
+              <y>390</y>
               <width>121</width>
               <height>41</height>
              </rect>
@@ -3995,8 +4086,8 @@
            <widget class="QPushButton" name="pushButton_person_manage_manage_photo">
             <property name="geometry">
              <rect>
-              <x>700</x>
-              <y>310</y>
+              <x>20</x>
+              <y>320</y>
               <width>121</width>
               <height>41</height>
              </rect>
@@ -4347,7 +4438,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_58">
         <attribute name="title">

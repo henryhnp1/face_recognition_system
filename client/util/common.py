@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from .message_box import MyMessageBox
 from .standardized import str_standard
 import pandas as pd
@@ -8,7 +9,7 @@ import re
 import unicodedata
 from datetime import date
 from models import my_model
-from PyQt5.QtCore import QFileInfo
+from PyQt5.QtCore import QFileInfo, QSize, Qt
 
 def search_common_building_setting(option_search, line_search, table, loader):
     field_search = option_search.currentText()
@@ -135,15 +136,15 @@ def data_loader_without_change_combobox(parent, database, table, table_data, que
     except:
         pass
 
-def delete_item(parent, table, database, index, loader, setting_form):
+def delete_item(parent, table, database, index, loader=None, setting_form=None):
     cursor = database.cursor()
     try:
         query = "delete from {} ".format(table)
         cursor.execute(query + "where id=%s", [(index)])
         database.commit()
-        loader()
+        if loader: loader()
         parent.statusBar().showMessage("A {} Deleted With ID={}".format(table, index))
-        setting_form()
+        if setting_form: setting_form()
         cursor.close()
     except db.Error as e:
         pass
@@ -466,3 +467,63 @@ def set_door_combobox_data_change_search(building_combobox, floor_combobox, door
 def setting_clear_ui_select_and_import_file(select_button, import_button):
     import_button.setEnabled(False)
     select_button.setText('Choose File')
+
+def setting_listwidget_image(listwidget, spacing, gridsize, iconsize):
+    listwidget.setFlow(QListView.LeftToRight)
+    listwidget.setResizeMode(QListView.Adjust)
+    listwidget.setSpacing(spacing)
+    listwidget.setGridSize(QSize(*gridsize))
+    listwidget.setViewMode(QListView.IconMode)
+    listwidget.setIconSize(QSize(*iconsize))
+    
+def add_list_image_to_listwidget(listimage, listWidget):
+    for x in listimage:
+        image_object = my_model.Image_Person(*x)
+        image_name = (image_object.url).split('/')[-1]
+        item = QListWidgetItem(image_name)
+        item.setData(Qt.UserRole, image_object)
+        icon = QIcon()
+        pixmap = QPixmap(image_object.url)
+        icon.addPixmap(pixmap, QIcon.Normal, QIcon.Off)
+        item.setIcon(icon)
+        listWidget.addItem(item)
+fully_query_image_person= '''
+    select i.id, i.owner, i.url, i.is_delete from person as p
+    join image as i on p.id = i.owner '''
+
+def sort_by_pk(element):
+    return element[0]
+
+def load_image_for_image_management(database, person_id, delete_panel, not_delete_panel):
+    list_image_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 1 and p.id = {}'.format(int(person_id)))
+    list_image_not_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 0 and p.id = {}'.format(int(person_id)))
+
+    sorted(list_image_not_delete, key=sort_by_pk)
+    sorted(list_image_delete, key=sort_by_pk)
+    delete_panel.clear()
+    not_delete_panel.clear()
+    setting_listwidget_image(not_delete_panel, spacing=5, gridsize=(210, 210), iconsize=(180, 180))
+    add_list_image_to_listwidget(list_image_not_delete, not_delete_panel)
+
+    setting_listwidget_image(delete_panel, spacing=5, gridsize=(210, 210), iconsize=(180, 180))
+    add_list_image_to_listwidget(list_image_delete, delete_panel)
+
+def change_item_to_is_delete(database, table, item_id):
+    query = 'update {} set is_delete = 1 where id = {}'
+    cursor = database.cursor()
+    try:
+        cursor.execute(query.format(table, int(item_id)))
+        database.commit()
+    except:
+        pass
+    cursor.close()
+
+def restore_item(database, table, item_id):
+    query = 'update {} set is_delete = 0 where id = {}'
+    cursor = database.cursor()
+    try:
+        cursor.execute(query.format(table, int(item_id)))
+        database.commit()
+    except:
+        pass
+    cursor.close()

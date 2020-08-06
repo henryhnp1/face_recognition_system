@@ -28,7 +28,7 @@ from face_detection import get_single_bbox_from_image
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--mode', type=str, choices=['CAP', 'TRAIN', 'CLASSIFY'])
+    parser.add_argument('--mode', type=str, choices=['CAP', 'CAP_FACE', 'TRAIN', 'CLASSIFY'])
     parser.add_argument('--data_dir', type=str)  # folder of all image
     parser.add_argument('--model', type=str)  # facenet pretrained model
     # parser.add_argument('--data', type=str)  # folder of faces data
@@ -52,6 +52,40 @@ def get_image_from_video(args):
     while True:
         frame = video_stream.read()
         frame = imutils.resize(frame, width=args.ws)
+        cv2.imshow("frame", frame)
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord('q'):
+            break
+        if key == ord('c'):
+            temp = frame
+            count += 1
+            cv2.imwrite(args.stf + str(count)+'.jpg', frame)
+    cv2.destroyAllWindows()
+    video_stream.stop()
+
+def get_image_face_from_video(args):
+    video_stream = VideoStream(src=args.src_cam).start()
+    time.sleep(1.0)
+    count = args.cur_im
+    while True:
+        frame = video_stream.read()
+        frame = imutils.resize(frame, width=args.ws)
+        net = cv2.dnn.readNetFromCaffe(args.prototxt, args.detect_model)
+        h, w = frame.shape[:2]
+        blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0,
+            (300, 300), (104.0, 177.0, 123.0))
+        net.setInput(blob)
+        detections = net.forward()
+        for i in range(0, detections.shape[2]):
+            confidence = detections[0, 0, i, 2]
+            if confidence < args.confidence:
+                continue
+            box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+            startX, startY, endX, endY = box.astype('int')
+            box = (math.floor(startX), math.floor(startY), round(endX), round(endY))
+            thickness_border = 2
+            thickness_rectangle = 40
+            cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 0, 255), thickness_border)
         cv2.imshow("frame", frame)
         key = cv2.waitKey(1) & 0xFF
         if key == ord('q'):
@@ -244,6 +278,12 @@ def run(args):
         '''
             python core/face_recognition.py --mode CAP --stf core/dataset/raw
         '''
+    elif args.mode == 'CAP_FACE':
+        get_image_face_from_video(args)
+        '''
+            python core/face_recognition.py --mode CAP_FACE --stf core/dataset/processed  --prototxt core/data/model/deploy.prototxt  --cur_im 0\
+            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel  --trained_predict_model core/data/dataset/predict_model.sav
+        '''
     elif args.mode == 'TRAIN':
         train_model(args)
         '''
@@ -251,6 +291,12 @@ def run(args):
             --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_001.npz \
             --data core/data/dataset/dataset_face_001.npz  --prototxt core/data/model/deploy.prototxt \
             --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel  --trained_predict_model core/data/dataset/predict_model.sav
+        '''
+        '''
+            python core/face_recognition.py --mode TRAIN --data_dir core/data/dataset/face_dataset/ \
+            --model core/data/model/facenet_keras.h5 --embedding core/data/dataset/face_embedding_002.npz \
+            --data core/data/dataset/dataset_face_002.npz  --prototxt core/data/model/deploy.prototxt \
+            --detect_model core/data/model/res10_300x300_ssd_iter_140000.caffemodel  --trained_predict_model core/data/dataset/predict_model_01.sav
         '''
     else:
         run_classify(args)

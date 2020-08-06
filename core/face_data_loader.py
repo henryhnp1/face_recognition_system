@@ -21,6 +21,7 @@ def load_faces(directory, prototxt, detect_model):
 def load_dataset(directory, prototxt, detect_model):
     faces_data, labels_data = [], []
     dd = 1
+    print(directory)
     for subdir in listdir(directory):
         path_folder = directory + subdir + '/'
         if not isdir(path_folder):
@@ -46,6 +47,7 @@ def embedding_face_data(face_data_compress, face_embedded_compress, model_embedd
     faces_data, labels_data = data_loaded['arr_0'], data_loaded['arr_1']
     model = load_model(model_embedding)
     newFaces = []
+    print(len(faces_data), len(labels_data))
     for i, face_pixels in enumerate(faces_data):
         if face_pixels is not None:
             embedding = get_embedding(model, face_pixels)

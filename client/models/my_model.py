@@ -90,3 +90,10 @@ class Apartment_Floor_Building(object):
         self.floor_name = floor_name
         self.building_pk = building_pk
         self.building_name = building_name
+
+class Image_Person(object):
+    def __init__(self, pk, owner, url, is_delete):
+        self.pk = pk
+        self.owner = owner
+        self.url = url
+        self.is_delete = is_delete

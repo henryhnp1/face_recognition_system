@@ -61,6 +61,10 @@ def access_control_open_tab_person_image(self):
     common.set_tab_when_clicked(self.pushButton_person_image, self.pushButton_grant_role, self.pushButton_access_track)
     self.load_access_control()
 
+    self.tabWidget_person_image_manage.setCurrentIndex(0)
+    common.set_tab_when_clicked(self.pushButton_person_manage_manage_photo, self.pushButton_person_manage_add_photo)
+    self.access_control_person_image_load()
+
 def access_control_open_tab_access_track(self):
     self.tabWidget_access_control.setCurrentIndex(2)
     common.set_tab_when_clicked(self.pushButton_access_track, self.pushButton_person_image, self.pushButton_grant_role)

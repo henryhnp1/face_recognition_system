@@ -114,6 +114,11 @@ create table image(
     is_delete int,
     foreign key (owner) references person(id) on delete set null
 );
+alter table image
+modify url varchar(1000);
+
+alter table image
+add unique (url, owner);
 create table person_door_permission(
 	id int primary key auto_increment,
     person int,
