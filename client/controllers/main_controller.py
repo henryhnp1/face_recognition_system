@@ -98,8 +98,9 @@ class MainApp(QMainWindow, ui):
 
     from controllers.access_control.person_image_tab import access_control_person_image_load, access_control_button_setting_and_ui_person_image_tab, access_control_combobox_setting_data_change_person_image_tab, access_control_combobox_setting_person_image_tab, access_control_handle_button_person_image_tab, access_control_handle_combobox_person_image_tab, access_control_handle_search_line_edit_person_image_tab, access_control_table_widget_setting_person_image_tab
     from controllers.access_control.person_image_tab import access_control_person_image_load_person_table, access_control_person_image_setting_line_search, access_control_person_image_open_tab_add_photo, access_control_person_image_item_click, access_control_person_image_load_image_not_delete, access_control_person_image_load_image_delete, access_control_person_image_open_tab_manage_photo, access_control_person_image_delete_image, access_control_person_image_change_image_to_delete
-    from controllers.access_control.person_image_tab import access_control_person_image_image_delete_click, access_control_person_image_image_not_delete_click, access_control_person_image_item_image_click, access_control_person_image_restore_image
-    
+    from controllers.access_control.person_image_tab import access_control_person_image_image_delete_click, access_control_person_image_image_not_delete_click, access_control_person_image_item_image_click, access_control_person_image_restore_image, on_pushButton_capture_image_admin_clicked, access_control_person_image_setting_button_capture, on_pushButton_start_cam_admin_clicked, on_pushButton_stop_cam_admin_clicked, access_control_person_image_clear_form_and_ui
+    from controllers.access_control.person_image_tab import access_control_person_image_add_image_capture, access_control_person_image_delete_image_capture, access_control_person_image_image_capture_click
+
     from controllers.access_control.access_track_tab import access_control_access_track_load, access_control_button_setting_and_ui_access_track_tab, access_control_combobox_setting_data_change_access_track_tab, access_control_combobox_setting_access_track_tab, access_control_handle_button_access_track_tab, access_control_handle_combobox_access_track_tab, access_control_handle_search_line_edit_access_track_tab, access_control_table_widget_setting_access_track_tab
 
     def __init__(self):
@@ -113,6 +114,10 @@ class MainApp(QMainWindow, ui):
         if self.database == None:
             msg = message_box.MyMessageBox(QMessageBox.Critical,"Wrong db or authentication", "You must change setting in .config file")
             sys.exit(msg.exec())
+        self.thread = QThread()
+        self.capture_image = video_stream.CaptureImage()
+        self.images_capture = list()
+        self.image_viewer = None
         self.load_data()
         self.handle_buttons()
         self.handle_ui()

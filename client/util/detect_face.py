@@ -19,13 +19,13 @@ from random import choice
 import joblib
 
 
-prototxt = 'core/data/model/deploy.prototxt'
-detect_model = 'core/data/model/res10_300x300_ssd_iter_140000.caffemodel'
-data_dir = 'core/data/dataset/raw/'
-data = 'core/data/dataset/dataset_face_001.npz'
-embedded = 'core/data/dataset/face_embedding_001.npz'
-model = 'core/data/model/facenet_keras.h5'
-model_save = 'core/data/model/final_model.sav'
+# prototxt = 'core/data/model/deploy.prototxt'
+# detect_model = 'core/data/model/res10_300x300_ssd_iter_140000.caffemodel'
+# data_dir = 'core/data/dataset/raw/'
+# data = 'core/data/dataset/dataset_face_001.npz'
+# embedded = 'core/data/dataset/face_embedding_001.npz'
+# model = 'core/data/model/facenet_keras.h5'
+# model_save = 'core/data/model/final_model.sav'
 
 def get_single_bbox_from_image(image_path, prototxt, detect_model, confidence_param=0.5):
     net = cv2.dnn.readNetFromCaffe(prototxt, detect_model)
@@ -219,6 +219,6 @@ def test():
 
 #test()
 #run_load_data()
-train_model()
+# train_model()
 #test_train()
 # run_get_embedding()

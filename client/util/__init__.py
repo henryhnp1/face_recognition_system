@@ -4,3 +4,8 @@ from util.message_box import *
 from util.ui_loader import *
 from util.standardized import *
 from util.video_stream import *
+from util.face_detection import *
+from util.face_data_loader import *
+from util.face_extraction import *
+from util.face_recognition import *
+from util.detect_face import *
