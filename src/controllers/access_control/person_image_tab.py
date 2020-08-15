@@ -194,7 +194,7 @@ def access_control_person_image_add_image_capture(self):
         warning = QMessageBox.question(self, 'Choose person add image', "Would you want to add images selected for {}?".format(person.name_en), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if warning == QMessageBox.Yes:
             images_selected = self.listWidget_image_capturing.selectedItems()
-            folder_path = '/home/henry/FinalProject/face_recognition_system/src/data/dataset/raw/'
+            folder_path = '/home/henry/FinalProject/face_recognition_system/src/data/dataset/processed/'
             last_image_for_person = common.get_single_item_from_query(select_lastest_image_for_person.format(person.pk),self.database)
             if last_image_for_person:
                 last_image_name = (my_model.Image_Person(*last_image_for_person)).url.split('/')[-1]

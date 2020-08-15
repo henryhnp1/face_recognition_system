@@ -45,7 +45,6 @@ def access_control_handle_combobox_grant_role_tab(self):
     self.comboBox_fields_search_grant_role.currentTextChanged.connect(self.access_control_grant_role_setting_line_search)
     self.comboBox_grant_role_block_search.currentTextChanged.connect(self.access_control_grant_role_combobox_data_change_floor_search)
     self.comboBox_grant_role_floor_search.currentTextChanged.connect(self.access_control_grant_role_combobox_data_change_door_search)
-
     self.comboBox_grant_role_block.currentTextChanged.connect(self.access_control_grant_role_combobox_data_change_floor)
     self.comboBox_grant_role_floor.currentTextChanged.connect(self.access_control_grant_role_combobox_data_change_door)
 
@@ -133,7 +132,7 @@ def access_control_grant_role_item_click(self):
     data = common.get_row_data_item_click(self.tableWidget_grant_role)
     self.lineEdit_id_grant_role.setText(data[0])
     self.lineEdit_id_num_grant_role.setText(data[5])
-    info = data[4]+'\n'+data[6] +'\n'+data[7]
+    info = 'Name: '+data[4]+'\nPhone: '+(data[6] if data[6]!='None' else '')+'\nAccommodation: '+data[7]
     self.textEdit_info_person.setPlainText(info)
 
     building_index = self.comboBox_grant_role_block.findText(data[1])

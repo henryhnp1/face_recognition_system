@@ -9,6 +9,7 @@ import MySQLdb as db
 import re
 import unicodedata
 from datetime import date
+from datetime import datetime
 from models import my_model
 from PyQt5.QtCore import QFileInfo, QSize, Qt
 import cv2
@@ -174,7 +175,7 @@ def get_list_model(database, model, query):
 
 def make_dir(name_dir):
     try:
-        os.mkdir(dir_name)
+        os.mkdir(name_dir)
     except OSError:
         pass
 
@@ -209,9 +210,20 @@ def make_name(name, birthday, id_num, current_date):
     name = make_acronym_name(no_accent_vietnamese(name)).upper()
     birthdays = birthday.split('-')
     birthday = birthdays[1] + birthdays[2]
-    id_num = id_num[-3:]
+    id_num = id_num[-4:]
+    now_time = datetime.now()
+    hour = now_time.hour
+    minute = now_time.minute
+
+    if hour < 10:
+        hour = '0' + str(hour)
+    else: hour = str(hour)
+    if minute < 10:
+        minute = '0' + str(minute)
+    else: minute = str(minute)
+
     current_dates = current_date.split('-')
-    current_date = current_dates[2] + '_' + current_dates[1] + '_' + current_dates[0][-2:]
+    current_date = hour + '_' + minute + '_' + current_dates[2] + '_' + current_dates[1] + '_' + current_dates[0][-2:]
     return '{}_{}_{}'.format(name+birthday, id_num, current_date)
 
 def get_row_data_item_click(table_data):
@@ -551,8 +563,10 @@ def save_image(path, person, list_image, name_number, database):
         insert into image(url, owner, is_delete) values(%s, %s, %s)
     '''
     for image in list_image:
+        folder = path + person.name_en + '/'
         image_path = path + '{}/{}.jpg'.format(person.name_en, name_number+counter)
         image_data = (image.data(Qt.UserRole).data)
+        make_dir(folder)
         image_data.save(image_path)
         cursor = database.cursor()
         try:

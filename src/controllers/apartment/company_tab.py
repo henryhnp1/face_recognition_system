@@ -13,7 +13,7 @@ fully_query_office = '''
     join floor as f on a.floor = f.id
     join building as b on b.id = f.building
     join type_of_floor as t on t.id = f.type_of_floor
-    where t.name = 'business'
+    where t.name = 'bussiness'
 '''
 fully_query_company = '''
     select c.id, b.name as 'building', f.name as 'floor', a.name as 'apartment' ,c.name, c.phone from company as c
@@ -91,8 +91,8 @@ def apartment_manage_table_widget_setting_company_tab(self):
     self.tableWidget_company_apartment_table_office.setSortingEnabled(True)
     self.tableWidget_company_apartment_table.setSelectionBehavior(QTableView.SelectRows)
     self.tableWidget_company_apartment_table_office.setSelectionBehavior(QTableView.SelectRows)
-    self.tableWidget_company_apartment_table.itemClicked.connect(self.apartment_manage_office_item_click)
-    self.tableWidget_company_apartment_table_office.itemClicked.connect(self.apartment_manage_company_item_click)
+    self.tableWidget_company_apartment_table.itemClicked.connect(self.apartment_manage_company_item_click)
+    self.tableWidget_company_apartment_table_office.itemClicked.connect(self.apartment_manage_office_item_click)
 
 def apartment_manage_button_setting_and_ui_company_tab(self):
     self.pushButton_select_file_company_office.setStyleSheet("QPushButton{border: 1px solid gray; border-radius:10px; text-align:left}")
@@ -102,38 +102,39 @@ def apartment_manage_button_setting_and_ui_company_tab(self):
     self.lineEdit_company_phone.setValidator(QIntValidator(0, 1147483647, self))
 
 def apartment_manage_load_company_tab_load_office_table(self):
-    common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table, fully_query_office)
+    common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table_office, fully_query_office)
 
 def apartment_manage_combobox_setting_data_change_company_tab_office_table(self):
     self.apartment_manage_combobox_setting_data_change_company_tab_office_table_block_combobox()
    
-
 def apartment_manage_combobox_setting_data_change_company_tab_office_table_block_combobox(self):
-    self.comboBox_company_office_building.clear()
-    query_get_building = "select * from building"
-    list_building = common.get_list_model(self.database, my_model.Building, query_get_building)
-    for building in list_building:
-        building_model = my_model.Building(*building)
-        self.comboBox_company_office_building.addItem(building[1], building_model)
+    # self.comboBox_company_office_building.clear()
+    # query_get_building = "select * from building"
+    # list_building = common.get_list_model(self.database, my_model.Building, query_get_building)
+    # for building in list_building:
+    #     building_model = my_model.Building(*building)
+    #     self.comboBox_company_office_building.addItem(building[1], building_model)
+    common.set_building_combobox_data_change(self.comboBox_company_office_building, self.database)
 
 def apartment_manage_combobox_setting_data_change_company_tab_office_table_floor_combobox(self):
-    building_object = self.comboBox_company_office_building.currentData()
-    if building_object:
-        building_id = building_object.pk
-        self.comboBox_company_office_floor.clear()
-        cursor = self.database.cursor()
-        query_select_floor = '''
-            select f.id, f.name as 'floor', b.name as 'building' ,t.name as 'type_of_floor', f.number_of_apartment as 'number_of_apartment' from floor as f
-            join building as b on f.building = b.id
-            join type_of_floor as t on f.type_of_floor = t.id
-            where b.id = %s and t.name = 'business'
-        '''
-        cursor.execute(query_select_floor, (building_id,))
-        data_floor = cursor.fetchall()
-        for floor in data_floor:
-            floor_object = my_model.Floor(floor[0], floor[1], floor[2], floor[3], floor[4])
-            floor_name = 'Tầng ' + str(floor[1]) + ' ' + floor[3]
-            self.comboBox_company_office_floor.addItem(floor_name, floor_object)
+    common.set_floor_combobox_data_change(self.comboBox_company_office_building, self.comboBox_company_office_floor, 1, self.database)
+    # building_object = self.comboBox_company_office_building.currentData()
+    # if building_object:
+    #     building_id = building_object.pk
+    #     self.comboBox_company_office_floor.clear()
+    #     cursor = self.database.cursor()
+    #     query_select_floor = '''
+    #         select f.id, f.name as 'floor', b.name as 'building' ,t.name as 'type_of_floor', f.number_of_apartment as 'number_of_apartment' from floor as f
+    #         join building as b on f.building = b.id
+    #         join type_of_floor as t on f.type_of_floor = t.id
+    #         where b.id = %s and t.name = 'business'
+    #     '''
+    #     cursor.execute(query_select_floor, (building_id,))
+    #     data_floor = cursor.fetchall()
+    #     for floor in data_floor:
+    #         floor_object = my_model.Floor(floor[0], floor[1], floor[2], floor[3], floor[4])
+    #         floor_name = 'Tầng ' + str(floor[1]) + ' ' + floor[3]
+    #         self.comboBox_company_office_floor.addItem(floor_name, floor_object)
 
 def apartment_manage_search_line_edit_setting_search_office(self):
     field_search = self.comboBox_field_search_company_office.currentText()
@@ -159,7 +160,7 @@ def apartment_manage_search_office(self):
         join floor as f on a.floor = f.id
         join building as b on b.id = f.building
         join type_of_floor as t on t.id = f.type_of_floor
-        where t.name = 'business' {}
+        where t.name = 'bussiness' {}
     '''
     if text_search == '':
         query = query.format('')
@@ -178,25 +179,24 @@ def apartment_manage_search_office(self):
             query = query.format("and a.status = 1".format(text_search))
         else:
             query = query.format('')
-    common.data_loader(self, self.database, 'None', self.tableWidget_resident_apartment_table, query)
+    common.data_loader(self, self.database, 'None', self.tableWidget_company_apartment_table_office, query)
 
 def apartment_manage_office_item_click(self):
-    data = common.get_row_data_item_click(self.tableWidget_company_apartment_table)
+    data = common.get_row_data_item_click(self.tableWidget_company_apartment_table_office)
 
     self.lineEdit_company_office_id.setText(data[0])
+
     building_index = self.comboBox_company_office_building.findText(data[1])
     self.comboBox_company_office_building.setCurrentIndex(building_index)
+
+    floor_index = self.comboBox_company_office_floor.findText(data[2])
+    self.comboBox_company_office_floor.setCurrentIndex(floor_index)
 
     office_status_index = self.comboBox_company_office_status.findText(data[4])
     self.comboBox_company_office_status.setCurrentIndex(office_status_index)
 
     office_name = data[3]
-    if office_name[3] == '0':
-        self.label_spinbox_prefix.setText('0')
-    else:
-        self.label_spinbox_prefix.setText(None)
-
-    self.spinBox__company_office_number.setValue(int(data[3][3:]))
+    self.spinBox_company_office_number.setValue(int(data[3][3:]))
     
     building_name = data[1]
     floor_name = data[2]
@@ -206,6 +206,9 @@ def apartment_manage_office_item_click(self):
         if int(data[2]) == floor[1]:
             self.comboBox_company_office_floor.setCurrentIndex(i)
             break
+    text_pre = self.label_prefix_office_number.text()
+    if office_name[3] == '0':
+        self.label_prefix_office_number.setText(text_pre + '0')
 
 def apartment_manage_clear_data_form_office_form(self):
     self.lineEdit_company_office_id.setText(None)
@@ -223,16 +226,13 @@ def apartment_manage_set_prefix_office_number(self):
         building_name = building_object.name
         floor_name = floor_object.name
         max_apartment = common.get_single_value_from_table('floor', 'number_of_apartment', 'where floor.name = {}'.format(floor_name), self.database)
-        self.spinBox__company_office_number.setMaximum(int(max_apartment))
+        self.spinBox_company_office_number.setMaximum(int(max_apartment))
         self.label_prefix_office_number.setText(building_name+str(floor_name)+'0')
 
 def apartment_manage_add_office(self):
-    name_office = int(self.spinBox__company_office_number.value())
+    name_office = int(self.spinBox_company_office_number.value())
     if name_office >= 1:
-        if name_office >=10:
-            name_office = self.label_prefix_office_number.text() + str(name_office)
-        else:
-            name_office = self.label_prefix_office_number.text()+ '0' + str(name_office)
+        name_office = self.label_prefix_office_number.text() + str(name_office)
         building = self.comboBox_door_manage_building.currentData().pk
         floor = self.comboBox_door_manage_floor.currentData().pk
         status = self.comboBox_company_office_status.currentText()
@@ -244,7 +244,7 @@ def apartment_manage_add_office(self):
         try:
             cursor.execute(query,(name_office, floor, status))
             self.database.commit()
-            common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table, fully_query_office)
+            common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table_office, fully_query_office)
         except db.Error as e:
             message_box.MyMessageBox(QMessageBox.Critical, "Error", "The apartment Is Exist!").exec()
         cursor.close()
@@ -254,7 +254,7 @@ def apartment_manage_add_office(self):
 def apartment_manage_edit_office(self):
     if self.lineEdit_company_office_id.text():
         office_id = int(self.lineEdit_company_office_id.text())
-        name = int(self.spinBox__company_office_number.value())
+        name = int(self.spinBox_company_office_number.value())
         if name >= 1:
             if name >=10:
                 name = self.label_prefix_office_number.text() + str(name)
@@ -271,7 +271,7 @@ def apartment_manage_edit_office(self):
             try:
                 cursor.execute(query,(name, floor, status, office_id))
                 self.database.commit()
-                common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table, fully_query_office)
+                common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table_office, fully_query_office)
             except db.Error as e:
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "The office Is Exist!").exec()
             cursor.close()
@@ -322,57 +322,60 @@ def apartment_manage_export_office(self):
         common.export_data_from_table_widget(self, self.tableWidget_company_apartment_table, path_file)
  #======================================================================================================       
 def apartment_manage_load_company_tab_load_company_table(self):
-    common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table_office, fully_query_company)
+    common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table, fully_query_company)
 
 def apartment_manage_combobox_setting_data_change_company_tab_company_table(self):
-    self.comboBox_company_office_building_company.clear()
-    query_get_building = "select * from building"
-    list_building = common.get_list_model(self.database, my_model.Building, query_get_building)
-    for building in list_building:
-        building_model = my_model.Building(*building)
-        self.comboBox_company_office_building_company.addItem(building[1], building_model)
+    # self.comboBox_company_office_building_company.clear()
+    # query_get_building = "select * from building"
+    # list_building = common.get_list_model(self.database, my_model.Building, query_get_building)
+    # for building in list_building:
+    #     building_model = my_model.Building(*building)
+    #     self.comboBox_company_office_building_company.addItem(building[1], building_model)
+    common.set_building_combobox_data_change(self.comboBox_company_office_building_company, self.database)
 
 def apartment_manage_combobox_setting_data_change_company_tab_floor_combobox(self):
-    building_object = self.comboBox_company_office_building_company.currentData()
-    if building_object:
-        building_id = building_object.pk
-        self.comboBox_company_office_floor_company.clear()
-        cursor = self.database.cursor()
-        query_select_floor = '''
-            select f.id, f.name as 'floor', b.name as 'building' ,t.name as 'type_of_floor', f.number_of_apartment as 'number_of_apartment' from floor as f
-            join building as b on f.building = b.id
-            join type_of_floor as t on f.type_of_floor = t.id
-            where b.id = %s and t.name = 'business'
-        '''
-        cursor.execute(query_select_floor, (building_id,))
-        data_floor = cursor.fetchall()
-        for floor in data_floor:
-            floor_object = my_model.Floor(floor[0], floor[1], floor[2], floor[3], floor[4])
-            floor_name = 'Tầng ' + str(floor[1]) + ' ' + floor[3]
-            self.comboBox_company_office_floor_company.addItem(floor_name, floor_object)
+    common.set_floor_combobox_data_change(self.comboBox_company_office_building_company, self.comboBox_company_office_floor_company, 1, self.database)
+    # building_object = self.comboBox_company_office_building_company.currentData()
+    # if building_object:
+    #     building_id = building_object.pk
+    #     self.comboBox_company_office_floor_company.clear()
+    #     cursor = self.database.cursor()
+    #     query_select_floor = '''
+    #         select f.id, f.name as 'floor', b.name as 'building' ,t.name as 'type_of_floor', f.number_of_apartment as 'number_of_apartment' from floor as f
+    #         join building as b on f.building = b.id
+    #         join type_of_floor as t on f.type_of_floor = t.id
+    #         where b.id = %s and t.name = 'business'
+    #     '''
+    #     cursor.execute(query_select_floor, (building_id,))
+    #     data_floor = cursor.fetchall()
+    #     for floor in data_floor:
+    #         floor_object = my_model.Floor(floor[0], floor[1], floor[2], floor[3], floor[4])
+    #         floor_name = 'Tầng ' + str(floor[1]) + ' ' + floor[3]
+    #         self.comboBox_company_office_floor_company.addItem(floor_name, floor_object)
 
 def apartment_manage_combobox_setting_data_change_company_tab_office_combobox(self):
-    floor_object = self.comboBox_company_office_floor_company.currentData()
-    if floor_object:
-        floor_id = floor_object.pk
-        self.comboBox_company_office_number.clear()
-        cursor = self.database.cursor()
-        query_select_office = '''
-            select * from apartment where apartment.floor = %s
-        '''
-        cursor.execute(query_select_office, (floor_id,))
-        data_office = cursor.fetchall()
-        for office in data_office:
-            office_object = my_model.Apartment(office[0], office[1], office[2], office[3])
-            if office[3] == 0:
-                status = 'Available'
-            else:
-                status = 'Not Available'
-            office_name = office[1] + ' ' + status
-            self.comboBox_company_office_number.addItem(office_name, office_object)
+    common.set_company_office_combobox_data_change(self.comboBox_company_office_building_company,self.comboBox_company_office_floor_company, self.comboBox_company_office_number, self.database)
+    # floor_object = self.comboBox_company_office_floor_company.currentData()
+    # if floor_object:
+    #     floor_id = floor_object.pk
+    #     self.comboBox_company_office_number.clear()
+    #     cursor = self.database.cursor()
+    #     query_select_office = '''
+    #         select * from apartment where apartment.floor = %s
+    #     '''
+    #     cursor.execute(query_select_office, (floor_id,))
+    #     data_office = cursor.fetchall()
+    #     for office in data_office:
+    #         office_object = my_model.Apartment(office[0], office[1], office[2], office[3])
+    #         if office[3] == 0:
+    #             status = 'Available'
+    #         else:
+    #             status = 'Not Available'
+    #         office_name = office[1] + ' ' + status
+    #         self.comboBox_company_office_number.addItem(office_name, office_object)
 
 def apartment_manage_company_item_click(self):
-    data = common.get_row_data_item_click(self.tableWidget_company_apartment_table_office)
+    data = common.get_row_data_item_click(self.tableWidget_company_apartment_table)
 
     self.lineEdit_company_id.setText(data[0])
     self.lineEdit_company_name.setText(data[4])
@@ -423,7 +426,7 @@ def apartment_manage_search_company(self):
         query = query.format("where a.name like '%{}%'".format(text_search))
     else:
         query = query.format("where c.phone like '%{}%'".format(text_search))
-    common.data_loader(self, self.database, 'None', self.tableWidget_company_apartment_table_office, query)
+    common.data_loader(self, self.database, 'None', self.tableWidget_company_apartment_table, query)
 
 def apartment_manage_add_company(self):
     if self.lineEdit_company_name.text():
@@ -439,7 +442,7 @@ def apartment_manage_add_company(self):
         try:
             cursor.execute(query,(name, phone, office))
             self.database.commit()
-            common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table, fully_query_office)
+            common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table, fully_query_company)
         except db.Error as e:
             message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Company Is Exist!").exec()
         cursor.close()
@@ -461,7 +464,7 @@ def apartment_manage_edit_company(self):
             try:
                 cursor.execute(query,(company_id, name, phone, office_old, office_new))
                 self.database.commit()
-                common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table_office, fully_query_company)
+                common.data_loader(self, self.database, 'company', self.tableWidget_company_apartment_table, fully_query_company)
             except db.Error as e:
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Company Is Exist!").exec()
             cursor.close()
@@ -477,7 +480,7 @@ def apartment_manage_delete_company(self):
         try:
             cursor.execute(query,(office_old))
             self.database.commit()
-            common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table_office, fully_query_company)
+            common.data_loader(self, self.database, 'apartment', self.tableWidget_company_apartment_table, fully_query_company)
         except db.Error as e:
             message_box.MyMessageBox(QMessageBox.Critical, "Error", "Wrong").exec()
         cursor.close()

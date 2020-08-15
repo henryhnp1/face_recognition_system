@@ -109,13 +109,11 @@ create table door_permission(
 */
 create table image(
 	id int primary key auto_increment,
-    url text not null,
+    url varchar(1000),
     owner int,
     is_delete int,
     foreign key (owner) references person(id) on delete set null
 );
-alter table image
-modify url varchar(1000);
 
 alter table image
 add unique (url, owner);
