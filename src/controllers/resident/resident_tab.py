@@ -210,10 +210,10 @@ def resident_manage_resident_tab_clear_form(self):
     self.comboBox_resident_gender.setCurrentIndex(0)
     self.lineEdit_resident_id_number.setText(None)
     self.lineEdit_resident_phone.setText(None)
-    self.textEdit_company_resident_village.setPlainText(None)
+    self.textEdit_resident_village.setPlainText(None)
     self.textEdit_resident_current_accomodation.setPlainText(None)
     self.comboBox_company_staff_building.setCurrentIndex(0)
-    self.comboBox_resident_floor.setText('Choose file')
+    self.comboBox_resident_floor.setCurrentIndex(0)
     self.pushButton_import_resident.setEnabled(False)
 
 def resident_manage_resident_tab_select_file_import_resident(self):

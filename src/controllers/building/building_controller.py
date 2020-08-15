@@ -4,6 +4,11 @@ from PyQt5.QtWidgets import *
 import sys
 
 from util import common, standardized, message_box
+def admin_building_clear_form(self):
+    self.admin_building_block_clear_form()
+    self.admin_building_door_clear_form()
+    self.admin_building_floor_clear_form()
+    self.admin_building_setting_clear_form()
 
 def load_building_manage(self):
     self.building_manage_setting_load()
@@ -13,37 +18,95 @@ def load_building_manage(self):
 
     # open tab for building manage
 def open_tab_block(self):
-    self.tabWidget_building_manage.setCurrentIndex(0)
+    self.flag_tab = '000'
+    if self.flag_anchor and self.flag_anchor != self.flag_tab:
+        warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.flag_anchor = None
+            self.admin_clear_form()
+            self.access_control_person_image_stop_camera_capture()
+            self.tabWidget_building_manage.setCurrentIndex(0)
 
-    common.set_tab_when_clicked(self.pushButton_block_manage,
-        self.pushButton_setting_manage, self.pushButton_door_manage,
-        self.pushButton_floor_manage, self.pushButton_block_manage)
-    
-    self.building_manage_block_manage_load()
+            common.set_tab_when_clicked(self.pushButton_block_manage,
+                self.pushButton_setting_manage, self.pushButton_door_manage,
+                self.pushButton_floor_manage, self.pushButton_block_manage)
+            
+            self.building_manage_block_manage_load()
+    else:
+        self.tabWidget_building_manage.setCurrentIndex(0)
+
+        common.set_tab_when_clicked(self.pushButton_block_manage,
+            self.pushButton_setting_manage, self.pushButton_door_manage,
+            self.pushButton_floor_manage, self.pushButton_block_manage)
+        
+        self.building_manage_block_manage_load()
 
 def open_tab_floor(self):
-    self.tabWidget_building_manage.setCurrentIndex(1)
+    self.flag_tab = '001'
+    if self.flag_anchor and self.flag_anchor != self.flag_tab:
+        warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.flag_anchor = None
+            self.admin_clear_form()
+            self.access_control_person_image_stop_camera_capture()
+            self.tabWidget_building_manage.setCurrentIndex(1)
 
-    common.set_tab_when_clicked(self.pushButton_floor_manage,
-        self.pushButton_setting_manage, self.pushButton_door_manage,
-        self.pushButton_floor_manage, self.pushButton_block_manage)
+            common.set_tab_when_clicked(self.pushButton_floor_manage,
+                self.pushButton_setting_manage, self.pushButton_door_manage,
+                self.pushButton_floor_manage, self.pushButton_block_manage)
 
-    self.building_manage_floor_manage_load()
+            self.building_manage_floor_manage_load()
+    else:
+        self.tabWidget_building_manage.setCurrentIndex(1)
+
+        common.set_tab_when_clicked(self.pushButton_floor_manage,
+            self.pushButton_setting_manage, self.pushButton_door_manage,
+            self.pushButton_floor_manage, self.pushButton_block_manage)
+
+        self.building_manage_floor_manage_load()
 
 def open_tab_door(self):
-    self.tabWidget_building_manage.setCurrentIndex(2)
-    common.set_tab_when_clicked(self.pushButton_door_manage,
-        self.pushButton_setting_manage, self.pushButton_door_manage,
-        self.pushButton_floor_manage, self.pushButton_block_manage)
-    
-    self.building_manage_door_manage_load()
+    self.flag_tab = '002'
+    if self.flag_anchor and self.flag_anchor != self.flag_tab:
+        warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.flag_anchor = None
+            self.admin_clear_form()
+            self.access_control_person_image_stop_camera_capture()
+            self.tabWidget_building_manage.setCurrentIndex(2)
+            common.set_tab_when_clicked(self.pushButton_door_manage,
+                self.pushButton_setting_manage, self.pushButton_door_manage,
+                self.pushButton_floor_manage, self.pushButton_block_manage)
+            
+            self.building_manage_door_manage_load()
+    else:
+        self.tabWidget_building_manage.setCurrentIndex(2)
+        common.set_tab_when_clicked(self.pushButton_door_manage,
+            self.pushButton_setting_manage, self.pushButton_door_manage,
+            self.pushButton_floor_manage, self.pushButton_block_manage)
+        
+        self.building_manage_door_manage_load()
 
 def open_tab_setting(self):
-    self.tabWidget_building_manage.setCurrentIndex(3)
-    common.set_tab_when_clicked(self.pushButton_setting_manage,
-        self.pushButton_setting_manage, self.pushButton_door_manage,
-        self.pushButton_floor_manage, self.pushButton_block_manage)
-    self.building_manage_setting_load()
+    self.flag_tab = '003'
+    if self.flag_anchor and self.flag_anchor != self.flag_tab:
+        warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.flag_anchor = None
+            self.admin_clear_form()
+            self.access_control_person_image_stop_camera_capture()
+            self.tabWidget_building_manage.setCurrentIndex(3)
+            common.set_tab_when_clicked(self.pushButton_setting_manage,
+                self.pushButton_setting_manage, self.pushButton_door_manage,
+                self.pushButton_floor_manage, self.pushButton_block_manage)
+            self.building_manage_setting_load()
+
+    else:
+        self.tabWidget_building_manage.setCurrentIndex(3)
+        common.set_tab_when_clicked(self.pushButton_setting_manage,
+            self.pushButton_setting_manage, self.pushButton_door_manage,
+            self.pushButton_floor_manage, self.pushButton_block_manage)
+        self.building_manage_setting_load()
 
 def building_manage_button_setting_and_ui(self):
     self.building_manage_button_setting_and_ui_setting_tab()

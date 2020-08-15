@@ -7,12 +7,16 @@ import MySQLdb as db
 
 from util import common, standardized, message_box
 from models import my_model
+
 fully_query_door = '''
         select d.id, b.name as 'building', f.name as 'floor' , d.name as 'door', r.name as 'role' from door as d 
         join floor as f on d.floor = f.id 
         join building as b on f.building = b.id
         join role_door as r on d.role = r.id
     '''
+def admin_building_door_clear_form(self):
+    self.building_manage_door_manage_clear_role_door_form()
+    self.building_manage_door_manage_clear_door_form()
 
 def building_manage_door_manage_load(self):
     self.building_manage_door_manage_door_table_load()

@@ -15,6 +15,8 @@ fully_query_apartment = '''
     join type_of_floor as t on f.type_of_floor = t.id
     where t.id = 2
 '''
+def admin_acesss_control_access_track_clear_form(self):
+    pass
 
 def access_control_access_track_load(self):
     pass

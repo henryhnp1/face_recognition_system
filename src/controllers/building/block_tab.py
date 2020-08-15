@@ -4,6 +4,9 @@ from PyQt5.QtGui import QIntValidator
 from util import common, standardized, message_box
 
 # tab block manage function
+def admin_building_block_clear_form(self):
+    self.building_manage_block_manage_setting_blank_form()
+
 def building_manage_block_manage_tab_table_widget_setting(self):
     self.tableWidget_block.setSelectionBehavior(QTableView.SelectRows)
     self.tableWidget_block.itemClicked.connect(self.building_manage_block_manage_block_item_click)

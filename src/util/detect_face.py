@@ -38,6 +38,7 @@ def get_single_bbox_from_image(image_path, prototxt, detect_model, confidence_pa
         (300, 300), (104.0, 177.0, 123.0))
     net.setInput(blob)
     detections = net.forward()
+    box = None
     for i in range(0, detections.shape[2]):
         confidence = detections[0, 0, i, 2]
         if confidence > confidence_param:

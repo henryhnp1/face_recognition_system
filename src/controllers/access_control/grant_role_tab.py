@@ -19,6 +19,16 @@ fully_query_grant_role = '''
     join role_door as rd on d.role = rd.id
     where rd.id = 2 order by p.name;
 '''
+def admin_access_control_grant_role_clear_form(self):
+    self.pushButton_select_file_grant_role.setText('Choose File')
+    self.pushButton_import_grant_role.setEnabled(False)
+    self.lineEdit_id_grant_role.setText(None)
+    self.lineEdit_id_num_grant_role.setText(None)
+    self.textEdit_info_person.setPlainText(None)
+    self.comboBox_grant_role_block.setCurrentIndex(0)
+    self.comboBox_grant_role_floor.setCurrentIndex(0)
+    self.comboBox_grant_role_door.setCurrentIndex(0)
+    self.comboBox_grant_role_door_permission.setCurrentIndex(0)
 
 def access_control_grant_role_load(self):
     common.data_loader(self, self.database, '', self.tableWidget_grant_role, fully_query_grant_role)

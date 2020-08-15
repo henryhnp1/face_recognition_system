@@ -9,6 +9,9 @@ from models import my_model
 
 fully_query = "select f.id, f.name, b.name as 'building', t.name as 'type of floor', f.number_of_apartment as 'number apartments' from floor as f, building as b, type_of_floor as t where f.building = b.id and f.type_of_floor = t.id order by b.name, f.id, t.name"
 
+def admin_building_floor_clear_form(self):
+    self.building_manage_floor_manage_clear_form()
+    
 def building_manage_floor_manage_load(self, query=None):
     query = "select f.id, f.name, b.name as 'building', t.name as 'type of floor', f.number_of_apartment as 'number apartments' from floor as f, building as b, type_of_floor as t where f.building = b.id and f.type_of_floor = t.id order by b.name, f.id, t.name"
     common.data_loader(self, self.database, 'floor', self.tableWidget_floor, query)

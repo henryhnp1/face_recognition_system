@@ -21,6 +21,18 @@ fully_query_company = '''
     join floor as f on a.floor = f.id
     join building as b on f.building = b.id
 '''
+def admin_apartment_company_clear_form(self):
+    self.apartment_manage_clear_data_form_company_form()
+    self.admin_apartment_company_office_clear_form()
+    
+def admin_apartment_company_office_clear_form(self):
+    self.pushButton_select_file_company_office.setText("Choose file")
+    self.pushButton_import_file_company_office.setEnabled(False)
+    self.lineEdit_company_office_id.setText(None)
+    self.comboBox_company_office_building.setCurrentIndex(0)
+    self.comboBox_company_office_floor.setCurrentIndex(0)
+    self.comboBox_company_office_status.setCurrentIndex(0)
+
 def apartment_manage_load_company_tab(self):
     self.apartment_manage_load_company_tab_load_office_table()
     self.apartment_manage_load_company_tab_load_company_table()

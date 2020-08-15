@@ -15,6 +15,9 @@ fully_query_apartment = '''
     join type_of_floor as t on f.type_of_floor = t.id
     where t.id = 2
 '''
+def admin_apartment_apartment_clear_form(self):
+    self.apartment_manage_clear_apartment_form()
+    
 def apartment_manage_load_apartment_tab(self):
     common.data_loader(self, self.database, 'apartment', self.tableWidget_resident_apartment_table, fully_query_apartment)
 

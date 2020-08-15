@@ -6,6 +6,10 @@ import sys
 from util import common, standardized, message_box
 
 # resident manage tab function
+def admin_resident_clear_form(self):
+    self.resident_manage_resident_tab_clear_form()
+    self.resident_manage_staff_tab_clear_form()
+
 def load_resident_manage(self):
     self.resident_manage_staff_load()
     self.resident_manage_resident_load()
@@ -42,11 +46,33 @@ def resident_manage_button_setting_and_ui(self):
     self.resident_manage_button_setting_and_ui_resident_tab()
 
 def resident_manage_open_tab_staff(self):
-    self.tabWidget_resident_manage.setCurrentIndex(0)
-    common.set_tab_when_clicked(self.pushButton_company_staff, self.pushButton_resident)
-    self.load_resident_manage()
+    self.flag_tab = '020'
+    if self.flag_anchor and self.flag_anchor != self.flag_tab:
+        warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.flag_anchor = None
+            self.admin_clear_form()
+            self.access_control_person_image_stop_camera_capture()
+            self.tabWidget_resident_manage.setCurrentIndex(0)
+            common.set_tab_when_clicked(self.pushButton_company_staff, self.pushButton_resident)
+            self.load_resident_manage()
+    else:
+        self.tabWidget_resident_manage.setCurrentIndex(0)
+        common.set_tab_when_clicked(self.pushButton_company_staff, self.pushButton_resident)
+        self.load_resident_manage()
 
 def resident_manage_open_tab_resident(self):
-    self.tabWidget_resident_manage.setCurrentIndex(1)
-    common.set_tab_when_clicked(self.pushButton_resident, self.pushButton_company_staff)
-    self.load_resident_manage()
+    self.flag_tab = '021'
+    if self.flag_anchor and self.flag_anchor != self.flag_tab:
+        warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            self.flag_anchor = None
+            self.admin_clear_form()
+            self.access_control_person_image_stop_camera_capture()
+            self.tabWidget_resident_manage.setCurrentIndex(1)
+            common.set_tab_when_clicked(self.pushButton_resident, self.pushButton_company_staff)
+            self.load_resident_manage()
+    else:
+        self.tabWidget_resident_manage.setCurrentIndex(1)
+        common.set_tab_when_clicked(self.pushButton_resident, self.pushButton_company_staff)
+        self.load_resident_manage()

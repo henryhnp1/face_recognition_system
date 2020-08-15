@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from .message_box import MyMessageBox
 from .standardized import str_standard
 import pandas as pd
@@ -10,6 +11,15 @@ import unicodedata
 from datetime import date
 from models import my_model
 from PyQt5.QtCore import QFileInfo, QSize, Qt
+import cv2
+import numpy as np
+from os import listdir, path
+from os.path import isdir
+from .detect_face import get_single_bbox_from_image
+
+
+prototxt = '/home/henry/FinalProject/face_recognition_system/src/data/model/deploy.prototxt'
+detect_model = '/home/henry/FinalProject/face_recognition_system/src/data/model/res10_300x300_ssd_iter_140000.caffemodel'
 
 def search_common_building_setting(option_search, line_search, table, loader):
     field_search = option_search.currentText()
@@ -208,6 +218,8 @@ def get_row_data_item_click(table_data):
     current_row = table_data.currentRow()
     columns_num = table_data.columnCount()
     data = []
+    if current_row < 0:
+        return None
     for cell in range(0, columns_num):
         item = table_data.item(current_row, cell).text()
         data.append(item)
@@ -527,3 +539,84 @@ def restore_item(database, table, item_id):
     except:
         pass
     cursor.close()
+
+def crop_face(image, box):
+    startX, startY, endX, endY = box
+    face = image[startY:endY, startX:endX]
+    return face
+
+def save_image(path, person, list_image, name_number, database):
+    counter = 1
+    query = '''
+        insert into image(url, owner, is_delete) values(%s, %s, %s)
+    '''
+    for image in list_image:
+        image_path = path + '{}/{}.jpg'.format(person.name_en, name_number+counter)
+        image_data = (image.data(Qt.UserRole).data)
+        image_data.save(image_path)
+        cursor = database.cursor()
+        try:
+            cursor.execute(query,(image_path, person.pk, 0))
+            database.commit()
+            counter += 1
+        except:
+            pass
+
+def import_images_from_folder(parent, images_widget, images_capture, image_folder, flag_anchor, get_face):
+    for filename in listdir(image_folder):
+        if isdir(filename):
+            pass
+        else:
+            if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):
+                try:
+                    filename = image_folder+'/' + filename
+                    image = cv2.imread(filename)
+
+                    if add_image_to_list(image, images_capture, QImage.Format_BGR888, get_face):
+                        parent.flag_anchor = flag_anchor
+                except:
+                    next
+    
+    images_widget.clear()
+    for image in images_capture:
+        item = QListWidgetItem(str(image.index))
+        icon = QIcon()
+        icon.addPixmap(image.data, QIcon.Normal, QIcon.Off)
+        item.setData(Qt.UserRole, image)
+        item.setIcon(icon)
+        images_widget.addItem(item)
+
+def select_folder_import_image(parent, button_sellect_folder, button_import_folder):
+    folder_path = QFileDialog.getExistingDirectory(parent, 'Select Directory Image')
+    button_sellect_folder.setText(folder_path)
+    if button_sellect_folder.text():
+        button_import_folder.setEnabled(True)
+
+def add_image_to_list(image, images_capture, image_format, get_face):
+    if isinstance(image, np.ndarray):
+        if images_capture:
+            currentImage = images_capture[-1]
+            nextIndex = currentImage.index + 1
+        else:
+            nextIndex = 1
+        if get_face:
+            box = get_single_bbox_from_image(image, prototxt, detect_model)
+            height, width, _ = image.shape
+            qt_image = QImage(image.data, width, height, image.strides[0], image_format)
+            pixmap = QPixmap.fromImage(qt_image)
+            rect = QRect(box[0], box[1], box[2]-box[0], box[3]-box[1])
+            pixmap = pixmap.copy(rect)
+            pixmap = pixmap.scaled(224, 224)
+            image_capture = my_model.ImageCapture(nextIndex, None, pixmap)
+            images_capture.append(image_capture)
+            return True
+        else:
+            height, width, _ = image.shape
+            qt_image = QImage(image.data, width, height, image.strides[0], image_format)
+            pixmap = QPixmap.fromImage(qt_image)
+            pixmap = pixmap.scaled(224, 224)
+            image_capture = my_model.ImageCapture(nextIndex, None, pixmap)
+            images_capture.append(image_capture)
+            return True
+    else:
+        return False

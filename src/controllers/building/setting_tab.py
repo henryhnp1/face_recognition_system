@@ -4,6 +4,24 @@ from PyQt5.QtWidgets import *
 
 from util import common, standardized, message_box
 
+def admin_building_setting_clear_form(self):
+    self.admin_building_setting_type_of_floor_clear_form()
+    self.admin_building_setting_permission_clear_form()
+
+def admin_building_setting_permission_clear_form(self):
+    self.pushButton_select_file_permission.setText("Choose File")
+    self.pushButton_import_file_permission.setEnabled(False)
+    self.lineEdit_permission_id.setText(None)
+    self.lineEdit_permission_name.setText(None)
+    self.textEdit_permission_description.setPlainText(None)
+
+def admin_building_setting_type_of_floor_clear_form(self):
+    self.pushButton_select_file_type_floor.setText("Choose File")
+    self.pushButton_import_file_type_floor.setEnabled(False)
+    self.lineEdit_typeOFloor_id.setText(None)
+    self.lineEdit_typeOFloor_name.setText(None)
+    self.textEdit_typeOFloor_description.setPlainText(None)
+
 def building_manage_handle_search_line_edit_setting_tab(self):
     self.lineEdit_typeOFloor_search.returnPressed.connect(self.search_type_of_floor)
     self.lineEdit_search_permission.returnPressed.connect(self.search_permission)

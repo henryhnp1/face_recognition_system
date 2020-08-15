@@ -1,6 +1,9 @@
 
 
 # guest manage tab function
+def admin_guest_clear_form(self):
+    pass
+
 def load_guest_manage(self):
     pass
 

@@ -97,3 +97,18 @@ class Image_Person(object):
         self.owner = owner
         self.url = url
         self.is_delete = is_delete
+
+class ImageCapture:
+    def __init__(self, index, owner, data):
+        self.index = index
+        self.owner = owner
+        self.data = data
+
+class PersonDraffInfo:
+    def __init__(self, pk, name, birthday, id_card, phone, name_en):
+        self.pk = pk
+        self.name = name
+        self.birthday = birthday
+        self.id_card = id_card
+        self.phone = phone
+        self.name_en = name_en
