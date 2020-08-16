@@ -111,6 +111,13 @@ class MainApp(QMainWindow, ui):
     from controllers.security_guest.security_guest_image_tab import security_guest_image_clear_form, security_guest_image_load, security_guest_image_handle_button_guest_image_tab, security_guest_image_handle_combobox_guest_image_tab, security_guest_image_combobox_setting_guest_image_tab, security_guest_image_combobox_setting_data_change_guest_image_tab, security_guest_image_handle_search_line_edit_guest_image_tab, security_guest_image_table_widget_setting_guest_image_tab, security_guest_image_import_folder_image
     from controllers.security_guest.security_guest_image_tab import security_guest_image_button_setting_and_ui_guest_image_tab, security_guest_image_load_guest_table, security_guest_image_item_click, security_guest_image_open_tab_manage_photo, security_guest_image_open_tab_add_photo, security_guest_image_setting_line_search, security_guest_image_item_image_click, security_guest_image_image_not_delete_click, security_guest_image_image_capture_click, security_guest_image_restore_image, security_guest_image_search
     from controllers.security_guest.security_guest_image_tab import security_guest_image_image_delete_click, security_guest_image_delete_image, security_guest_image_change_image_to_delete, security_guest_image_delete_image_capture, security_guest_image_add_image_capture, on_pushButton_guest_start_capture_clicked, security_guest_image_stop_camera_capture, on_pushButton_guest_capturing_clicked, security_guest_image_setting_button_capture, security_guest_image_clear_form_and_ui, security_guest_image_select_folder_image
+
+    from controllers.security_access_control.security_access_control_controller import security_access_control_clear_form, load_security_access_control, security_access_control_handle_button, security_access_control_handle_combobox, security_access_control_combobox_setting, security_access_control_combobox_setting_data_change, security_access_control_handle_search_line_edit, security_access_control_table_widget_setting, security_access_control_button_setting_and_ui, security_access_control_open_tab_grant_role, security_access_control_open_tab_access_track
+    
+    from controllers.security_access_control.securety_access_control_grant_role_tab import security_access_control_grant_role_clear_form, security_access_control_grant_role_load, security_access_control_handle_button_grant_role_tab, security_access_control_handle_combobox_grant_role_tab, security_access_control_combobox_setting_grant_role_tab, security_access_control_combobox_setting_data_change_grant_role_tab, security_access_control_handle_search_line_edit_grant_role_tab, security_access_control_table_widget_setting_grant_role_tab
+    from controllers.security_access_control.securety_access_control_grant_role_tab import security_access_control_button_setting_and_ui_grant_role_tab, security_access_control_grant_role_setting_line_search, security_access_control_grant_role_seach, security_access_control_grant_role_item_click, security_access_control_grant_role_export, security_access_control_grant_role_choose_file, security_access_control_grant_role_import_file, security_access_control_grant_role_add, security_access_control_grant_role_edit, security_access_control_grant_role_delete
+    from controllers.security_access_control.securety_access_control_grant_role_tab import security_access_control_grant_role_setting_form, security_access_control_grant_role_combobox_data_change_building_search, security_access_control_grant_role_combobox_data_change_floor_search, security_access_control_grant_role_combobox_data_change_door_search, security_access_control_grant_role_combobox_data_change_building, security_access_control_grant_role_combobox_data_change_floor, security_access_control_grant_role_combobox_data_change_door, security_access_control_grant_role_combobox_data_change_permission
+
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
@@ -190,6 +197,7 @@ class MainApp(QMainWindow, ui):
     
     def load_security(self):
         self.load_security_guest()
+        self.load_security_access_control()
         
     def button_setting_and_ui(self):
         self.building_manage_button_setting_and_ui()
@@ -197,7 +205,6 @@ class MainApp(QMainWindow, ui):
         self.resident_manage_button_setting_and_ui()
         self.guest_manage_button_setting_and_ui()
         self.access_control_button_setting_and_ui()
-
         self.security_guest_button_setting_and_ui()
 
         
@@ -212,6 +219,7 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_handle_button()
         self.access_control_handle_button()
         self.security_guest_handle_button()
+        self.security_access_control_handle_button()
 
     def handle_buttons_main_tab(self):
         self.pushButton_buiding_manage.clicked.connect(self.open_tab_building)
@@ -236,6 +244,7 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_handle_combobox()
         self.access_control_handle_combobox()
         self.security_guest_handle_combobox()
+        self.security_access_control_handle_combobox()
 
     def combobox_setting(self):
         # setting combobox data for satatic combobox
@@ -246,6 +255,7 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_combobox_setting()
         self.access_control_combobox_setting()
         self.security_guest_combobox_setting()
+        self.security_access_control_combobox_setting()
 
     def combobox_setting_data_change(self):
         self.building_manage_combobox_setting_data_change()
@@ -254,6 +264,7 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_combobox_setting_data_change()
         self.access_control_combobox_setting_data_change()
         self.security_guest_combobox_setting_data_change()
+        self.security_access_control_combobox_setting_data_change()
 
     # table widget setting
     def table_widget_setting(self):
@@ -263,6 +274,7 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_table_widget_setting()
         self.access_control_table_widget_setting()
         self.security_guest_table_widget_setting()
+        self.security_access_control_table_widget_setting()
 
     def handle_search_line_edit(self):
         # handle line edit using for search
@@ -273,6 +285,7 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_handle_search_line_edit()
         self.access_control_handle_search_line_edit()
         self.security_guest_handle_search_line_edit()
+        self.security_access_control_handle_search_line_edit()
 
     def login(self):
         username = self.lineEdit_username.text()
@@ -477,6 +490,7 @@ class MainApp(QMainWindow, ui):
 
     def security_clear_form(self):
         self.security_guest_clear_form()
+        self.security_access_control_clear_form()
 
     def open_tab_security_access_control(self):
         self.flag_tab = '210'
