@@ -123,7 +123,7 @@ class MainApp(QMainWindow, ui):
         self.setupUi(self)
         self.setWindowTitle("Face Access Control")
         # for testing self.user_role = 1
-        self.user_role = 2
+        self.user_role = 1
         #self.user_role = 0
         self.database = db_connector.connector('localhost', 'henrydb', 'root', 'face_recognition')
         if self.database == None:
@@ -189,6 +189,7 @@ class MainApp(QMainWindow, ui):
         self.load_security()
 
     def load_admin(self):
+        self.open_tab_access_control()
         self.load_building_manage()
         self.load_apartment_manage()
         self.load_resident_manage()

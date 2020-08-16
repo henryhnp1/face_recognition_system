@@ -257,7 +257,10 @@ def building_manage_door_manage_edit_door(self):
 def building_manage_door_manage_delete_door(self):
     if self.lineEdit_id_door.text():
         door_id = int(self.lineEdit_id_door.text())
-        common.delete_item(self, 'door', self.database, door_id, self.building_manage_door_manage_load, self.building_manage_door_manage_clear_door_form)
+        if door_id != 1:
+            common.delete_item(self, 'door', self.database, door_id, self.building_manage_door_manage_load, self.building_manage_door_manage_clear_door_form)
+        else:
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "This Door Can't Remove").exec()
     else:
         pass
 
@@ -310,27 +313,33 @@ def building_manage_door_manage_add_role_door(self):
 def building_manage_door_manage_edit_role_door(self):
     role_door_id = self.lineEdit_role_door_id.text()
     if role_door_id:
-        role_door_id = int(role_door_id)
-        name_role_door = self.lineEdit_role_door_name.text()
-        if name_role_door:
-            desc = self.textEdit_role_door_description.toPlainText()
-            query = "update role_door set role_door.name = %s, role_door.description = %s where role_door.id = %s"
-            cursor = self.database.cursor()
-            try:
-                cursor.execute(query,(name_role_door.upper(), desc, role_door_id))
-                self.database.commit()
-                common.data_loader(self, self.database, 'role_door', self.tableWidget_role_door, "select * from role_door")
-            except db.Error as e:
-                message_box.MyMessageBox(QMessageBox.Critical, "Error", "The role door Is Exist!").exec()
-            cursor.close()
+        if int(role_door_id) in [1, 2]:
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Role Door Can't Be Change").exec()
         else:
-            message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name of role door must be not null").exec()
+            role_door_id = int(role_door_id)
+            name_role_door = self.lineEdit_role_door_name.text()
+            if name_role_door:
+                desc = self.textEdit_role_door_description.toPlainText()
+                query = "update role_door set role_door.name = %s, role_door.description = %s where role_door.id = %s"
+                cursor = self.database.cursor()
+                try:
+                    cursor.execute(query,(name_role_door.upper(), desc, role_door_id))
+                    self.database.commit()
+                    common.data_loader(self, self.database, 'role_door', self.tableWidget_role_door, "select * from role_door")
+                except db.Error as e:
+                    message_box.MyMessageBox(QMessageBox.Critical, "Error", "The role door Is Exist!").exec()
+                cursor.close()
+            else:
+                message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name of role door must be not null").exec()
 
 def building_manage_door_manage_delete_role_door(self):
     role_door_id = self.lineEdit_role_door_id.text()
     if role_door_id:
         role_door_id = int(role_door_id)
-        common.delete_item(self, 'role_door', self.database, role_door_id, self.building_manage_door_manage_load, self.building_manage_door_manage_clear_role_door_form)
+        if role_door_id in [1, 2]:
+            message_box.MyMessageBox(QMessageBox.Critical, "Error", "The Role Door Can't Be Change").exec()
+        else:
+            common.delete_item(self, 'role_door', self.database, role_door_id, self.building_manage_door_manage_load, self.building_manage_door_manage_clear_role_door_form)
 
 def building_manage_door_mange_export_file_door(self):
     path_file = common.select_file_export(self, self.pushButton_export_door)

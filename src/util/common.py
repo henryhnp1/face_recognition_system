@@ -116,7 +116,7 @@ def data_loader(parent, database, table, table_data, query=None):
         query = "select * from {}".format(table)
     cursor = database.cursor()
     try:
-        cursor.execute(query)
+        cursor.execute(query.format(''))
         data = cursor.fetchall()
         field_names = [x[0] for x in cursor.description]  #get headname
         table_data.setRowCount(0)
@@ -546,25 +546,49 @@ def load_image_for_image_management(database, person_id, delete_panel, not_delet
     setting_listwidget_image(delete_panel, spacing=5, gridsize=(210, 210), iconsize=(180, 180))
     add_list_image_to_listwidget(list_image_delete, delete_panel)
 
-def change_item_to_is_delete(database, table, item_id):
-    query = 'update {} set is_delete = 1 where id = {}'
-    cursor = database.cursor()
-    try:
-        cursor.execute(query.format(table, int(item_id)))
+def change_item_to_is_delete(database, table, item_id, item_path=None):
+    if item_path:
+        item_temp = item_path.split('/')
+        new_url = '/'.join(item_temp[:-1]) + '/deleted/' + item_temp[-1]
+        query = "update {} set is_delete = 1, url = '{}' where id = {}".format(table, new_url, int(item_id))
+        cursor = database.cursor()
+        # try:
+        cursor.execute(query)
         database.commit()
-    except:
-        pass
-    cursor.close()
+        # except:
+        #     pass
+        cursor.close()
+    else:
+        query = 'update {} set is_delete = 1 where id = {}'
+        cursor = database.cursor()
+        try:
+            cursor.execute(query.format(table, int(item_id)))
+            database.commit()
+        except:
+            pass
+        cursor.close()
 
-def restore_item(database, table, item_id):
-    query = 'update {} set is_delete = 0 where id = {}'
-    cursor = database.cursor()
-    try:
-        cursor.execute(query.format(table, int(item_id)))
+def restore_item(database, table, item_id, item_path=None):
+    if item_path:
+        item_temp = item_path.split('/')
+        new_url = '/'.join(item_temp[:-2]) + '/' + item_temp[-1]
+        query = "update {} set is_delete = 0, url = '{}' where id = {}"
+        cursor = database.cursor()
+        # try:
+        cursor.execute(query.format(table, new_url, int(item_id)))
         database.commit()
-    except:
-        pass
-    cursor.close()
+        # except:
+        #     pass
+        cursor.close()
+    else:
+        query = 'update {} set is_delete = 0 where id = {}'
+        cursor = database.cursor()
+        try:
+            cursor.execute(query.format(table, int(item_id)))
+            database.commit()
+        except:
+            pass
+        cursor.close()
 
 def crop_face(image, box):
     startX, startY, endX, endY = box
@@ -699,4 +723,31 @@ def get_mysql_time_from_qtime(qtime):
     if len(hour) < 2: hour = '0' + hour
     if len(minute) < 2: minute = '0' + minute
     if len(second) < 2: second = '0' + second
-    return hour+ ':' + minute + ':' + second 
+    return hour+ ':' + minute + ':' + second
+
+def remove_image_file(image_path):
+    try:
+        image_temp = image_path.split('/')
+        image_folder = image_temp[:-1]
+        image_name = image_temp[-1]
+        image_folder_detele = '/'.join(image_folder) + '/deleted/'
+        make_dir(image_folder_detele)
+        os.rename(image_path, image_folder_detele + image_name)
+    except:
+        pass
+
+def remove_file(file_path):
+    try:
+        os.remove(file_path)
+    except:
+        pass
+
+def restore_image_file(image_path):
+    try:
+        image_temp = image_path.split('/')
+        image_folder = image_temp[:-2]
+        image_name = image_temp[-1]
+        image_folder_restore = '/'.join(image_folder)+'/'
+        os.rename(image_path, image_folder_restore + image_name)
+    except:
+        pass

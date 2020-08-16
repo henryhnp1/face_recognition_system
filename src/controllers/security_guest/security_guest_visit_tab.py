@@ -309,7 +309,6 @@ def security_guest_guest_visit_edit_guest_visit(self):
                 village = self.textEdit_guest_resident_village.toPlainText()
                 curr_accommodation = self.textEdit_guest_current_accomodation.toPlainText()
                 today_mysql = common.get_today_str()
-                name_en = common.make_name(name, birthday_mysql, id_number, today_mysql)
                 if visit_to == 1:
                     apartment = self.comboBox_guest_visit_company.currentData().pk
                     time_in = common.get_mysql_datetime_from_datetime_edit(self.dateTimeEdit_guest_visit_company_from_time)
@@ -323,10 +322,10 @@ def security_guest_guest_visit_edit_guest_visit(self):
                 elif time_out < time_in:
                     message_box.MyMessageBox(QMessageBox.Critical, "Error", "Choose the time go out bigger than time go in").exec()
                 else:
-                    query = 'call edit_guest_visit(%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+                    query = 'call edit_guest_visit(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
                     cursor = self.database.cursor()
                     try:
-                        cursor.execute(query,(cur_id_card, name, name_en, birthday_mysql, id_number, gender, phone, village, curr_accommodation, id_out_in, visit_to, apartment, time_in, time_out))
+                        cursor.execute(query,(cur_id_card, name, birthday_mysql, id_number, gender, phone, village, curr_accommodation, id_out_in, visit_to, apartment, time_in, time_out))
                         self.database.commit()
                         common.data_loader(self, self.database, 'None', self.tableWidget_guest_visit, fully_select_guest_visit)
                     except db.Error as e:

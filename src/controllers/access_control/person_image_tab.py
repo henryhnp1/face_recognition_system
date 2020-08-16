@@ -152,7 +152,10 @@ def access_control_person_image_restore_image(self):
     images_selected = self.listWidget_image_delete_admin_panel.selectedItems()
     for image_item in images_selected:
         image_item_data = image_item.data(Qt.UserRole)
-        common.restore_item(self.database, 'image', image_item_data.pk)
+        # common.restore_item(self.database, 'image', image_item_data.pk)
+        common.restore_item(self.database, 'image', image_item_data.pk, image_item_data.url)
+        common.restore_image_file(image_item_data.url)
+        
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_delete_admin_panel, self.listWidget_image_ndelete_admin_panel)
 
 def access_control_person_image_image_delete_click(self):
@@ -169,13 +172,16 @@ def access_control_person_image_delete_image(self):
     for image_item in images_selected:
         image_item_data = image_item.data(Qt.UserRole)
         common.delete_item(self, 'image', self.database, image_item_data.pk)
+        common.remove_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_delete_admin_panel, self.listWidget_image_ndelete_admin_panel)
     
 def access_control_person_image_change_image_to_delete(self):
     images_selected = self.listWidget_image_ndelete_admin_panel.selectedItems()
     for image_item in images_selected:
         image_item_data = image_item.data(Qt.UserRole)
-        common.change_item_to_is_delete(self.database, 'image', image_item_data.pk)
+        # common.change_item_to_is_delete(self.database, 'image', image_item_data.pk)
+        common.change_item_to_is_delete(self.database, 'image', image_item_data.pk, image_item_data.url)
+        common.remove_image_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_delete_admin_panel, self.listWidget_image_ndelete_admin_panel)
 
 def access_control_person_image_delete_image_capture(self):

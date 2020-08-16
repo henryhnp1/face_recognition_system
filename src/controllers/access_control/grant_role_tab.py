@@ -17,7 +17,7 @@ fully_query_grant_role = '''
     join building as b on f.building = b.id
     join permission as pm on pdp.permission = pm.id
     join role_door as rd on d.role = rd.id
-    where rd.id = 2 order by p.name;
+    {} order by p.name;
 '''
 def admin_access_control_grant_role_clear_form(self):
     self.pushButton_select_file_grant_role.setText('Choose File')
@@ -99,30 +99,29 @@ def access_control_grant_role_seach(self):
         join floor as f on d.floor = f.id
         join building as b on f.building = b.id
         join permission as pm on pdp.permission = pm.id
-        join role_door as rd on d.role = rd.id
-        where rd.id = 2 {}
+        join role_door as rd on d.role = rd.id {}
     '''
     if text_search == '':
         query = query.format('')
     elif field_search == 'id':
-        query = query.format("and pdp.id like '%{}%'".format(int(text_search)))
+        query = query.format("where pdp.id like '%{}%'".format(int(text_search)))
     elif field_search == 'name':
-        query = query.format("and p.name like '%{}%'".format(text_search))
+        query = query.format("where p.name like '%{}%'".format(text_search))
     elif field_search == 'id card':
-        query = query.format("and p.id_card like '%{}%'".format(text_search))
+        query = query.format("where p.id_card like '%{}%'".format(text_search))
     elif field_search == 'phone':
-        query = query.format("and p.phone like '%{}%'".format(text_search))
+        query = query.format("where p.phone like '%{}%'".format(text_search))
     elif field_search == 'permission':
-        query = query.format("and pm.name like '%{}%'".format(text_search))
+        query = query.format("where pm.name like '%{}%'".format(text_search))
     else:
-        query = query.format("and p.current_accommodation like '%{}%'".format(text_search))
+        query = query.format("where p.current_accommodation like '%{}%'".format(text_search))
     
     if door_id:
-        query = query + ' and d.id = {} and f.id = {} and b.id = {}'.format(door_id, floor_id, building_id)
+        query = query + ' where d.id = {} and f.id = {} and b.id = {}'.format(door_id, floor_id, building_id)
     elif floor_id:
-        query = query + ' and f.id = {} and b.id = {}'.format(floor_id, building_id)
+        query = query + ' where f.id = {} and b.id = {}'.format(floor_id, building_id)
     elif building_id:
-        query = query + ' and b.id = {}'.format(building_id)
+        query = query + ' where b.id = {}'.format(building_id)
     else:
         query = query
     

@@ -593,3 +593,14 @@ where p.id = 6 order by time_in desc limit 1;
 select p.id_card from person as p join guest as g on p.id = g.person
 join out_in_of_guest as oiog on oiog.guest = g.id
 where oiog.id = 2 limit 1;
+
+select pdp.id, b.name as 'building', f.name as 'floor', d.name as 'door', p.name as 'person',  p.id_card, p.phone, p.current_accommodation, pm.name as 'permission' from person_door_permission as pdp 
+    join person as p on pdp.person = p.id
+    join door as d on pdp.door = d.id
+    join floor as f on d.floor = f.id
+    join building as b on f.building = b.id
+    join permission as pm on pdp.permission = pm.id
+    join role_door as rd on d.role = rd.id
+    order by p.name;
+
+update door set id = 1 where name='111';

@@ -17,7 +17,7 @@ fully_query_grant_role_guest = '''
     join building as b on f.building = b.id
     join permission as pm on pdp.permission = pm.id
     join role_door as rd on d.role = rd.id
-    where p.is_resident = 0 and rd.id = 2 order by p.name;
+    where p.is_resident = 0 order by p.name;
 '''
 def security_access_control_grant_role_clear_form(self):
     self.pushButton_select_file_grant_role_security.setText('Choose File')
@@ -100,7 +100,7 @@ def security_access_control_grant_role_seach(self):
         join building as b on f.building = b.id
         join permission as pm on pdp.permission = pm.id
         join role_door as rd on d.role = rd.id
-        where p.is_resident = 0 and rd.id = 2 {}
+        where p.is_resident = 0 {}
     '''
     if text_search == '':
         query = query.format('')

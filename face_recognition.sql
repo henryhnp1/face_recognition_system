@@ -481,3 +481,29 @@ begin
     where id = id_out_in;
 end#
 delimiter ;
+
+DROP TRIGGER IF EXISTS grant_role_person_after_insert;
+DELIMITER $$
+
+ CREATE TRIGGER grant_role_person_after_insert
+
+ after insert ON person
+
+ FOR EACH ROW
+
+BEGIN
+
+ INSERT INTO person_door_permission
+
+SET
+
+ person = NEW.id,
+
+ permission = 1,
+
+ door = 1;
+
+END$$
+
+ DELIMITER ;
+ 
