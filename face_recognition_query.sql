@@ -418,9 +418,20 @@ values
 ('/home/henry/FinalProject/face_recognition_system/core/data/dataset/raw/NghiHm2406_618_29_06_20/93.jpg', 1, 1),
 ('/home/henry/FinalProject/face_recognition_system/core/data/dataset/raw/NghiHm2406_618_29_06_20/94.jpg', 1, 1);
 insert into apartment(name, floor, status) value
-('A1001', 1, 0)
+('A1001', 1, 0);
 
-delete from apartment where apartment.id > 90
+insert into out_in_of_guest(guest, visit_to, apartment, time_in, time_out) values
+(1, 1, 1, '2020-07-10 10:00:19', '2020-07-10 10:20:45'),
+(1, 1, 1, '2020-07-15 09:45:50', '2020-07-15 10:30:03'),
+(1, 1, 1, '2020-07-21 09:55:01', '2020-07-21 10:35:52'),
+(1, 1, 1, '2020-07-27 08:25:50', '2020-07-27 18:10:03'),
+(2, 1, 16, '2020-06-05 09:25:50', '2020-06-05 10:10:03');
+
+insert into out_in_of_guest(guest, visit_to, apartment, time_in, time_out) values
+(1, 1, 6, '2020-07-10 10:00:19', '2020-07-10 10:20:45');
+
+
+delete from apartment where apartment.id > 90;
 /*select query*/
 use face_recognition;
 select * from floor;
@@ -547,3 +558,38 @@ select r.id, r.name, r.description from role_door as r
 join door as d on r.id = d.role
 join person_door_permission 
 where d.id = 5;
+
+select a.id, b.name as 'building', f.name as 'floor', a.name, if(a.status =0, 'Available', 'Not Available') as 'status' from apartment as a 
+    join floor as f on a.floor = f.id
+    join building as b on b.id = f.building
+    join type_of_floor as t on t.id = f.type_of_floor
+    where t.name = 'bussiness';
+
+select d.id, d.name, d.floor, d.role from door as d
+            join floor as f on d.floor = f.id
+            join building as b on b.id = f.building
+            join role_door as r on d.role = r.id
+            where r.id = 2 and b.id = 1;
+
+select oiog.id, p.name, p.birthday, if(p.gender=1, 'Male', 'Female') as 'gender', p.id_card, p.phone, p.village, p.current_accommodation, a.name as 'apartment', oiog.time_in, oiog.time_out, oiog.visit_to from guest as g 
+join person as p on p.id = g.person
+join out_in_of_guest as oiog on oiog.guest = g.id
+join apartment as a on a.id = oiog.apartment;
+
+select a.id as 'apartment_id', a.name as 'apartment', f.id as 'floor_id', 
+        f.name as 'floor', b.id as 'building_id', b.name as 'building' from apartment as a
+        join floor as f on a.floor = f.id
+        join building as b on b.id = f.building
+        join type_of_floor as t on t.id = f.type_of_floor
+        where t.id = 1 and a.name = 'A1001' limit 1;
+
+select c.name from company as c join apartment as a
+where c.apartment = a.id and a.name = 'A1001';
+
+select p from person as p join guest as g on p.id = g.person
+join out_in_of_guest as oiog on oiog.guest = g.id
+where p.id = 6 order by time_in desc limit 1;
+
+select p.id_card from person as p join guest as g on p.id = g.person
+join out_in_of_guest as oiog on oiog.guest = g.id
+where oiog.id = 2 limit 1;

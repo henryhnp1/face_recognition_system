@@ -131,12 +131,13 @@ add unique (person, door, permission);
 create table out_in_of_guest(
 	id int primary key auto_increment,
     guest int,
+    visit_to int,
     apartment int,
     time_in datetime,
     time_out datetime,
     reason text,
-    foreign key (guest) references person(id) on delete cascade,
-    foreign key(apartment) references person(id) on delete cascade
+    foreign key (guest) references guest(id) on delete cascade,
+    foreign key(apartment) references apartment(id) on delete cascade
 );
 create table history_out_int(
 	id int primary key auto_increment,
@@ -425,4 +426,58 @@ delimiter ;
 
 call insert_grant_role_from_file('A', 3, 132, '163355618', 'ACCEPT');
 
-select p.id from person as p where p.id_card = '163355618' limit 1;
+drop procedure if exists insert_guest_visit;
+delimiter #
+create procedure insert_guest_visit(in name_in nvarchar(255),in name_en_in varchar(50),in birthday_in date, in id_card_in varchar(12), in gender_in int, in phone_in varchar(10), in village_in nvarchar(255), in current_accommodation_in text, in visit_to_in int, in apartment_in int, in time_in_in datetime, in time_out_in datetime)
+begin
+	declare person_id int;
+    declare guest_id int;
+    declare person_id_number nvarchar(12);
+    select p.id_card into person_id_number from person as p where p.id_card = id_card_in limit 1;
+    
+    if person_id_number is null then
+		begin
+			insert into person(name, name_en, birthday, id_card, gender, phone, village, current_accommodation, is_delete, is_resident)
+			value (name_in, name_en_in ,birthday_in, id_card_in, gender_in, phone_in, village_in, current_accommodation_in, 0, 0);
+			select p.id into person_id from person as p where p.id_card = id_card_in limit 1;
+			insert into guest(person) value (person_id);
+		end;
+	end if;
+	
+    select g.id into guest_id from person as p join guest as g on p.id = g.person where p.id_card = id_card_in limit 1;
+    if guest_id is not null then
+		begin
+			insert into out_in_of_guest(guest, visit_to, apartment, time_in, time_out) value
+            (guest_id, visit_to_in, apartment_in, time_in_in, time_out_in);
+        end;
+	end if;
+end#
+delimiter ;
+
+call insert_guest_visit('Bùi Văn Trúc', 'TrucBV0208_5623_02_16_29_06_20', '1994-08-02', '163355623', '1', NULL, 'Nam Sách, Hải Dương', 'Minh Khai, Bắc Từ Liêm, Hà Nội', 2, 21, '2020-08-15 10:14:16', '2020-08-15 10:15:17');
+call insert_guest_visit('Vũ ĐỨc Toàn', 'ToanVD1209_5683_02_16_15_08_20', '1992-09-12', '163355683', '1', NULL, 'Vụ Bản, Nam Định', 'Thanh Xuân, Hà Nội', 2, 23, '2020-08-15 10:15:16', '2020-08-15 10:45:17');
+
+drop procedure if exists edit_guest_visit;
+delimiter #
+create procedure edit_guest_visit(in cur_id_card varchar(12),in name_in nvarchar(255),in name_en_in varchar(50),in birthday_in date, in id_card_in varchar(12), in gender_in int, in phone_in varchar(10), in village_in nvarchar(255), in current_accommodation_in text,in id_out_in int, in visit_to_in int, in apartment_in int, in time_in_in datetime, in time_out_in datetime)
+begin
+	declare person_id int;
+    declare guest_id int;
+    declare out_in_id int;
+    declare person_id_number nvarchar(12);
+    select p.id_card into person_id_number from person as p where p.id_card = id_card_in limit 1;
+    if person_id_number is null then
+		begin
+			update person set name = name_in, name_en = name_en_in, birthday = birthday_in, gender = gender_in, phone = phone_in,
+            village = village_in, current_accommodation = current_accommodation_in, id_card = id_card_in where id_card = cur_id_card;
+        end;
+	else
+		begin
+			update person set name = name_in, name_en = name_en_in, birthday = birthday_in, gender = gender_in, phone = phone_in,
+            village = village_in, current_accommodation = current_accommodation_in where id_card = cur_id_card;
+        end;
+	end if;
+    update out_in_of_guest set visit_to = visit_to_in, apartment = apartment_in, time_in = time_in_in, time_out = time_out_in
+    where id = id_out_in;
+end#
+delimiter ;

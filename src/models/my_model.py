@@ -112,3 +112,18 @@ class PersonDraffInfo:
         self.id_card = id_card
         self.phone = phone
         self.name_en = name_en
+
+class GuestVisit:
+    def __init__(self, pk, name, birthday, gender, id_card, phone, village, accommodation, apartment, time_in, time_out, visit_to):
+        self.pk = pk
+        self.name = name
+        self.birthday = birthday
+        self.gender = gender
+        self.id_card = id_card
+        self.phone = phone
+        self.village = village
+        self.accommodation = accommodation
+        self.apartment = apartment
+        self.time_in = time_in
+        self.time_out = time_out
+        self.visit_to = visit_to

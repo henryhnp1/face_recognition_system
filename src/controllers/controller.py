@@ -103,12 +103,17 @@ class MainApp(QMainWindow, ui):
 
     from controllers.access_control.access_track_tab import access_control_access_track_load, access_control_button_setting_and_ui_access_track_tab, access_control_combobox_setting_data_change_access_track_tab, access_control_combobox_setting_access_track_tab, access_control_handle_button_access_track_tab, access_control_handle_combobox_access_track_tab, access_control_handle_search_line_edit_access_track_tab, access_control_table_widget_setting_access_track_tab, admin_acesss_control_access_track_clear_form
 
+    from controllers.security_guest.security_guest_controller import security_guest_clear_form, load_security_guest, security_guest_handle_button, security_guest_handle_combobox, security_guest_combobox_setting, security_guest_combobox_setting_data_change, security_guest_handle_search_line_edit, security_guest_table_widget_setting, security_guest_button_setting_and_ui, security_guest_open_tab_guest_visit,security_guest_open_tab_guest_image
+    from controllers.security_guest.security_guest_visit_tab import security_guest_guest_visit_clear_form, security_guest_guest_visit_load, security_guest_handle_button_guest_visit_tab, security_guest_handle_combobox_guest_visit_tab, security_guest_combobox_setting_guest_visit_tab,security_guest_combobox_setting_data_change_guest_visit_tab, security_guest_handle_search_line_edit_guest_visit_tab, security_guest_table_widget_setting_guest_visit_tab, security_guest_button_setting_and_ui_guest_visit_tab
+    from controllers.security_guest.security_guest_visit_tab import security_guest_guest_visit_tab_setting_line_search, security_guest_guest_visit_item_click, security_guest_guest_visit_search, security_guest_guest_visit_setting_target_visit, security_guest_guest_visit_export_guest_visit, security_guest_guest_visit_add_guest_visit, security_guest_guest_visit_edit_guest_visit, security_guest_guest_visit_delete_guest_visit
+    from controllers.security_guest.security_guest_visit_tab import security_guest_visit_bussiness_data_change_building_combobox, security_guest_visit_resident_data_change_building_combobox, security_guest_visit_bussiness_data_change_floor_combobox, security_guest_visit_resident_data_change_floor_combobox, security_guest_visit_bussiness_data_change_company_combobox, security_guest_visit_resident_data_change_apartment_combobox
+
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.setWindowTitle("Face Access Control")
         # for testing self.user_role = 1
-        self.user_role = 1
+        self.user_role = 2
         #self.user_role = 0
         self.database = db_connector.connector('localhost', 'henrydb', 'root', 'face_recognition')
         if self.database == None:
@@ -148,6 +153,7 @@ class MainApp(QMainWindow, ui):
         self.tabWidget_main.tabBar().setVisible(False)
         self.tabWidget_building_manage.tabBar().setVisible(False)
         self.tabWidget_all.tabBar().setVisible(False)
+        self.tabWidget_main_security.tabBar().setVisible(False)
 
     def handle_tab_ui(self):
         if self.user_role == 1:
@@ -169,7 +175,7 @@ class MainApp(QMainWindow, ui):
     #load_data
     def load_data(self):
         self.load_admin()
-        self.load_securety()
+        self.load_security()
 
     def load_admin(self):
         self.load_building_manage()
@@ -178,8 +184,8 @@ class MainApp(QMainWindow, ui):
         self.load_guest_manage()
         self.load_access_control()
     
-    def load_securety(self):
-        pass
+    def load_security(self):
+        self.load_security_guest()
         
     def button_setting_and_ui(self):
         self.building_manage_button_setting_and_ui()
@@ -188,16 +194,20 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_button_setting_and_ui()
         self.access_control_button_setting_and_ui()
 
+        self.security_guest_button_setting_and_ui()
+
         
     def handle_buttons(self):
         self.handle_buttons_login_tab()
         self.handle_buttons_main_tab()
+        self.handle_buttons_security_tab()
         #handle button for bulding manage
         self.building_manage_handle_button()
         self.apartment_manage_handle_button()
         self.resident_manage_handle_button()
         self.guest_manage_handle_button()
         self.access_control_handle_button()
+        self.security_guest_handle_button()
 
     def handle_buttons_main_tab(self):
         self.pushButton_buiding_manage.clicked.connect(self.open_tab_building)
@@ -205,6 +215,10 @@ class MainApp(QMainWindow, ui):
         self.pushButton_resident_manage.clicked.connect(self.open_tab_resident)
         self.pushButton_gest_manage.clicked.connect(self.open_tab_guest)
         self.pushButton_video_access_control.clicked.connect(self.open_tab_access_control)
+    
+    def handle_buttons_security_tab(self):
+        self.pushButton_video_access_control_security.clicked.connect(self.open_tab_security_access_control)
+        self.pushButton_guest_management.clicked.connect(self.open_tab_security_guest_management)
 
     def handle_buttons_login_tab(self):
         self.pushButton_login.clicked.connect(self.login)
@@ -217,6 +231,7 @@ class MainApp(QMainWindow, ui):
         self.resident_manage_handle_combobox()
         self.guest_manage_handle_combobox()
         self.access_control_handle_combobox()
+        self.security_guest_handle_combobox()
 
     def combobox_setting(self):
         # setting combobox data for satatic combobox
@@ -226,6 +241,7 @@ class MainApp(QMainWindow, ui):
         self.resident_manage_combobox_setting()
         self.guest_manage_combobox_setting()
         self.access_control_combobox_setting()
+        self.security_guest_combobox_setting()
 
     def combobox_setting_data_change(self):
         self.building_manage_combobox_setting_data_change()
@@ -233,6 +249,7 @@ class MainApp(QMainWindow, ui):
         self.resident_manage_combobox_setting_data_change()
         self.guest_manage_combobox_setting_data_change()
         self.access_control_combobox_setting_data_change()
+        self.security_guest_combobox_setting_data_change()
 
     # table widget setting
     def table_widget_setting(self):
@@ -241,6 +258,7 @@ class MainApp(QMainWindow, ui):
         self.resident_manage_table_widget_setting()
         self.guest_manage_table_widget_setting()
         self.access_control_table_widget_setting()
+        self.security_guest_table_widget_setting()
 
     def handle_search_line_edit(self):
         # handle line edit using for search
@@ -250,6 +268,7 @@ class MainApp(QMainWindow, ui):
         self.resident_manage_handle_search_line_edit()
         self.guest_manage_handle_search_line_edit()
         self.access_control_handle_search_line_edit()
+        self.security_guest_handle_search_line_edit()
 
     def login(self):
         username = self.lineEdit_username.text()
@@ -282,7 +301,8 @@ class MainApp(QMainWindow, ui):
     def open_window(self):
         #for testing
         #self.check_login()
-        self.open_tab_building()
+        #self.open_tab_building()
+        self.open_tab_security_access_control()
 
     def open_tab_building(self):
         #for testing
@@ -453,3 +473,49 @@ class MainApp(QMainWindow, ui):
 
     def security_clear_form(self):
         pass
+
+    def open_tab_security_access_control(self):
+        self.flag_tab = '210'
+        if self.flag_anchor and self.flag_anchor != self.flag_tab:
+            warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if warning == QMessageBox.Yes:
+                self.flag_anchor = None
+                self.security_clear_form()
+                # self.access_control_person_image_stop_camera_capture()
+
+                self.tabWidget_main_security.setCurrentIndex(0)
+
+                common.set_tab_when_clicked(self.pushButton_video_access_control_security, self.pushButton_guest_management)
+
+                self.tabWidget_access_control_security.setCurrentIndex(0)
+                common.set_tab_when_clicked(self.pushButton_grant_role_security, 
+                self.pushButton_person_image_security, self.pushButton_access_track_security)
+        else:
+            self.tabWidget_main_security.setCurrentIndex(0)
+
+            common.set_tab_when_clicked(self.pushButton_video_access_control_security, self.pushButton_guest_management)
+
+            self.tabWidget_access_control_security.setCurrentIndex(0)
+            common.set_tab_when_clicked(self.pushButton_grant_role_security, 
+                self.pushButton_person_image_security, self.pushButton_access_track_security)
+        
+    def open_tab_security_guest_management(self):
+        self.flag_tab = '211'
+        if self.flag_anchor and self.flag_anchor != self.flag_tab:
+            warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if warning == QMessageBox.Yes:
+                self.flag_anchor = None
+                self.security_clear_form()
+                # self.access_control_person_image_stop_camera_capture()
+
+                self.tabWidget_main_security.setCurrentIndex(1)
+                common.set_tab_when_clicked(self.pushButton_guest_management, self.pushButton_video_access_control_security)
+
+                self.tabWidget_security_guest_management.setCurrentIndex(0)
+                common.set_tab_when_clicked(self.pushButton_guest_visit, self.pushButton_guest_image)
+        else:
+            self.tabWidget_main_security.setCurrentIndex(1)
+            common.set_tab_when_clicked(self.pushButton_guest_management, self.pushButton_video_access_control_security)
+
+            self.tabWidget_security_guest_management.setCurrentIndex(0)
+            common.set_tab_when_clicked(self.pushButton_guest_visit, self.pushButton_guest_image)

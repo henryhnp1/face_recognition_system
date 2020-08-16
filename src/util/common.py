@@ -248,6 +248,16 @@ def get_single_value_from_table(table, field, where_clause, database):
     except:
         pass
 
+def get_single_value_from_query(query, database):
+    cursor = database.cursor()
+    try:
+        cursor.execute(query)
+        data = cursor.fetchall()
+        cursor.close()
+        return data[0][0]
+    except:
+        pass
+
 def get_today_str():
     today = date.today()
     year = str(today.year)
@@ -634,3 +644,55 @@ def add_image_to_list(image, images_capture, image_format, get_face):
             return True
     else:
         return False
+
+def get_date_from_date_data(date_data):
+    if date_data:
+        date_data = date_data.split('-')
+        date_temp = QDate()
+        date_temp.setDate(int(date_data[0]), int(date_data[1]), int(date_data[2]))
+        return date_temp
+
+def get_datetime_from_datetime_data(datetime_data):
+    if datetime_data:
+        datetime_temp = datetime_data.split()
+        date_data = datetime_temp[0].split('-')
+        time_data = datetime_temp[1].split(':')
+        date_temp = QDate(int(date_data[0]), int(date_data[1]), int(date_data[2]))
+        time_temp = QTime(int(time_data[0]), int(time_data[1]), int(time_data[2]))
+        # date_temp.setDate(int(date_data[0]), int(date_data[1]), int(date_data[2]))
+        datetime_temp = QDateTime(date_temp, time_temp)
+        return datetime_temp
+        
+
+def change_format_date_from_yyyy_mm_dd_to_dd_mm_yyyy(date_data):
+    if date_data:
+        date_data = date_data.split('-')
+        date_data = date_data[::-1]
+        return '-'.join(date_data)
+    return date_data
+
+def get_mysql_datetime_from_datetime_edit(datetime_edit):
+    date_temp = datetime_edit.date()
+    time_temp = datetime_edit.time()
+    date_temp = get_mysql_date_from_qdate(date_temp)
+    time_temp = get_mysql_time_from_qtime(time_temp)
+    return date_temp + ' ' + time_temp
+
+def get_mysql_date_from_qdate(qdate):
+    year = str(qdate.year())
+    month = str(qdate.month())
+    day = str(qdate.day())
+    if len(month) < 2:
+        month = '0' + month
+    if len(day) < 2:
+        day = '0' + day
+    return year+ '-' + month + '-' + day
+
+def get_mysql_time_from_qtime(qtime):
+    hour = str(qtime.hour())
+    minute = str(qtime.minute())
+    second = str(qtime.second())
+    if len(hour) < 2: hour = '0' + hour
+    if len(minute) < 2: minute = '0' + minute
+    if len(second) < 2: second = '0' + second
+    return hour+ ':' + minute + ':' + second 
