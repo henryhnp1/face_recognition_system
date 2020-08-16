@@ -66,7 +66,7 @@ def access_control_combobox_setting_data_change_person_image_tab(self):
     pass
 
 def access_control_handle_search_line_edit_person_image_tab(self):
-    pass
+    self.lineEdit_type_search_person_image.returnPressed.connect(self.access_control_person_image_search)
 
 def access_control_table_widget_setting_person_image_tab(self):
     self.access_control_person_image_item_image_click()
@@ -275,3 +275,24 @@ def access_control_person_image_import_folder_image(self):
     common.import_images_from_folder(self, self.listWidget_image_capturing, self.images_capture, image_folder, '041', find_face)
     self.pushButton_select_person_image.setText('Choose folder')
     self.pushButton_import_person_image.setEnabled(False)
+
+def access_control_person_image_search(self):
+    field_search = self.comboBox_fields_search_guest_image.currentText()
+    text_search = self.lineEdit_type_search_guest_image.text()
+
+    query = '''
+        select p.id, p.name, p.birthday, p.id_card, p.phone, p.name_en from person as p {}
+    '''
+    if text_search == '':
+        query = query.format('')
+    elif field_search == 'id':
+        query = query.format("where p.id like '%{}%'".format(int(text_search)))
+    elif field_search == 'name':
+        query = query.format("where p.name like '%{}%'".format(text_search))
+    elif field_search == 'id card':
+        query = query.format("where p.id_card like '%{}%'".format(text_search))
+    elif field_search == 'phone':
+        query = query.format("where p.phone like '%{}%'".format(text_search))
+    elif field_search == 'name encode':
+        query = query.format("where p.name_en like '%{}%'".format(text_search))
+    common.data_loader(self, self.database, 'None', self.tableWidget_person_image_info, query)

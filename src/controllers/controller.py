@@ -99,7 +99,7 @@ class MainApp(QMainWindow, ui):
     from controllers.access_control.person_image_tab import access_control_person_image_load, access_control_button_setting_and_ui_person_image_tab, access_control_combobox_setting_data_change_person_image_tab, access_control_combobox_setting_person_image_tab, access_control_handle_button_person_image_tab, access_control_handle_combobox_person_image_tab, access_control_handle_search_line_edit_person_image_tab, access_control_table_widget_setting_person_image_tab, admin_access_control_person_image_clear_form
     from controllers.access_control.person_image_tab import access_control_person_image_load_person_table, access_control_person_image_setting_line_search, access_control_person_image_open_tab_add_photo, access_control_person_image_item_click, access_control_person_image_load_image_not_delete, access_control_person_image_load_image_delete, access_control_person_image_open_tab_manage_photo, access_control_person_image_delete_image, access_control_person_image_change_image_to_delete
     from controllers.access_control.person_image_tab import access_control_person_image_image_delete_click, access_control_person_image_image_not_delete_click, access_control_person_image_item_image_click, access_control_person_image_restore_image, on_pushButton_capture_image_admin_clicked, access_control_person_image_setting_button_capture, on_pushButton_start_cam_admin_clicked, access_control_person_image_stop_camera_capture, access_control_person_image_clear_form_and_ui
-    from controllers.access_control.person_image_tab import access_control_person_image_add_image_capture, access_control_person_image_delete_image_capture, access_control_person_image_image_capture_click, access_control_person_image_select_folder_image, access_control_person_image_import_folder_image
+    from controllers.access_control.person_image_tab import access_control_person_image_add_image_capture, access_control_person_image_delete_image_capture, access_control_person_image_image_capture_click, access_control_person_image_select_folder_image, access_control_person_image_import_folder_image, access_control_person_image_search
 
     from controllers.access_control.access_track_tab import access_control_access_track_load, access_control_button_setting_and_ui_access_track_tab, access_control_combobox_setting_data_change_access_track_tab, access_control_combobox_setting_access_track_tab, access_control_handle_button_access_track_tab, access_control_handle_combobox_access_track_tab, access_control_handle_search_line_edit_access_track_tab, access_control_table_widget_setting_access_track_tab, admin_acesss_control_access_track_clear_form
 
@@ -108,6 +108,9 @@ class MainApp(QMainWindow, ui):
     from controllers.security_guest.security_guest_visit_tab import security_guest_guest_visit_tab_setting_line_search, security_guest_guest_visit_item_click, security_guest_guest_visit_search, security_guest_guest_visit_setting_target_visit, security_guest_guest_visit_export_guest_visit, security_guest_guest_visit_add_guest_visit, security_guest_guest_visit_edit_guest_visit, security_guest_guest_visit_delete_guest_visit
     from controllers.security_guest.security_guest_visit_tab import security_guest_visit_bussiness_data_change_building_combobox, security_guest_visit_resident_data_change_building_combobox, security_guest_visit_bussiness_data_change_floor_combobox, security_guest_visit_resident_data_change_floor_combobox, security_guest_visit_bussiness_data_change_company_combobox, security_guest_visit_resident_data_change_apartment_combobox
 
+    from controllers.security_guest.security_guest_image_tab import security_guest_image_clear_form, security_guest_image_load, security_guest_image_handle_button_guest_image_tab, security_guest_image_handle_combobox_guest_image_tab, security_guest_image_combobox_setting_guest_image_tab, security_guest_image_combobox_setting_data_change_guest_image_tab, security_guest_image_handle_search_line_edit_guest_image_tab, security_guest_image_table_widget_setting_guest_image_tab, security_guest_image_import_folder_image
+    from controllers.security_guest.security_guest_image_tab import security_guest_image_button_setting_and_ui_guest_image_tab, security_guest_image_load_guest_table, security_guest_image_item_click, security_guest_image_open_tab_manage_photo, security_guest_image_open_tab_add_photo, security_guest_image_setting_line_search, security_guest_image_item_image_click, security_guest_image_image_not_delete_click, security_guest_image_image_capture_click, security_guest_image_restore_image, security_guest_image_search
+    from controllers.security_guest.security_guest_image_tab import security_guest_image_image_delete_click, security_guest_image_delete_image, security_guest_image_change_image_to_delete, security_guest_image_delete_image_capture, security_guest_image_add_image_capture, on_pushButton_guest_start_capture_clicked, security_guest_image_stop_camera_capture, on_pushButton_guest_capturing_clicked, security_guest_image_setting_button_capture, security_guest_image_clear_form_and_ui, security_guest_image_select_folder_image
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
@@ -122,6 +125,7 @@ class MainApp(QMainWindow, ui):
         self.thread = QThread()
         self.capture_image = video_stream.CaptureImage()
         self.images_capture = list()
+        self.images_capture_guest = list()
         self.image_viewer = None
         self.flag_tab = None
         self.flag_anchor = None
@@ -472,7 +476,7 @@ class MainApp(QMainWindow, ui):
         self.label_error.setText('')
 
     def security_clear_form(self):
-        pass
+        self.security_guest_clear_form()
 
     def open_tab_security_access_control(self):
         self.flag_tab = '210'
@@ -481,23 +485,21 @@ class MainApp(QMainWindow, ui):
             if warning == QMessageBox.Yes:
                 self.flag_anchor = None
                 self.security_clear_form()
-                # self.access_control_person_image_stop_camera_capture()
+                self.security_guest_image_stop_camera_capture()
 
                 self.tabWidget_main_security.setCurrentIndex(0)
 
                 common.set_tab_when_clicked(self.pushButton_video_access_control_security, self.pushButton_guest_management)
 
                 self.tabWidget_access_control_security.setCurrentIndex(0)
-                common.set_tab_when_clicked(self.pushButton_grant_role_security, 
-                self.pushButton_person_image_security, self.pushButton_access_track_security)
+                common.set_tab_when_clicked(self.pushButton_grant_role_security, self.pushButton_access_track_security)
         else:
             self.tabWidget_main_security.setCurrentIndex(0)
 
             common.set_tab_when_clicked(self.pushButton_video_access_control_security, self.pushButton_guest_management)
 
             self.tabWidget_access_control_security.setCurrentIndex(0)
-            common.set_tab_when_clicked(self.pushButton_grant_role_security, 
-                self.pushButton_person_image_security, self.pushButton_access_track_security)
+            common.set_tab_when_clicked(self.pushButton_grant_role_security, self.pushButton_access_track_security)
         
     def open_tab_security_guest_management(self):
         self.flag_tab = '211'
@@ -506,7 +508,7 @@ class MainApp(QMainWindow, ui):
             if warning == QMessageBox.Yes:
                 self.flag_anchor = None
                 self.security_clear_form()
-                # self.access_control_person_image_stop_camera_capture()
+                self.security_guest_image_stop_camera_capture()
 
                 self.tabWidget_main_security.setCurrentIndex(1)
                 common.set_tab_when_clicked(self.pushButton_guest_management, self.pushButton_video_access_control_security)

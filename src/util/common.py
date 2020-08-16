@@ -127,7 +127,7 @@ def data_loader(parent, database, table, table_data, query=None):
                 table_data.setItem(row_index, column, QTableWidgetItem(str(item)))
         cursor.close()
         parent.combobox_setting_data_change()
-    except:
+    except :
         pass
 def data_loader_without_change_combobox(parent, database, table, table_data, query=None):
     if query == None:
@@ -528,9 +528,13 @@ fully_query_image_person= '''
 def sort_by_pk(element):
     return element[0]
 
-def load_image_for_image_management(database, person_id, delete_panel, not_delete_panel):
-    list_image_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 1 and p.id = {}'.format(int(person_id)))
-    list_image_not_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 0 and p.id = {}'.format(int(person_id)))
+def load_image_for_image_management(database, person_id, delete_panel, not_delete_panel, guest=None):
+    if guest:
+        list_image_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 1 and p.id = {} and p.is_resident = 0'.format(int(person_id)))
+        list_image_not_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 0 and p.id = {} and p.is_resident = 0'.format(int(person_id)))
+    else:
+        list_image_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 1 and p.id = {}'.format(int(person_id)))
+        list_image_not_delete = get_list_model(database, my_model.Image_Person, fully_query_image_person + 'where i.is_delete = 0 and p.id = {}'.format(int(person_id)))
 
     sorted(list_image_not_delete, key=sort_by_pk)
     sorted(list_image_delete, key=sort_by_pk)
