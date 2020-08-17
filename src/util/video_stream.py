@@ -67,3 +67,27 @@ class ImageViewer(QWidget):
             self.setFixedSize(image.size())
         self.update()
 
+class ImageViewerTrack(QWidget):
+
+    def __init__(self, parent=None):
+        super(ImageViewerTrack, self).__init__(parent)
+        self.image = QImage()
+        self.image_cv = None
+        self.setAttribute(Qt.WA_OpaquePaintEvent)
+        
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.drawImage(0, 0, self.image)
+    
+    @pyqtSlot(np.ndarray)
+    def setImage(self, image):
+        self.image_cv = image.copy()
+        image = image_resize(image, height=360)
+        height, width = image.shape[:2]
+        image = QImage(image.data, width, height, image.strides[0], QImage.Format_RGB888)
+        self.image = image
+        if image.size() != self.size():
+            self.setFixedSize(image.size())
+        self.update()
+
+

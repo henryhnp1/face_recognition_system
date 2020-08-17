@@ -127,3 +127,18 @@ class GuestVisit:
         self.time_in = time_in
         self.time_out = time_out
         self.visit_to = visit_to
+
+class CustomeHistoryOutIn:
+    def __init__(self, pk, name, name_en, id_card, phone, village, building, floor, door, role, time_in,url):
+        self.pk = pk
+        self.name = name
+        self.name_en = name_en
+        self.id_card = id_card
+        self.phone = phone
+        self.village = village
+        self.building = building
+        self.floor = floor
+        self.door = door
+        self.role = role
+        self.time_in = time_in
+        self.url = url

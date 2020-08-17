@@ -114,16 +114,21 @@ class MainApp(QMainWindow, ui):
 
     from controllers.security_access_control.security_access_control_controller import security_access_control_clear_form, load_security_access_control, security_access_control_handle_button, security_access_control_handle_combobox, security_access_control_combobox_setting, security_access_control_combobox_setting_data_change, security_access_control_handle_search_line_edit, security_access_control_table_widget_setting, security_access_control_button_setting_and_ui, security_access_control_open_tab_grant_role, security_access_control_open_tab_access_track
     
-    from controllers.security_access_control.securety_access_control_grant_role_tab import security_access_control_grant_role_clear_form, security_access_control_grant_role_load, security_access_control_handle_button_grant_role_tab, security_access_control_handle_combobox_grant_role_tab, security_access_control_combobox_setting_grant_role_tab, security_access_control_combobox_setting_data_change_grant_role_tab, security_access_control_handle_search_line_edit_grant_role_tab, security_access_control_table_widget_setting_grant_role_tab
-    from controllers.security_access_control.securety_access_control_grant_role_tab import security_access_control_button_setting_and_ui_grant_role_tab, security_access_control_grant_role_setting_line_search, security_access_control_grant_role_seach, security_access_control_grant_role_item_click, security_access_control_grant_role_export, security_access_control_grant_role_choose_file, security_access_control_grant_role_import_file, security_access_control_grant_role_add, security_access_control_grant_role_edit, security_access_control_grant_role_delete
-    from controllers.security_access_control.securety_access_control_grant_role_tab import security_access_control_grant_role_setting_form, security_access_control_grant_role_combobox_data_change_building_search, security_access_control_grant_role_combobox_data_change_floor_search, security_access_control_grant_role_combobox_data_change_door_search, security_access_control_grant_role_combobox_data_change_building, security_access_control_grant_role_combobox_data_change_floor, security_access_control_grant_role_combobox_data_change_door, security_access_control_grant_role_combobox_data_change_permission
+    from controllers.security_access_control.security_access_control_grant_role_tab import security_access_control_grant_role_clear_form, security_access_control_grant_role_load, security_access_control_handle_button_grant_role_tab, security_access_control_handle_combobox_grant_role_tab, security_access_control_combobox_setting_grant_role_tab, security_access_control_combobox_setting_data_change_grant_role_tab, security_access_control_handle_search_line_edit_grant_role_tab, security_access_control_table_widget_setting_grant_role_tab
+    from controllers.security_access_control.security_access_control_grant_role_tab import security_access_control_button_setting_and_ui_grant_role_tab, security_access_control_grant_role_setting_line_search, security_access_control_grant_role_seach, security_access_control_grant_role_item_click, security_access_control_grant_role_export, security_access_control_grant_role_choose_file, security_access_control_grant_role_import_file, security_access_control_grant_role_add, security_access_control_grant_role_edit, security_access_control_grant_role_delete
+    from controllers.security_access_control.security_access_control_grant_role_tab import security_access_control_grant_role_setting_form, security_access_control_grant_role_combobox_data_change_building_search, security_access_control_grant_role_combobox_data_change_floor_search, security_access_control_grant_role_combobox_data_change_door_search, security_access_control_grant_role_combobox_data_change_building, security_access_control_grant_role_combobox_data_change_floor, security_access_control_grant_role_combobox_data_change_door, security_access_control_grant_role_combobox_data_change_permission
+
+    from controllers.security_access_control.security_access_control_video_track import security_acesss_control_access_track_clear_form, security_access_control_access_track_load, security_access_control_handle_button_access_track_tab, security_access_control_handle_combobox_access_track_tab, security_access_control_combobox_setting_access_track_tab, security_access_control_handle_search_line_edit_access_track_tab, security_access_control_table_widget_setting_access_track_tab, security_access_control_button_setting_and_ui_access_track_tab, security_setting_button_capture
+    from controllers.security_access_control.security_access_control_video_track import security_access_control_access_track_setting_line_search, security_access_control_access_track_item_click, security_access_control_access_track_update, security_access_control_access_track_export, on_pushButton_start_camera_track_clicked, security_access_control_access_track_stop_camera_capture, security_access_control_access_track_search, security_access_control_combobox_setting_data_change_access_track_tab, security_access_control_combobox_setting_data_change_access_track_tab_building_combobox
+    from controllers.security_access_control.security_access_control_video_track import security_access_control_combobox_setting_data_change_access_track_tab_floor_combobox, security_access_control_combobox_setting_data_change_access_track_tab_door_combobox, security_access_control_access_track_load_table
+
 
     def __init__(self):
         QMainWindow.__init__(self)
-        self.setupUi(self)
+        self.setupUi(self)  
         self.setWindowTitle("Face Access Control")
         # for testing self.user_role = 1
-        self.user_role = 1
+        self.user_role = 2
         #self.user_role = 0
         self.database = db_connector.connector('localhost', 'henrydb', 'root', 'face_recognition')
         if self.database == None:
@@ -131,6 +136,9 @@ class MainApp(QMainWindow, ui):
             sys.exit(msg.exec())
         self.thread = QThread()
         self.capture_image = video_stream.CaptureImage()
+        self.video_track = video_stream.CaptureImage()
+        self.image_viewer_track = None
+        self.images_track = list()
         self.images_capture = list()
         self.images_capture_guest = list()
         self.image_viewer = None
@@ -207,6 +215,7 @@ class MainApp(QMainWindow, ui):
         self.guest_manage_button_setting_and_ui()
         self.access_control_button_setting_and_ui()
         self.security_guest_button_setting_and_ui()
+        self.security_access_control_button_setting_and_ui()
 
         
     def handle_buttons(self):

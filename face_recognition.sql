@@ -149,6 +149,10 @@ create table history_out_int(
     foreign key(door) references door(id) on delete cascade,
     foreign key (permission) references permission(id)
 );
+
+alter table history_out_int
+add url varchar(1000);
+
 create table warning(
 	id int primary key auto_increment,
     history_out_int int,
@@ -459,7 +463,7 @@ call insert_guest_visit('Vũ ĐỨc Toàn', 'ToanVD1209_5683_02_16_15_08_20', '1
 
 drop procedure if exists edit_guest_visit;
 delimiter #
-create procedure edit_guest_visit(in cur_id_card varchar(12),in name_in nvarchar(255),in name_en_in varchar(50),in birthday_in date, in id_card_in varchar(12), in gender_in int, in phone_in varchar(10), in village_in nvarchar(255), in current_accommodation_in text,in id_out_in int, in visit_to_in int, in apartment_in int, in time_in_in datetime, in time_out_in datetime)
+create procedure edit_guest_visit(in cur_id_card varchar(12),in name_in nvarchar(255),in birthday_in date, in id_card_in varchar(12), in gender_in int, in phone_in varchar(10), in village_in nvarchar(255), in current_accommodation_in text,in id_out_in int, in visit_to_in int, in apartment_in int, in time_in_in datetime, in time_out_in datetime)
 begin
 	declare person_id int;
     declare guest_id int;
@@ -468,12 +472,12 @@ begin
     select p.id_card into person_id_number from person as p where p.id_card = id_card_in limit 1;
     if person_id_number is null then
 		begin
-			update person set name = name_in, name_en = name_en_in, birthday = birthday_in, gender = gender_in, phone = phone_in,
+			update person set name = name_in, birthday = birthday_in, gender = gender_in, phone = phone_in,
             village = village_in, current_accommodation = current_accommodation_in, id_card = id_card_in where id_card = cur_id_card;
         end;
 	else
 		begin
-			update person set name = name_in, name_en = name_en_in, birthday = birthday_in, gender = gender_in, phone = phone_in,
+			update person set name = name_in, birthday = birthday_in, gender = gender_in, phone = phone_in,
             village = village_in, current_accommodation = current_accommodation_in where id_card = cur_id_card;
         end;
 	end if;
@@ -483,6 +487,31 @@ end#
 delimiter ;
 
 DROP TRIGGER IF EXISTS grant_role_person_after_insert;
+DELIMITER $$
+
+ CREATE TRIGGER grant_role_person_after_insert
+
+ after insert ON person
+
+ FOR EACH ROW
+
+BEGIN
+
+ INSERT INTO person_door_permission
+
+SET
+
+ person = NEW.id,
+
+ permission = 1,
+
+ door = 42;
+
+END$$
+
+ DELIMITER ;
+ 
+ DROP TRIGGER IF EXISTS grant_role_person_after_insert;
 DELIMITER $$
 
  CREATE TRIGGER grant_role_person_after_insert

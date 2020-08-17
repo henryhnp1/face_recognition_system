@@ -52,6 +52,9 @@ def security_access_control_combobox_setting_grant_role_tab(self):
     field_apartment_search = ['id', 'name', 'id_card', 'phone', 'current accommodation', 'permission']
     self.comboBox_fields_search_grant_role_security.addItems(field_apartment_search)
 
+    field_role = ['ACCEPT', 'BAN']
+    self.comboBox_access_track_role_security_permission.addItems(field_role)
+
 def security_access_control_combobox_setting_data_change_grant_role_tab(self):
     self.security_access_control_grant_role_combobox_data_change_building_search()
     self.security_access_control_grant_role_combobox_data_change_building()

@@ -751,3 +751,14 @@ def restore_image_file(image_path):
         os.rename(image_path, image_folder_restore + image_name)
     except:
         pass
+
+def update_table(database, table_name, set_and_where_clause):
+    query = "update {} set {}"
+    cursor = database.cursor()
+    try:
+        query = query.format(table_name, set_and_where_clause)
+        cursor.execute(query)
+        database.commit()
+        cursor.close()
+    except:
+        pass
