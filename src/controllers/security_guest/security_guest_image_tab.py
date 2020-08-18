@@ -48,7 +48,7 @@ def security_guest_image_load(self):
 def security_guest_image_handle_button_guest_image_tab(self):
     self.pushButton_guest_image_manage_photo.clicked.connect(self.security_guest_image_open_tab_manage_photo)
     self.pushButton_guest_image_add_photo.clicked.connect(self.security_guest_image_open_tab_add_photo)
-    self.pushButton_guest_start_capture.clicked.connect(self.capture_image.startVideoCapture)
+    self.pushButton_guest_start_capture.clicked.connect(self.video_track.startVideoTrack)
     self.pushButton_guest_stop_capture.clicked.connect(self.security_guest_image_stop_camera_capture)
     self.pushButton_select_guest_image.clicked.connect(self.security_guest_image_select_folder_image)
     self.pushButton_import_guest_image.clicked.connect(self.security_guest_image_import_folder_image)
@@ -143,11 +143,15 @@ def security_guest_image_image_capture_click(self):
 
 def security_guest_image_restore_image(self):
     images_selected = self.listWidget_image_guest_delete.selectedItems()
+    folder = None
     for image_item in images_selected:
         image_item_data = image_item.data(Qt.UserRole)
         common.restore_item(self.database, 'image', image_item_data.pk,image_item_data.url)
+        folder = '/'.join(image_item_data.url.split('/')[:-2])
         common.restore_image_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_guest_delete, self.listWidget_image_guest_not_delete)
+    if folder:
+        common.reload_facedata_and_faceembedding(folder)
 
 def security_guest_image_image_delete_click(self):
     image_item = self.listWidget_image_guest_delete.currentItem().data(Qt.UserRole)
@@ -168,12 +172,16 @@ def security_guest_image_delete_image(self):
     
 def security_guest_image_change_image_to_delete(self):
     images_selected = self.listWidget_image_guest_not_delete.selectedItems()
+    folder = None
     for image_item in images_selected:
         image_item_data = image_item.data(Qt.UserRole)
         common.change_item_to_is_delete(self.database, 'image', image_item_data.pk, image_item_data.url)
+        folder = '/'.join(image_item_data.url.split('/')[:-1])
         common.remove_image_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_guest_delete, self.listWidget_image_guest_not_delete)
-
+    if folder:
+        common.reload_facedata_and_faceembedding(folder)
+        
 def security_guest_image_delete_image_capture(self):
     images_selected = self.listWidget_image_capturing_guest.selectedItems()
     for image_item in images_selected:
@@ -209,25 +217,30 @@ def security_guest_image_add_image_capture(self):
 
 @pyqtSlot()
 def on_pushButton_guest_start_capture_clicked(self):
-    self.pushButton_guest_start_capture.setEnabled(False)
-    self.security_guest_image_setting_button_capture()
-    self.thread.start()
-    if not self.capture_image.video_capture.isOpened():
-        self.capture_image.video_capture = cv2.VideoCapture(0)
-    self.capture_image.moveToThread(self.thread)
-    self.image_viewer = video_stream.ImageViewer()
-    layout = QVBoxLayout()
-    self.frame_video_capture_guest.setLayout(layout)
-    layout.addWidget(self.image_viewer)
+    self.metadata['recognition'] = 0
+    if self.metadata['predict_model_path'] and self.metadata['embedded_face_path']:
+        self.video_track.set_metadata(self.metadata)
+        self.pushButton_guest_start_capture.setEnabled(False)
+        self.security_guest_image_setting_button_capture()
+        self.thread.start()
+        if not self.video_track.video_capture.isOpened():
+            self.video_track.video_capture = cv2.VideoCapture(0)
+        self.video_track.moveToThread(self.thread)
+        self.image_viewer = video_stream.ImageViewer()
+        layout = QVBoxLayout()
+        self.frame_video_capture_guest.setLayout(layout)
+        layout.addWidget(self.image_viewer)
 
-    self.capture_image.video_signal.connect(self.image_viewer.setImage)
+        self.video_track.video_signal.connect(self.image_viewer.setImage)
+    else:
+        message_box.MyMessageBox(QMessageBox.Critical, 'Error', 'No data Classify')
 
 def security_guest_image_stop_camera_capture(self):
     self.pushButton_guest_start_capture.setEnabled(True)
     self.security_guest_image_setting_button_capture()
     self.stop_capture = True
     cv2.destroyAllWindows()
-    self.capture_image.video_capture.release()
+    self.video_track.video_capture.release()
     
 @pyqtSlot()
 def on_pushButton_guest_capturing_clicked(self):

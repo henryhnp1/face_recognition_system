@@ -6,6 +6,8 @@ from os import listdir
 from os.path import isdir, splitext
 import os
 
+# from face_detection import get_single_bbox_from_image
+
 def extract_face(filename, prototxt, detect_model ,confidence=0.5, required_size=(160, 160)):
     box = get_single_bbox_from_image(filename, prototxt, detect_model)
     if box is None:

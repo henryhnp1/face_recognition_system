@@ -142,3 +142,16 @@ class CustomeHistoryOutIn:
         self.role = role
         self.time_in = time_in
         self.url = url
+
+class WarningAccessTrack:
+    def __init__(self, pk, building, floor, door, name_en, name, id_card, permission, time_in, image):
+        self.pk = pk
+        self.building = building
+        self.floor = floor
+        self.door = door
+        self.name_en = name_en
+        self.name = name
+        self.id_card = id_card
+        self.permission = permission
+        self.time_in = time_in
+        self.image = image

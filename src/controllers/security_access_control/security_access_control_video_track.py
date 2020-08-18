@@ -8,6 +8,8 @@ import MySQLdb as db
 import cv2
 import numpy as np
 
+from tensorflow.keras.models import load_model
+
 from util import common, standardized, message_box, video_stream, detect_face
 from models import my_model
 
@@ -41,7 +43,7 @@ def security_access_control_access_track_load_table(self):
     common.data_loader(self, self.database, '', self.tableWidget_access_track_security, fully_query_select_track.format(''))
 
 def security_access_control_handle_button_access_track_tab(self):
-    self.pushButton_start_camera_track.clicked.connect(self.video_track.startVideoCapture)
+    self.pushButton_start_camera_track.clicked.connect(self.video_track.startVideoTrack)
     self.pushButton_stop_camera_track.clicked.connect(self.security_access_control_access_track_stop_camera_capture)
     self.pushButton_export_track.clicked.connect(self.security_access_control_access_track_export)
     self.pushButton_access_track_update_accident_securety.clicked.connect(self.security_access_control_access_track_update)
@@ -51,6 +53,7 @@ def security_access_control_handle_combobox_access_track_tab(self):
     self.comboBox_fields_search_access_track_security.currentTextChanged.connect(self.security_access_control_access_track_setting_line_search)
     self.comboBox_access_track_camera_setting_buidling.currentTextChanged.connect(self.security_access_control_combobox_setting_data_change_access_track_tab_floor_combobox)
     self.comboBox_access_track_camera_setting_floor.currentTextChanged.connect(self.security_access_control_combobox_setting_data_change_access_track_tab_door_combobox)
+    self.comboBox_access_track_camera_setting_door.currentTextChanged.connect(self.security_access_control_setting_door)
 
 def security_access_control_combobox_setting_access_track_tab(self):
     field_search = ['id', 'id card', 'phone', 'name', 'name en', 'building', 'floor', 'door','permission']
@@ -87,7 +90,12 @@ def security_access_control_combobox_setting_data_change_access_track_tab_door_c
     common.set_door_combobox_data_change(self.comboBox_access_track_camera_setting_buidling, self.comboBox_access_track_camera_setting_floor, self.comboBox_access_track_camera_setting_door, self.database)
 
 def security_access_control_access_track_setting_line_search(self):
-    pass
+    field_search = self.comboBox_fields_search_access_track_security.currentText()
+    if field_search == 'id' or field_search=='id_card' or field_search=='phone' or field_search=='door' or field_search=='foor' :
+        self.lineEdit_search_access_track_security.setText('')
+        self.lineEdit_search_access_track_security.setValidator(QRegExpValidator(QRegExp("[0-9]{0,12}")))
+    else:
+        self.lineEdit_search_access_track_security.setValidator(None)
 
 def security_access_control_access_track_item_click(self):
     data = common.get_row_data_item_click(self.tableWidget_access_track_security)
@@ -131,14 +139,13 @@ def security_access_control_access_track_search(self):
     text_search = self.lineEdit_search_access_track_security.text()
     query = '''
         select h.id, p.name, p.name_en, p.id_card, p.phone, p.village, b.name as 'building', 
-        f.name as 'floor', d.name as 'door', pm.name as 'role', h.time,h.url from history_out_int as h
+        f.name as 'floor', d.name as 'door', pm.name as 'role', h.time, h.url from history_out_int as h
         join person as p on p.id = h.person
         join door as d on h.door = d.id
         join floor as f on f.id = d.floor
         join building as b on f.building = b.id
         join permission as pm on pm.id = h.permission {}
     '''
-    ['id', 'id card', 'phone', 'name', 'name en', 'building', 'floor', 'door','permission']
     if text_search == '':
         query = query.format('')
     elif field_search == 'id':
@@ -166,17 +173,27 @@ def security_access_control_access_track_search(self):
 
 @pyqtSlot()
 def on_pushButton_start_camera_track_clicked(self):
-    self.pushButton_start_camera_track.setEnabled(False)
-    self.security_setting_button_capture()
-    self.thread.start()
-    if not self.video_track.video_capture.isOpened():
-        self.video_track.video_capture = cv2.VideoCapture(0)
-    self.video_track.moveToThread(self.thread)
-    self.image_viewer_track = video_stream.ImageViewerTrack()
-    layout = QVBoxLayout()
-    self.frame_security_video_track.setLayout(layout)
-    layout.addWidget(self.image_viewer_track)
-    self.video_track.video_signal.connect(self.image_viewer_track.setImage)
+
+    if self.metadata['predict_model_path'] and self.metadata['embedded_face_path']:
+        self.metadata['confidence'] = 0.8
+        self.metadata['database'] = self.database
+        self.metadata['announce'] = self.label_result_track
+        self.metadata['recognition'] = 1
+        self.video_track.set_metadata(self.metadata)
+
+        self.pushButton_start_camera_track.setEnabled(False)
+        self.security_setting_button_capture()
+        self.thread.start()
+        if not self.video_track.video_capture.isOpened():
+            self.video_track.video_capture = cv2.VideoCapture(0)
+        self.video_track.moveToThread(self.thread)
+        self.image_viewer_track = video_stream.ImageViewer()
+        layout = QVBoxLayout()
+        self.frame_security_video_track.setLayout(layout)
+        layout.addWidget(self.image_viewer_track)
+        self.video_track.video_signal.connect(self.image_viewer_track.setImage)
+    else:
+        message_box.MyMessageBox(QMessageBox.Critical, 'Error', 'No data Classify')
 
 def security_access_control_access_track_stop_camera_capture(self):
     self.pushButton_start_camera_track.setEnabled(True)
@@ -184,3 +201,11 @@ def security_access_control_access_track_stop_camera_capture(self):
     self.stop_capture = True
     cv2.destroyAllWindows()
     self.video_track.video_capture.release()
+    self.flag_classify = False
+
+def security_access_control_setting_door(self):
+    door_object = self.comboBox_access_track_camera_setting_door.currentData()
+    if door_object:
+        self.metadata['door'] = door_object.pk
+        print(self.metadata['door'])
+        

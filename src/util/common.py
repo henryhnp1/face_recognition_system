@@ -17,10 +17,17 @@ import numpy as np
 from os import listdir, path
 from os.path import isdir
 from .detect_face import get_single_bbox_from_image
+from .face_data_loader import embedding_face_data
+from .face_extraction import extract_face
+from numpy import savez_compressed
+import numpy as np
+import operator
+
 
 
 prototxt = '/home/henry/FinalProject/face_recognition_system/src/data/model/deploy.prototxt'
 detect_model = '/home/henry/FinalProject/face_recognition_system/src/data/model/res10_300x300_ssd_iter_140000.caffemodel'
+embedding_model = '/home/henry/FinalProject/face_recognition_system/src/data/model/facenet_keras.h5'
 
 def search_common_building_setting(option_search, line_search, table, loader):
     field_search = option_search.currentText()
@@ -762,3 +769,64 @@ def update_table(database, table_name, set_and_where_clause):
         cursor.close()
     except:
         pass
+
+def reload_facedata_and_faceembedding(folder):
+    foldername = folder.split('/')[-1]
+    face_data_compress = save_dataset(folder, prototxt, detect_model)
+    face_embedded_compress = folder + '/' +foldername + '_faces_embedded.npz'
+    save_embedding(face_data_compress, face_embedded_compress, embedding_model)
+
+def save_dataset(directory, prototxt, detect_model):
+    faces, labels = [], []
+    label = directory.split('/')[-1]
+    compress_file = label + '_faces_data.npz'
+    for filename in listdir(directory):
+        path = directory + '/' + filename
+        print("loading: " + path)
+        face = extract_face(path, prototxt, detect_model)
+        if face is None:
+            next
+        else:
+            faces.append(face)
+    labels = [label for _ in range(len(faces))]
+    compress_file = directory + '/' + compress_file
+    savez_compressed(compress_file, faces, labels)
+    return compress_file
+
+def save_embedding(face_data_compress, face_embedded_compress, model_embedding):
+    embedding_face_data(face_data_compress, face_embedded_compress, model_embedding)
+
+def most_frequent(sequence): 
+    return max(set(sequence), key = sequence.count)
+
+def insert_history_out_in(database, query):
+    cursor = database.cursor()
+    try:
+        cursor.execute(query)
+        database.commit()
+        cursor.close()
+    except:
+        pass
+
+def get_sql_date_from_now():
+    time = datetime.now()
+    year = str(time.year)
+    month = str(time.month)
+    day = str(time.day)
+    hour = str(time.hour)
+    minute = str(time.minute)
+    second = str(time.second)
+    if len(month) < 2: month = '0' + month
+    if len(day) < 2: day = '0' + day  
+    if len(hour) < 2: hour = '0' + hour  
+    if len(minute) < 2: minute = '0' + minute  
+    if len(second) < 2: second = '0' + second
+    sql_time = year + '-' + month + '-' + day +' '+ hour + ':' + minute + ':'+ second
+    return sql_time
+
+def get_key_have_most_values(dic:dict):
+    dic_copy = dic.copy()
+    count = 0
+    for key, item in dic.items():
+        dic_copy[key] = len(item)
+    return max(dic_copy.items(), key=operator.itemgetter(1))[0]

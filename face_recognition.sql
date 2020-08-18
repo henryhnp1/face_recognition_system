@@ -155,8 +155,10 @@ add url varchar(1000);
 
 create table warning(
 	id int primary key auto_increment,
-    history_out_int int,
-    foreign key (history_out_int) references history_out_int(id) on delete cascade
+    name nvarchar(50),
+    door int,
+    permission int,
+    image varchar(1000)
 );
 create table role_sys(
 	id int primary key auto_increment,
@@ -535,4 +537,9 @@ SET
 END$$
 
  DELIMITER ;
- 
+ create table model_data(
+	id int primary key auto_increment,
+    path varchar(1000),
+    type_of_model int,
+    time_save datetime
+ );

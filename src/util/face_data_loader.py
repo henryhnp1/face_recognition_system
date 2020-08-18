@@ -5,6 +5,7 @@ import numpy as np
 import os
 from numpy import savez_compressed
 from keras.models import load_model
+# from face_extraction import extract_face
 
 def load_faces(directory, prototxt, detect_model):
     faces = []
@@ -13,7 +14,6 @@ def load_faces(directory, prototxt, detect_model):
         print("loading: " + path)
         face = extract_face(path, prototxt, detect_model)
         if face is None:
-            os.remove(path)
             next
         faces.append(face)
     return faces

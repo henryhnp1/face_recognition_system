@@ -57,7 +57,7 @@ def access_control_button_setting_and_ui(self):
     self.access_control_button_setting_and_ui_access_track_tab()
 
 def access_control_open_tab_grant_role(self):
-    self.flag_tab = '040'
+    self.flag_tab = '030'
     if self.flag_anchor and self.flag_anchor != self.flag_tab:
         warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if warning == QMessageBox.Yes:
@@ -73,7 +73,7 @@ def access_control_open_tab_grant_role(self):
         self.load_access_control()
 
 def access_control_open_tab_person_image(self):
-    self.flag_tab = '041'
+    self.flag_tab = '031'
     if self.flag_anchor and self.flag_anchor != self.flag_tab:
         warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if warning == QMessageBox.Yes:
@@ -96,7 +96,7 @@ def access_control_open_tab_person_image(self):
         self.access_control_person_image_load()
 
 def access_control_open_tab_access_track(self):
-    self.flag_tab = '042'
+    self.flag_tab = '032'
     if self.flag_anchor and self.flag_anchor != self.flag_tab:
         warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if warning == QMessageBox.Yes:
