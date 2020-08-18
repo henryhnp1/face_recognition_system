@@ -52,6 +52,7 @@ def security_guest_image_handle_button_guest_image_tab(self):
     self.pushButton_guest_stop_capture.clicked.connect(self.security_guest_image_stop_camera_capture)
     self.pushButton_select_guest_image.clicked.connect(self.security_guest_image_select_folder_image)
     self.pushButton_import_guest_image.clicked.connect(self.security_guest_image_import_folder_image)
+    self.pushButton_traindata_security.clicked.connect(self.train_data)
     # self.pushButton_capture_image_admin.clicked.connect(self.video.capturing)
 
 def security_guest_image_handle_combobox_guest_image_tab(self):
@@ -142,6 +143,7 @@ def security_guest_image_image_capture_click(self):
     rightMenu.exec_(QCursor.pos())
 
 def security_guest_image_restore_image(self):
+    self.overlay.show()
     images_selected = self.listWidget_image_guest_delete.selectedItems()
     folder = None
     for image_item in images_selected:
@@ -151,7 +153,8 @@ def security_guest_image_restore_image(self):
         common.restore_image_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_guest_delete, self.listWidget_image_guest_not_delete)
     if folder:
-        common.reload_facedata_and_faceembedding(folder)
+        common.reload_facedata_and_faceembedding(folder, self.metadata['model'])
+    self.overlay.hide()
 
 def security_guest_image_image_delete_click(self):
     image_item = self.listWidget_image_guest_delete.currentItem().data(Qt.UserRole)
@@ -171,6 +174,7 @@ def security_guest_image_delete_image(self):
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_guest_delete, self.listWidget_image_guest_not_delete)
     
 def security_guest_image_change_image_to_delete(self):
+    self.overlay.show()
     images_selected = self.listWidget_image_guest_not_delete.selectedItems()
     folder = None
     for image_item in images_selected:
@@ -180,7 +184,8 @@ def security_guest_image_change_image_to_delete(self):
         common.remove_image_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_guest_delete, self.listWidget_image_guest_not_delete)
     if folder:
-        common.reload_facedata_and_faceembedding(folder)
+        common.reload_facedata_and_faceembedding(folder, self.metadata['model'])
+    self.overlay.hide()
         
 def security_guest_image_delete_image_capture(self):
     images_selected = self.listWidget_image_capturing_guest.selectedItems()

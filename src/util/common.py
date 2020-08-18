@@ -770,7 +770,7 @@ def update_table(database, table_name, set_and_where_clause):
     except:
         pass
 
-def reload_facedata_and_faceembedding(folder):
+def reload_facedata_and_faceembedding(folder, embedding_model):
     foldername = folder.split('/')[-1]
     face_data_compress = save_dataset(folder, prototxt, detect_model)
     face_embedded_compress = folder + '/' +foldername + '_faces_embedded.npz'

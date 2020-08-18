@@ -9,6 +9,7 @@ import math
 import numpy as np
 import pickle
 from sklearn.preprocessing import LabelEncoder
+
 from util.face_data_loader import load_faces, load_dataset, get_embedding, embedding_face_data
 from util.face_extraction import extract_face, get_extract_face_array_from_image
 from util.face_detection import get_single_bbox_from_image 
@@ -35,19 +36,22 @@ track_folder = '/home/henry/FinalProject/face_recognition_system/src/data/datase
 # model_predict_trained.fit(trainX, trainy)
 
 def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
-    dim = None
-    (h, w) = image.shape[:2]
-    if width is None and height is None:
-        return image
-    if width is None:
-        r = height / float(h)
-        dim = (int(w * r), height)
-    else:
-        r = width / float(w)
-        dim = (width, int(h * r))
+    try:
+        dim = None
+        (h, w) = image.shape[:2]
+        if width is None and height is None:
+            return image
+        if width is None:
+            r = height / float(h)
+            dim = (int(w * r), height)
+        else:
+            r = width / float(w)
+            dim = (width, int(h * r))
 
-    resized = cv2.resize(image, dim, interpolation = inter)
-    return resized
+        resized = cv2.resize(image, dim, interpolation = inter)
+        return resized
+    except:
+        return image
 
 # class CaptureImage(QObject):
 #     # video_signal = pyqtSignal(QImage)

@@ -133,10 +133,10 @@ class MainApp(QMainWindow, ui):
             msg = message_box.MyMessageBox(QMessageBox.Critical,"Wrong db or authentication", "You must change setting in .config file")
             sys.exit(msg.exec())
         self.thread = QThread()
-        predic_model = common.get_single_value_from_query('select path from model_data where type_of_model = 2 order by id desc limit 1;', self.database)
-        embedded_face = common.get_single_value_from_query('select path from model_data where type_of_model = 1 order by id desc limit 1;', self.database)
+        embedded_face = '/home/henry/FinalProject/face_recognition_system/src/data/dataset/face_embedding.npz'
+        predict_model = '/home/henry/FinalProject/face_recognition_system/src/data/dataset/predict_model.sav'
         model = load_model('/home/henry/FinalProject/face_recognition_system/src/data/model/facenet_keras.h5')
-        self.metadata = {'confidence': 0.8, 'recognition': 0, 'predict_model_path': predic_model, 'embedded_face_path': embedded_face, 'model': model}
+        self.metadata = {'confidence': 0.8, 'recognition': 0, 'predict_model_path': predict_model, 'embedded_face_path': embedded_face, 'model': model}
         # self.capture_image = video_stream.CaptureImage()
         self.video_track = video_stream.CaptureTrack(self.metadata)
         self.image_viewer_track = None
@@ -159,6 +159,8 @@ class MainApp(QMainWindow, ui):
         self.handle_ui_login()
         self.button_setting_and_ui()
         self.open_window()
+        self.overlay = Overlay(self.centralWidget())
+        self.overlay.hide()
         
         #for test ting
         self.handle_tab_ui()
@@ -519,3 +521,11 @@ class MainApp(QMainWindow, ui):
 
             self.tabWidget_security_guest_management.setCurrentIndex(0)
             common.set_tab_when_clicked(self.pushButton_guest_visit, self.pushButton_guest_image)
+    
+    def train_data(self):
+        self.overlay.show()
+        face_dir = '/home/henry/FinalProject/face_recognition_system/src/data/dataset/processed/'
+        detect_model = '/home/henry/FinalProject/face_recognition_system/src/data/model/res10_300x300_ssd_iter_140000.caffemodel'
+        prototxt = '/home/henry/FinalProject/face_recognition_system/src/data/model/deploy.prototxt'
+        face_data_loader.train_model(face_dir, self.metadata['model'], detect_model, prototxt, self.metadata['embedded_face_path'], self.metadata['predict_model_path'])
+        self.overlay.hide()

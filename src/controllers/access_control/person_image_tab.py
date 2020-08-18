@@ -50,6 +50,7 @@ def access_control_handle_button_person_image_tab(self):
     self.pushButton_stop_cam_admin.clicked.connect(self.access_control_person_image_stop_camera_capture)
     self.pushButton_select_person_image.clicked.connect(self.access_control_person_image_select_folder_image)
     self.pushButton_import_person_image.clicked.connect(self.access_control_person_image_import_folder_image)
+    self.pushButton_training_data_admin.clicked.connect(self.train_data)
     # self.pushButton_capture_image_admin.clicked.connect(self.video.capturing)
 
 def access_control_handle_combobox_person_image_tab(self):
@@ -159,7 +160,7 @@ def access_control_person_image_restore_image(self):
         common.restore_image_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_delete_admin_panel, self.listWidget_image_ndelete_admin_panel)
     if folder:
-        common.reload_facedata_and_faceembedding(folder)
+        common.reload_facedata_and_faceembedding(folder, self.metadata['model'])
 
 def access_control_person_image_image_delete_click(self):
     image_item = self.listWidget_image_delete_admin_panel.currentItem().data(Qt.UserRole)
@@ -188,7 +189,7 @@ def access_control_person_image_change_image_to_delete(self):
         common.remove_image_file(image_item_data.url)
     common.load_image_for_image_management(self.database, image_item_data.owner, self.listWidget_image_delete_admin_panel, self.listWidget_image_ndelete_admin_panel)
     if folder:
-        common.reload_facedata_and_faceembedding(folder)
+        common.reload_facedata_and_faceembedding(folder, self.metadata['model'])
 
 def access_control_person_image_delete_image_capture(self):
     images_selected = self.listWidget_image_capturing.selectedItems()

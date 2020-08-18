@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -3432,7 +3432,7 @@
           </rect>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_52">
           <attribute name="title">
@@ -4116,6 +4116,19 @@
             </property>
             <property name="text">
              <string>Manage Photos</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton_training_data_admin">
+            <property name="geometry">
+             <rect>
+              <x>1250</x>
+              <y>50</y>
+              <width>101</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Train Data</string>
             </property>
            </widget>
           </widget>
@@ -5534,7 +5547,7 @@
           </rect>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_63">
           <attribute name="title">
@@ -6407,6 +6420,19 @@
            <column/>
            <column/>
            <column/>
+          </widget>
+          <widget class="QPushButton" name="pushButton_traindata_security">
+           <property name="geometry">
+            <rect>
+             <x>1180</x>
+             <y>50</y>
+             <width>111</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Train Data</string>
+           </property>
           </widget>
          </widget>
         </widget>
