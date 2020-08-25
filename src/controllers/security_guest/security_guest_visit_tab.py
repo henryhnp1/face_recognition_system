@@ -260,15 +260,16 @@ def security_guest_guest_visit_add_guest_visit(self):
             elif time_out < time_in:
                 message_box.MyMessageBox(QMessageBox.Critical, "Error", "Choose the time go out bigger than time go in").exec()
             else:
-                query = 'call insert_guest_visit(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+                query = "call insert_guest_visit('{}', '{}', '{}', '{}', {}, '{}', '{}', '{}', {}, {}, '{}', '{}')"
+                query = query.format(name, name_en, birthday_mysql, id_number, gender, phone, village, curr_accommodation, visit_to, apartment, time_in, time_out)
                 cursor = self.database.cursor()
                 try:
-                    cursor.execute(query,(name, name_en, birthday_mysql, id_number, gender, phone, village, curr_accommodation, visit_to, apartment, time_in, time_out))
+                    cursor.execute(query)
                     self.database.commit()
                     common.data_loader(self, self.database, 'None', self.tableWidget_guest_visit, fully_select_guest_visit)
                 except db.Error as e:
                     print(e)
-                    message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Is Exist!").exec()
+                    message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Or Phone Is Exist!").exec()
                 cursor.close()
     else:
         message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name or ID Number must be Not Null").exec()
@@ -330,7 +331,7 @@ def security_guest_guest_visit_edit_guest_visit(self):
                         common.data_loader(self, self.database, 'None', self.tableWidget_guest_visit, fully_select_guest_visit)
                     except db.Error as e:
                         print(e)
-                        message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number Is Exist!").exec()
+                        message_box.MyMessageBox(QMessageBox.Critical, "Error", "The ID Number or Phone Is Exist!").exec()
                     cursor.close()
         else:
             message_box.MyMessageBox(QMessageBox.Critical, "Error", "The name or ID Number must be Not Null").exec()

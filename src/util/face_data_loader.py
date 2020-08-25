@@ -148,8 +148,8 @@ def test():
     model_embedding = load_model(model_embedding_path)
     detect_model = '/home/henry/FinalProject/face_recognition_system/src/data/model/res10_300x300_ssd_iter_140000.caffemodel'
     prototxt = '/home/henry/FinalProject/face_recognition_system/src/data/model/deploy.prototxt'
-    file_embedded_all = '/home/henry/FinalProject/face_recognition_system/src/data/dataset/face_embedding.npz'
-    model_classification_path = '/home/henry/FinalProject/face_recognition_system/src/data/dataset/predict_model.sav'
+    file_embedded_all = '/home/henry/FinalProject/face_recognition_system/src/data/face_embedding.npz'
+    model_classification_path = '/home/henry/FinalProject/face_recognition_system/src/data/predict_model.sav'
     train_model(face_dir, model_embedding, detect_model, prototxt, file_embedded_all, model_classification_path)
 
 def load_single_face_data(directory, prototxt, detect_model):

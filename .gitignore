@@ -1,5 +1,6 @@
 __pycache__/
 .vscode/
 .idea/
-model/
-data/
+*.jpeg
+*.jpg
+*.png

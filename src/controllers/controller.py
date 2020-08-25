@@ -318,6 +318,17 @@ class MainApp(QMainWindow, ui):
             self.label_error.setText('Wrong username or password')
     
     def logout(self):
+        self.flag_tab = '0'
+        if self.flag_anchor and self.flag_anchor != self.flag_tab:
+            warning = QMessageBox.question(self, 'Warning', "Would you want to left this window and loss the data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if warning == QMessageBox.Yes:
+                self.flag_anchor = None
+                self.admin_clear_form()
+                self.security_clear_form()
+                
+        self.access_control_person_image_stop_camera_capture()
+        self.security_guest_image_stop_camera_capture()
+        self.security_access_control_access_track_stop_camera_capture()
         self.session = None
         self.user_role = 0
         self.handle_tab_ui()
